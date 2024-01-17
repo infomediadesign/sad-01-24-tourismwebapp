@@ -1,0 +1,21 @@
+
+.image-container {
+    display: flex;
+    height: calc(100vh - 50px); /* Adjust height as needed */
+  }
+  .image {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+  }
+  .overlay-text {
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    width: 120%;
+    text-shadow: 2px 2px 6px rgb(25, 25, 26);
+  }
