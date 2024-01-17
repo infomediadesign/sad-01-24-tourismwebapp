@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const Country = require('../models/countryModel');
-app.use(express.json())
+
+router.use(express.json()); //Middleware to parse the JSON data
 
 router.post('/addCountry', async(req, res) => {
     try{
