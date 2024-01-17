@@ -1,8 +1,19 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import Navbar from './components/navbar'
 
 export default function Home() {
   return (
-    <h1>Hello !</h1>
+    
+    
+      
+      <div className="overlay-text">
+        <Navbar />
+       
+      </div>
+  
+
+
   )
 }
+ 
