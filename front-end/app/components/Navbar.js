@@ -7,9 +7,14 @@ const Navbar = () => {
                 <div className={styles.container}>
                     
                     <div className={styles.search}>
-                        <input type={styles.text} className={styles.input} placeholder="Search..." />
+                        <input type="text" className={styles.input} placeholder="Search..." />
                         <button className={styles.btn}>
-                        
+                        <Image
+           src="/Images/search-icon.png"
+            alt="Description of the first image"
+            width={20}
+            height={20}
+          />
                         </button>
                     </div>
                     <ul>

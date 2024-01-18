@@ -13,8 +13,6 @@ export default function Home() {
         <Navbar />
        
         <div className={styles.imageContainer}>
-
-
        
           <Image
            src="/Images/Pic.jpeg"
