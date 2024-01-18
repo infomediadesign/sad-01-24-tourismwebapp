@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .remove-btn {
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .image-collage {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .image-item {
+    position: relative;
+  }
+  
+  .image-item img {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    object-fit: cover;
+  }
+  
+  .image-item p {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 100%;
+    text-align: center;
+  }
+  
+  aside {
+    align-self: flex-end;
+  }
