@@ -1,42 +1,25 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import Navbar from './components/Navbar'
+
+ import Image from 'next/image'
+  import styles from './page.module.css'
+  import Navbar from './components/Navbar.js'
+  
 
 
-
-export default function Home() {
-  return (
-    
-    
-      
-      <div className="overlay-text">
+  export default function Home() {
+    return (
+      <div>
         <Navbar />
-       
-        <div className={styles.imageContainer}>
-       
-          <Image
-           src="/Images/Pic.jpeg"
-            alt="Description of the first image"
-            width={1440}
-            height={810}
-          />
+  
+       {/*<div className={styles.imageContainer} style={{ backgroundImage: `url('/Images/Pic.jpeg')` }}>*/}
+       <div className={styles.imagecontainer}>
+      <div className={`${styles.image} ${styles.leftImage}`}></div>
+      <div className={`${styles.image} ${styles.centerImage}`}></div>
+      <div className={`${styles.image} ${styles.rightImage}`}></div>
+        </div>
+          <div className={styles.overlaytext}>
+            <h1>Explore travel moments worthy of a story to tell.</h1>
+          </div>
         
-
-
-
-
-
-  <div className={styles.overlayText}>
-    <h1>Explore travel moments worthy of a story to tell.</h1>
-  </div>
-
-
-
-
       </div>
-  </div>
-
-
-  )
+  );
 }
- 

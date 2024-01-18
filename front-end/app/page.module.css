@@ -1,14 +1,35 @@
+ /*
+.image {
+  height: calc(100vh - 50px);  
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;  
+}
+ */
 
-.image-container {
-    display: flex;
-    height: calc(100vh - 50px); /* Adjust height as needed */
-  }
-  .image {
-    flex: 1;
-    background-size: cover;
-    background-position: center;
-  }
-  .overlay-text {
+ .imagecontainer {
+  display: flex;
+  height: calc(100vh - 50px); /* Adjust height as needed */
+}
+ .image {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+}
+
+.leftImage {
+  background-image: url('/Images/Pic.jpeg');
+}
+
+.centerImage{
+  background-image: url('/Images/Pic2.jpeg');
+}
+
+.rightImage {
+  background-image: url('/Images/Pic3.jpeg');
+}
+  
+  .overlaytext {
     position: absolute;
     font-size: 30px;
     top: 50%;
