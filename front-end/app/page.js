@@ -2,7 +2,7 @@
  import Image from 'next/image'
   import styles from './page.module.css'
   import Navbar from './components/Navbar.js'
-  
+  import Homepagebody from './components/Homepagebody';
 
 
   export default function Home() {
@@ -22,7 +22,14 @@
           <h2>Set up your trip.</h2>
           <p>Next, where to go?</p>
         </div>
-        <button class="ripple button">Click Me</button>
-      <section class="container content"></section></>
+       <Homepagebody />
+      
+         
+
+
+      
+      
+      
+      </>
   );
 }

@@ -1,15 +1,6 @@
- /*
-.image {
-  height: calc(100vh - 50px);  
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 20px;  
-}
- */
-
  .imagecontainer {
   display: flex;
-  height: calc(100vh - 50px); /* Adjust height as needed */
+  height: calc(100vh - 50px); 
 }
  .image {
   flex: 1;
