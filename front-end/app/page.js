@@ -9,8 +9,6 @@
     return (
       <><div>
         <Navbar />
-
-        {/*<div className={styles.imageContainer} style={{ backgroundImage: `url('/Images/Pic.jpeg')` }}>*/}
         <div className={styles.imagecontainer}>
           <div className={`${styles.image} ${styles.leftImage}`}></div>
           <div className={`${styles.image} ${styles.centerImage}`}></div>
