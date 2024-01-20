@@ -1,10 +1,11 @@
-import Image from 'next/image'
-import MyList from './components/saveditems'
+  import SavedItems from "../components/saveditems"
+  import Navbar from "../components/Navbar"
 
 export default function Home() {
   return (
-      <div >
-      <MyList/>
-        </div>
+    <div >
+      <Navbar/>
+      <SavedItems />
+    </div>
   )
 }
