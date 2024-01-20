@@ -1,0 +1,61 @@
+/* Country.css */
+
+.countryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .bannerImage {
+    width: 100%;
+    height: auto;
+  }
+  
+  .contentContainer {
+   /* text-align: center; */
+   
+    margin: 10px;
+  }
+  
+  
+  
+  .imageContainer {
+    display: flex;
+    justify-content: left; /* Distribute space between images */
+    /*align-items: center;*/
+    margin-top: 20px; 
+  }
+
+
+  
+  .horizontalImage {
+    width: 420px; 
+    height: auto;
+    margin-right: 5px; 
+    margin: 10px;
+
+  }
+  .imageWithCaption {
+    text-align: center;
+  }
+
+  .imageName {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .button {
+    align-items: center;
+    margin-top: 30px; 
+  }
+  element.style {
+    margin-left: 2%;
+}
+.places{
+  justify-content: right;
+}
+
+.imageWithCaption:hover {
+  transform: scale(1.1); /* Increase the scale for a zoom effect on hover */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+} 
