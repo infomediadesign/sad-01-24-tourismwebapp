@@ -3,7 +3,6 @@ import NavbarAdmin from '@/app/components/NavbarAdmin'
 import React, { useState, useEffect } from 'react'
 import styles from './getCountry.module.css'
 import AddCountryPopup from '@/app/components/AddCountryPopup'
-import { data } from 'autoprefixer'
 
 export default function page() {
   const [openPopup, setOpenPopup] = useState(false);
@@ -20,15 +19,25 @@ export default function page() {
       });
   }, [])
 
-  console.log(countrydetails);
-
   const handleClick = () => {
     setOpenPopup(true);
   }
-  const handleCancel = () => {
-    setOpenPopup(false);
-  }
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/deleteCountry/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        console.log(`Country with ID ${id} deleted successfully`);
+        const updatedCountryDetails = countrydetails.filter(detail => detail._id !== id);
+        setCountryDetail(updatedCountryDetails);
+      } 
+    } catch (error) {
+      console.error('Error during deletion:', error.message);
+    }
+  };
 
   return (
     <div>
@@ -50,7 +59,7 @@ export default function page() {
             </thead>
             <tbody>
               {countrydetails.map((detail) => (
-                <tr key={detail.id}>
+                <tr key={detail._id}>
                   <td>{detail.name}</td>
                   <td>{detail.imageMain} </td>
                   <td>{detail.image1} </td>
@@ -59,7 +68,7 @@ export default function page() {
                   <td>{detail.description} </td>
                   <td className={styles.buttons}>
                     <button className={styles.add} onClick={handleClick}>Add</button>
-                    <button className={styles.delete} onClick={handleCancel}>Delete</button>
+                    <button className={styles.delete} onClick={(e) => handleDelete(detail._id)}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -67,7 +76,7 @@ export default function page() {
           </table>
         </div>
       </div>
-      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} />}
+      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail}/>}
     </div>
   )
 }
