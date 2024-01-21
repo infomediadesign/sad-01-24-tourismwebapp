@@ -29,7 +29,7 @@ mongoose.connect('mongodb+srv://admin:aLDQhMWr2AQ3bsBe@cluster0.yz76vjj.mongodb.
 
 const port = "5000"; //port on which app will handle all requests
 
-mongoose.connect('mongodb+srv://admin:aLDQhMWr2AQ3bsBe@cluster0.yz76vjj.mongodb.net/').
+mongoose.connect('mongodb+srv://admin:aLDQhMWr2AQ3bsBe@cluster0.yz76vjj.mongodb.net/', {dbName: 'countrydetails',}).
     then(() => {
         app.listen(port, () => {
             console.log(`App running on ${port}`);
