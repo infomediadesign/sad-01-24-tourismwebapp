@@ -40,7 +40,7 @@ export default function page() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>MainImg</th>
+                <th>Main Img</th>
                 <th>Image1</th>
                 <th>Image2</th>
                 <th>Image3</th>
