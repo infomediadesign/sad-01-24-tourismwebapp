@@ -17,7 +17,7 @@ export default function Country() {
 
         <div className={styles.imageWithCaption}>
           <img
-            src="/image/valleta1.jpg"
+            src="/image/valleta2.jpg"
             alt="valleta"
             className={styles.horizontalImage}
           />
