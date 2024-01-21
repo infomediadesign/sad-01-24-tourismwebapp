@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Country = require('../models/countryModel');
 
 router.use(express.json()); //Middleware to parse the JSON data
@@ -21,8 +22,11 @@ router.get('/getCountry', (req, res) => {
 >>>>>>> 5f4e276 (created routes for country service)
 =======
 const app = express();
+=======
+>>>>>>> e8fa9d6 (delivering country service changes)
 const Country = require('../models/countryModel');
-app.use(express.json())
+
+router.use(express.json()); //Middleware to parse the JSON data
 
 router.post('/addCountry', async(req, res) => {
     try{
