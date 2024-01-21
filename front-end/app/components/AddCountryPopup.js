@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './AddCountryForn.module.css'
 import { useState } from 'react'
 
-export default function AddCountryPopup() {
+export default function AddCountryPopup({setOpenPopup}) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [imageMain, setMainImg] = useState("");
@@ -11,6 +11,10 @@ export default function AddCountryPopup() {
     const [image2, setImgTwo] = useState("");
     const [image3, setImgThree] = useState("");
     const [errmsg, setErrMsg] = useState("");
+
+    const handleClick = () => {
+        setOpenPopup(false);
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -49,16 +53,19 @@ export default function AddCountryPopup() {
                         <input type='text'
                             onChange={(e) => setName(e.target.value)}
                             value={name}
+                            required
                         />
                         <p>Main Image</p>
                         <input type='file'
                             onChange={(e) => setMainImg(e.target.value)}
                             value={imageMain}
+                            required
                         />
                         <p>Child Image 2</p>
                         <input type='file'
                             onChange={(e) => setImgTwo(e.target.value)}
                             value={image2}
+                            required
                         />
                     </div>
                     <div className={styles.secondCol}>
@@ -66,22 +73,25 @@ export default function AddCountryPopup() {
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
+                            required
                         />
                         <p>Child Image 1</p>
                         <input type='file'
                             onChange={(e) => setImgThree(e.target.value)}
                             value={image1}
+                            required
                         />
                         <p>Child Image 3</p>
                         <input type='file'
                             onChange={(e) => setImgThree(e.target.value)}
                             value={image3}
+                            required
                         />
                     </div>
                 </div>
                 <div className={styles.button}>
                     <button type="submit" className={styles.submit}>Submit</button>
-                    <button className={styles.cancel}>Cancel</button>
+                    <button className={styles.cancel} onClick={handleClick}>Cancel</button>
                 </div>
             </form>
             <div className='errMsg'>{errmsg}</div>

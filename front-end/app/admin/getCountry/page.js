@@ -1,25 +1,35 @@
 'use client'
 import NavbarAdmin from '@/app/components/NavbarAdmin'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './getCountry.module.css'
+import AddCountryPopup from '@/app/components/AddCountryPopup'
+import { data } from 'autoprefixer'
 
-async function getData() {
-  const res = await fetch('http://localhost:5000/getCountry');
-  const data = await res.json();
-  return data;
-}
-export default async function page() {
-  // useEffect(() => {
-  //   const fetchdata = async () => {
-  //     const response = await fetch('http://localhost:5000/getCountry');
-  //     const data = await response.json()
-  //     setCountryDetail(data);
-  //     console.log(data);
-  //   };
-  //   fetchdata();
-  // }, [])
-  const data = await getData();
-  console.log(data);
+export default function page() {
+  const [openPopup, setOpenPopup] = useState(false);
+  const [countrydetails, setCountryDetail] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/getCountry')
+      .then(res => res.json())
+      .then(data => {
+        setCountryDetail(data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, [])
+
+  console.log(countrydetails);
+
+  const handleClick = () => {
+    setOpenPopup(true);
+  }
+  const handleCancel = () => {
+    setOpenPopup(false);
+  }
+
+
   return (
     <div>
       <NavbarAdmin />
@@ -27,61 +37,37 @@ export default async function page() {
         <div>
           <h1>Country Details</h1>
           <table className={styles.table}>
-            <tbody>
+            <thead>
               <tr>
                 <th>Name</th>
-                <th>Places</th>
+                <th>MainImg</th>
                 <th>Image1</th>
                 <th>Image2</th>
                 <th>Image3</th>
-                <th>Image4</th>
                 <th>Description</th>
                 <th>Action</th>
               </tr>
-              <tr>
-                <td>Peter</td>
-                <td>Griffin</td>
-                <td>$100</td>
-                <td>$100</td>
-                <td>$100</td>
-                <td>$100</td>
-                <td>$100</td>
-                <td className={styles.buttons}>
-                  <button className={styles.add}>Add</button>
-                  <button className={styles.delete}>Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Lois</td>
-                <td>Griffin</td>
-                <td>Griffin</td>
-                <td>Griffin</td>
-                <td>Griffin</td>
-                <td>Griffin</td>
-                <td>$150</td>
-              </tr>
-              <tr>
-                <td>Joe</td>
-                <td>Joe</td>
-                <td>Joe</td>
-                <td>Joe</td>
-                <td>Joe</td>
-                <td>Swanson</td>
-                <td>$300</td>
-              </tr>
-              <tr>
-                <td>Cleveland</td>
-                <td>Cleveland</td>
-                <td>Cleveland</td>
-                <td>Cleveland</td>
-                <td>Cleveland</td>
-                <td>Brown</td>
-                <td>$250</td>
-              </tr>
+            </thead>
+            <tbody>
+              {countrydetails.map((detail) => (
+                <tr key={detail.id}>
+                  <td>{detail.name}</td>
+                  <td>{detail.imageMain} </td>
+                  <td>{detail.image1} </td>
+                  <td>{detail.image1} </td>
+                  <td>{detail.image1} </td>
+                  <td>{detail.description} </td>
+                  <td className={styles.buttons}>
+                    <button className={styles.add} onClick={handleClick}>Add</button>
+                    <button className={styles.delete} onClick={handleCancel}>Delete</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
+      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} />}
     </div>
   )
 }
