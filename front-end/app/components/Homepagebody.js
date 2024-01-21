@@ -1,33 +1,26 @@
-"use client";  
-import React, { useRef } from 'react';
 import styles from './homepagebody.module.css';
 import { Content } from 'next/font/google';
 
 const Homepagebody = () => {
-   
-
-
-
-
   return (
-    <>
-      <div className={styles.Container}>
+   
+      <div className={styles.container}>
         
-      <div className={styles.Container}>
-            <div className={`${styles.panel} ${styles.leftImage}`}></div>
-            <h3>Sweden</h3>
-          <div className={`${styles.panel} ${styles.centerImage}`}></div>
-          <h3>Sweden</h3>
-          <div className={`${styles.panel} ${styles.rightImage}`}></div>
-          <h3>Sweden</h3>
+        
+            <div className={`${styles.panel} ${styles.Austria}`}>
+              <h3>Austria</h3>
+           
+        </div>
+        
+          <div className={`${styles.panel} ${styles.Finland}`}>
+            <h3>Finland</h3>
           
-
-          </div>
+        </div>
+          
+            <div className={`${styles.panel} ${styles.Greece}`}>
+              <h3>Greece</h3>
+            </div>
       </div>
-
-      
-     
-    </>
   );
 };
 
