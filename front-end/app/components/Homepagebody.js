@@ -8,17 +8,17 @@ const Homepagebody = () => {
         
         
             <div className={`${styles.panel} ${styles.Austria}`}>
-              <h3>Austria</h3>
+              <h1 className={styles.text}>Austria</h1>
            
         </div>
         
           <div className={`${styles.panel} ${styles.Finland}`}>
-            <h3>Finland</h3>
+            <h1 className={styles.text}>Finland</h1>
           
         </div>
           
             <div className={`${styles.panel} ${styles.Greece}`}>
-              <h3>Greece</h3>
+              <h1 className={styles.text}>Greece</h1>
             </div>
       </div>
   );
