@@ -1,7 +1,6 @@
 .container {
-    
     display: flex;
-    height: calc(100vh - 50px); 
+    margin-top: 30px;
   }
 
 .Austria {
@@ -37,7 +36,7 @@
   
   .panel {
     background-size: cover;
-    background-position: center;
+    /* background-position: center; */
     background-repeat: no-repeat;
     height: 70vh;
     border-radius: 60px;

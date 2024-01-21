@@ -19,11 +19,13 @@
         </div>
 
       </div>
-      <div>
+      <div className={styles.text}>
           <h2>Set up your trip.</h2>
+          <button className={styles.button}>See all Destination</button>
           <p>Next, where to go?</p>
+          
       </div>
-      <button className={styles.button}>See all Destination</button>
+      
 
        <Homepagebody />
       
