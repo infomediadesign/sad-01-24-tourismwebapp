@@ -2,6 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 80%;
+    text-align: center;
+    left: 15%;
+    position: relative;
 }
 .test {
     margin-top: 5%;
@@ -15,6 +19,10 @@
     border: 1px solid #ddd;
     text-align: left;
     padding: 15px;
+}
+
+.countrydetails h1 {
+    margin: 3% 0 1% 0;
 }
 
 .table {

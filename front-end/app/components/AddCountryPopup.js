@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './AddCountryForn.module.css'
 import { useState } from 'react'
 
-export default function AddCountryPopup({setOpenPopup}) {
+export default function AddCountryPopup({setOpenPopup, setCountryDetail}) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [imageMain, setMainImg] = useState("");
@@ -28,6 +28,8 @@ export default function AddCountryPopup({setOpenPopup}) {
             });
 
             if (response.ok) {
+                const updatedData = await fetch('http://localhost:5000/getCountry').then(res => res.json());
+                setCountryDetail(updatedData);
                 setName("");
                 setDesc("");
                 setMainImg("");
@@ -77,7 +79,7 @@ export default function AddCountryPopup({setOpenPopup}) {
                         />
                         <p>Child Image 1</p>
                         <input type='file'
-                            onChange={(e) => setImgThree(e.target.value)}
+                            onChange={(e) => setImgOne(e.target.value)}
                             value={image1}
                             required
                         />
