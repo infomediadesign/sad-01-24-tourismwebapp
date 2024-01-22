@@ -5,7 +5,7 @@ export default function Places() {
   return (
     <div className={styles.placesContainer}>
       <img
-        src="/image/valleta2.jpg"
+        src="/image/valleta3.jpg"
         alt="Valletta Banner"
         className={styles.bannerImage}
       />

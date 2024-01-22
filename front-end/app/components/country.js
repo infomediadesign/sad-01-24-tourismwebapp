@@ -17,7 +17,7 @@ export default function Country() {
 
         <div className={styles.imageWithCaption}>
           <img
-            src="/image/valleta2.jpg"
+            src="/image/valleta3.jpg"
             alt="valleta"
             className={styles.horizontalImage}
           />
@@ -44,7 +44,8 @@ export default function Country() {
         </div>
       
          
-         <button>View more attractions</button>
+          <button className={styles.viewMoreButton}>View more attractions</button>
+        
       </div>
     </div>
   );

@@ -33,6 +33,7 @@
     height: auto;
     margin-right: 5px; 
     margin: 10px;
+    cursor: pointer;
 
   }
   .imageWithCaption {
@@ -43,17 +44,30 @@
     font-weight: bold;
     font-size: 16px;
   }
+
+  .viewMoreButton{
+    background-color: black; /* Change to black background */
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    text-align: center; /* Align text center */
+    width: auto; /* Change to auto for variable width */
+    margin: 0 auto;
+    transition: background-color 0.3s ease;
+  }
+  .viewMoreButton:hover {
+    background-color: #333; /* Change to a darker shade on hover */
+    transition: background-color 0.3s ease; 
+  }
   
-  .button {
+  
+ /* .button {
     align-items: center;
     margin-top: 30px; 
-  }
-  element.style {
-    margin-left: 2%;
-}
-.places{
-  justify-content: right;
-}
+  } */
+ 
 
 .imageWithCaption:hover {
   transform: scale(1.1); /* Increase the scale for a zoom effect on hover */
