@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 function Aboutus() {
   return (
-    <div>
+    <div className={styles.Paris}> 
         <p className={styles.wanderlust}>Wanderlust</p>
         <p className={styles.wanderlustpara}> Wanderlust</p>
         <p className={styles.paragraph}> We envision a world where every traveler can effortlessly 
@@ -19,7 +19,7 @@ function Aboutus() {
                     alt="Description of the first image"
                     width={50}
                     height={50}
-                    className="img"
+                    
                 />
 
         <Image
@@ -44,7 +44,6 @@ function Aboutus() {
                 />
         </div>
        
-
     </div>
   )
 }
