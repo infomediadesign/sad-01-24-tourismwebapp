@@ -3,11 +3,12 @@
   import styles from './page.module.css'
   import Navbar from './components/Navbar.js'
   import Homepagebody from './components/Homepagebody';
+  import Aboutus from './components/Aboutus';
 
 
   export default function Home() {
     return (
-    <><div>
+    <><div className={styles.body}>
         <Navbar />
         <div className={styles.imagecontainer}>
           <div className={`${styles.image} ${styles.leftImage}`}></div>
@@ -21,7 +22,9 @@
           <h2>Set up your trip.</h2>
           <button className={styles.button}>See all Destination</button>
           <p>Next, where to go?</p>
-        </div><Homepagebody />
+        <Homepagebody />
+        <Aboutus />
+        </div>
         </>
       
      
