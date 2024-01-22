@@ -1,0 +1,35 @@
+
+.wanderlust {
+    text-align: center;
+    font-size: 50px; /* Adjust the font size as needed */
+    font-weight: bold; /* Optionally make the text bold */
+    color: #f8f1f1; /* Adjust the color as needed */
+    margin-top: 250px;
+
+  }
+
+  .wanderlustpara{
+    bottom: 10px;
+    font-size: 20px;
+    margin: 50px;
+  }
+  
+  .paragraph {
+    text-align: center;
+    text-align: justify;
+    font-size: 20px; /* Adjust the font size as needed */
+    color: #9e9696; 
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 50px;
+  }
+
+  .logoContainer {
+    position: absolute;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    stroke: white;
+   
+  }
+
+  
