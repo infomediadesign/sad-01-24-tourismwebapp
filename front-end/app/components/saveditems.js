@@ -1,37 +1,37 @@
 import React from 'react';
-import './styles.css'; // Assuming your CSS file is in src/ and named styles.css
-import styles from './saveditem.module.css'
+import styles from '../components/saveditem.module.css';
 
-class MyList extends React.Component {
-  // Add any state or methods you need here
-
-  render() {
+export default function SavedItems() {
     return (
-      <div className={styles.container}>
-        <header>
-          <h1>MY LIST</h1>
-          <button className={styles.remove-btn}>REMOVE LIST</button>
-        </header>
-        <div className={styles.image-collage}>
-          <div className={styles.image-itemU}>
-            <img src="greece.jpg" alt="Greece" />
-            <p>Greece</p>
-          </div>
-          <div className={styles.image-item}>
-            <img src="cochem.jpg" alt="Cochem" />
-            <p>Cochem</p>
-          </div>
-          <div className={styles.image-item}>
-            <img src="amsterdam.jpg" alt="Amsterdam" />
-            <p>Amsterdam</p>
-          </div>
+        <div>
+            <div className={styles.container}>
+                <div>
+                    <img src='/images/paris.jpg' alt="eiffel-tower" style={{ width: '100%', height: 'auto' }} />
+                </div>
+                <header className={styles.header}>
+                    <h1>MY LIST</h1>
+                    <div className={styles.headerContent}>
+                        <button className={styles.removeBtn}>REMOVE LIST</button>
+                    </div>
+                </header>
+                <div className={styles.imageCollage}>
+                    <div className={styles.imageItem}>
+                        <img src='/images/Greece.jpg' alt="Greece" />
+                        <p>Greece</p>
+                    </div>
+                    <div className={styles.imageItem}>
+                        <img src="/images/Cochem.jpg" alt="Cochem" />
+                        <p>Cochem</p>
+                    </div>
+                    <div className={styles.imageItem}>
+                        <img src="/images/Amsterdam.jpg" alt="Amsterdam" />
+                        <p>Amsterdam</p>
+                    </div>
+                </div>
+                <aside>
+                    <h3>All saved items (3)</h3>
+                </aside>
+            </div>
         </div>
-        <aside>
-          <h3>All saved items (3)</h3>
-        </aside>
-      </div>
     );
-  }
 }
-
-export default MyList;

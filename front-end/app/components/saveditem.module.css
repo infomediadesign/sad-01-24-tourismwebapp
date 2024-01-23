@@ -1,44 +1,46 @@
-body {
-    font-family: Arial, sans-serif;
-  }
+
   
   .container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    
   }
-
-  header {
+  .header {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-  }
+    align-items: center;
+    padding: 10px;
+}
   
-  .remove-btn {
+  
+  .removeBtn {
     padding: 10px;
     background-color: purple;
     color: white;
     border: none;
     cursor: pointer;
   }
+
+  .headerContent {
+    text-align: right;
+}
   
-  .image-collage {
+  .imageCollage {
     display: flex;
     gap: 10px;
   }
   
-  .image-item {
+  .imageItem {
     position: relative;
   }
   
-  .image-item img {
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+  .imageItem img {
+    width: 450px; /* Adjust as needed */
+    height: auto; /* Adjust as needed */
     object-fit: cover;
   }
   
-  .image-item p {
+  .imageItem p {
     position: absolute;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -47,6 +49,3 @@ body {
     text-align: center;
   }
   
-  aside {
-    align-self: flex-end;
-  }
