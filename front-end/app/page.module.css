@@ -1,12 +1,16 @@
 
 .body{
-  background-color: #0d0c0c;
- 
+  background-color: black;
+  margin: 20px 0;
+
 }
  
  .imagecontainer {
   display: flex;
   height: calc(100vh - 50px); 
+  margin-left: -40px;
+  background-color: black;
+
 }
  .image {
   flex: 1;

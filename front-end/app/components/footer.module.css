@@ -1,26 +1,83 @@
+.logoContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  
+    margin-top: -10px;
+    margin-left: 20px;
+  }
+  
+  
+  .contact {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateY(-40%);
+    margin-top: 60px;
+    margin-left: 60px;
+    
+  }
+
+  .contact ul{
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateY(-50%);
+    margin-top: -60px;
+    margin-left: 400px;
+  }
+  .menu ul {
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.new {
+    display: flex;
+  
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateY(-50%);
+    margin-left: 700px;
+    margin-top: -100px;
+  }
+  
+
+.end{
+    margin-top: 20px;
+}
+
+
 .para{
-    color: #0f0e0e;
+    color: #efe6e6;
 font-family: Inter;
-font-size: 10px;
+font-size: 15px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
-margin-left: 15px;
-margin-top: -15px;
+
+margin-left: 20px;
+    margin-top: -20px;
 
 }
 
 .Lang{
-    color: #101010;
+    color: #efe8e8;
 font-family: Inter;
 font-size: 20px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
-position: absolute; /* or fixed, depending on your layout requirements */
-right: 0;
-margin-right: 200px;
-margin-top: -15px;
+margin-left: 80%;
+margin-top: -20px;
 }
 
 .button {
@@ -35,7 +92,9 @@ margin-top: -15px;
     cursor: pointer;
     position: absolute; /* or fixed, depending on your layout requirements */
 right: 0;
-margin-right: 80px;
-margin-top: -15px;
+margin-right: 100px;
+margin-top: -25px;
+
   }
-  
+
+ 

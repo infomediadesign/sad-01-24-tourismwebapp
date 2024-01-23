@@ -9,7 +9,7 @@
 
   export default function Home() {
     return (
-      <><div>
+      <><div >
 
         <Navbar />
         <div className={styles.imagecontainer}>

@@ -1,8 +1,8 @@
 .Paris {
-    background-image: url('/Images/Paris.jpg');
+    background-image: url('/Images/europe.webp');
     background-size: cover;
    
-    height: 90vh; /* Set the height of the container to the full viewport height */
+   height: 100vh; 
   
   }
 .wanderlust {

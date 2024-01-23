@@ -1,33 +1,92 @@
 import React from 'react'
 import Image from 'next/image'
 import styles from './footer.module.css'
+import { FaAddressCard } from "react-icons/fa";
+import { MdAddIcCall } from "react-icons/md";
+import { MdMarkEmailRead } from "react-icons/md";
+import { FaCopyright } from "react-icons/fa6";
 
 function Footer() {
-  return (
-    <div>
-        <Image
-                    src="/Images/copyright.svg"
-                    alt="Description of the first image"
-                    width={10}
-                    height={10}
-                    
-                />
-        <p className={styles.para}>
-        2024 Wanderlust Company. All rights reserved. 
-        No part of this site may be reproduced without 
-        our written permission.
-        </p>
-        <p className={styles.Lang}>
-            Language
-        </p>
-        <select name= "Language" className={styles.button}>
-  <option value="E">English</option>
-  <option value="D">Deutsch</option>
+    return (
+        <><div>
+            <div className={styles.logoContainer}>
+                <FaAddressCard size={20} />
+                <MdAddIcCall size={20} />
+                <MdMarkEmailRead size={20} />
+            </div>
+            <div className={styles.contact}>
 
-</select>
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>
+                        Address
+                    </li>
+                    <li>
+                        +49 1234567890
+                    </li>
+                    <li>
+                        wanderlust@gmail.com
+                    </li>
+                </ul>
+            </div>
+            <div className={styles.menu}>
 
-    </div>
-  )
+                <h3>Menu</h3>
+                <ul>
+                    <li>
+                        Home
+                    </li>
+                    <li>
+                        About
+                    </li>
+                    <li>
+                        Our Room
+                    </li>
+                    <li>
+                        Gallery
+                    </li>
+
+                    <li>
+                        Contact Us
+                    </li>
+                </ul>
+            </div>
+            <div className={styles.new}>
+                <h3>News letter</h3>
+                <form>
+                    <input
+                        placeholder="Enter your email"
+                        type="text"
+                        name="Enter your email" />
+                    <button>subscribe</button>
+                </form>
+            </div>
+            {/* <Image
+                src="/Images/copyright.svg"
+                alt="Description of the first image"
+                width={10}
+                height={10} /> */}
+            <div className={styles.end}>
+                <FaCopyright size={15} />
+                <p className={styles.para}>
+                    2024 Wanderlust Company. All rights reserved.
+                    No part of this site may be reproduced without
+                    our written permission.
+                </p>
+            </div>
+
+            <p className={styles.Lang}>
+                Language
+            </p><select name="Language" className={styles.button}>
+                <option value="E">English</option>
+                <option value="D">Deutsch</option>
+            </select>
+
+
+        </div>
+        </>
+
+    )
 }
 
-export default Footer
+export default Footer;
