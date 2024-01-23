@@ -1,7 +1,9 @@
+// Country.js
 'use client'
+
 import React, { useState } from 'react';
 import styles from './country.module.css';
-
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 function Country() {
   const [showMore, setShowMore] = useState(true);
@@ -11,12 +13,10 @@ function Country() {
   };
 
   const handleScrollLeft = () => {
-    
     console.log('Scrolling left');
   };
 
   const handleScrollRight = () => {
-   
     console.log('Scrolling right');
   };
 
@@ -32,14 +32,9 @@ function Country() {
         <h1>MALTA</h1>
         <p>Malta offers many diverse types of activities to suit the entire family. From walking around Valletta, the walled capital and a UNESCO World Heritage Site, to the famous beaches, boating, and historic sites, there's a great deal to see and do on the islands.</p>
 
-       <div className={styles.imageContainer}>
-          <button className={styles.scrollButton} onClick={handleScrollLeft}>
-          <FaAngleLeft />
-          </button>
-
+        <div className={styles.imageContainer}>
           <div className={styles.scrollContainer}>
             <div className={styles.imageWithCaption}>
-        
               <img
                 src="/image/valleta3.jpg"
                 alt="valleta"
@@ -104,9 +99,14 @@ function Country() {
               </>
             )}
           </div>
-          <button className={styles.scrollButton} onClick={handleScrollRight}>
-          <FaAngleRight />
-          </button>
+          <div className={styles.scrollButtons}>
+            <button className={styles.scrollButton} onClick={handleScrollLeft}>
+              <FaAngleLeft />
+            </button>
+            <button className={styles.scrollButton} onClick={handleScrollRight}>
+              <FaAngleRight />
+            </button>
+          </div>
         </div>
       </div>
     </div>
