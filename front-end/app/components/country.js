@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styles from './country.module.css';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-function Country() {
+const Country = () =>{
   const [showMore, setShowMore] = useState(true);
 
   const handleShowMore = () => {
@@ -113,4 +113,4 @@ function Country() {
   );
 }
 
-export default Country;
+/*export default Country;*/
