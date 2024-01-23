@@ -7,8 +7,32 @@ export default function page() {
         <div>
             <NavbarAdmin />
             <div className={styles.countrydetails}>
-                <p className={styles.test}>HI place</p>
+                <div>
+                    <h1>Place Details</h1>
+                    <table className={styles.table}>
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Place</th>
+                                <th>Main Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td className={styles.buttons}>
+                                    <button className={styles.add}>Add</button>
+                                    <button className={styles.delete}>Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )
 }
+
