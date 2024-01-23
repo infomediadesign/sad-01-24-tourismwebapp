@@ -33,7 +33,7 @@ export default function page() {
         console.log(`Country with ID ${id} deleted successfully`);
         const updatedCountryDetails = countrydetails.filter(detail => detail._id !== id);
         setCountryDetail(updatedCountryDetails);
-      } 
+      }
     } catch (error) {
       console.error('Error during deletion:', error.message);
     }
@@ -76,7 +76,7 @@ export default function page() {
           </table>
         </div>
       </div>
-      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail}/>}
+      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} />}
     </div>
   )
 }
