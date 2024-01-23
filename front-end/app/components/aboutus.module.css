@@ -21,13 +21,14 @@
     bottom: 10px;
     font-size: 20px;
     margin: 50px;
+    color: #f8f1f1;
   }
   
   .paragraph {
     text-align: center;
     text-align: justify;
     font-size: 20px; /* Adjust the font size as needed */
-    color: #9e9696; 
+    color: #f2eeee; 
     max-width: 900px; /* Adjust the maximum width as needed */
     margin: 50px;
   }
