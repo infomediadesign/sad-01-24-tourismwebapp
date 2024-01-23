@@ -1,0 +1,41 @@
+.para{
+    color: #0f0e0e;
+font-family: Inter;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-left: 15px;
+margin-top: -15px;
+
+}
+
+.Lang{
+    color: #101010;
+font-family: Inter;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+position: absolute; /* or fixed, depending on your layout requirements */
+right: 0;
+margin-right: 200px;
+margin-top: -15px;
+}
+
+.button {
+  
+   
+    overflow: hidden;
+    background-color: #f5f6f7; 
+    color: #0c0c0c;
+    padding: 5px 5px; 
+    border-radius: 15px;
+    outline: none;
+    cursor: pointer;
+    position: absolute; /* or fixed, depending on your layout requirements */
+right: 0;
+margin-right: 80px;
+margin-top: -15px;
+  }
+  
