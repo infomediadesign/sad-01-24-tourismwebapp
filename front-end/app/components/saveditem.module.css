@@ -12,7 +12,10 @@
     padding: 10px;
 }
   
-  
+  .horizontalImage {
+    margin-right: 15px;
+    margin : 20px;
+  }
   .removeBtn {
     padding: 10px;
     background-color: purple;
@@ -28,10 +31,13 @@
   .imageCollage {
     display: flex;
     gap: 10px;
+    justify-content: left;
+    margin-top: 20px;
   }
   
   .imageItem {
     position: relative;
+    cursor: pointer;
   }
   
   .imageItem img {
@@ -48,4 +54,7 @@
     width: 100%;
     text-align: center;
   }
-  
+  .imageItem:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
