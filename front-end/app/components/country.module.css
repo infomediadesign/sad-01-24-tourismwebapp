@@ -1,75 +1,87 @@
-/* Country.css */
+/* country.module.css */
 
 .countryContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .bannerImage {
-    width: 100%;
-    height: auto;
-  }
-  
-  .contentContainer {
-   /* text-align: center; */
-   
-    margin: 10px;
-  }
-  
-  
-  
-  .imageContainer {
-    display: flex;
-    justify-content: left; /* Distribute space between images */
-    /*align-items: center;*/
-    margin-top: 20px; 
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.bannerImage {
+  width: 100%;
+  height: auto;
+}
 
-  
-  .horizontalImage {
-    width: 420px; 
-    height: auto;
-    margin-right: 5px; 
-    margin: 10px;
-    cursor: pointer;
+.contentContainer {
+  margin: 10px;
+}
 
-  }
-  .imageWithCaption {
-    text-align: center;
-  }
+.imageContainer {
+  position: relative;
+}
 
-  .imageName {
-    font-weight: bold;
-    font-size: 16px;
-  }
+.scrollContainer {
+  display: flex;
+  overflow-x: auto;
+}
 
-  .viewMoreButton{
-    background-color: black; /* Change to black background */
-    color: #fff;
-    padding: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    text-align: center; /* Align text center */
-    width: auto; /* Change to auto for variable width */
-    margin: 0 auto;
-    transition: background-color 0.3s ease;
-  }
-  .viewMoreButton:hover {
-    background-color: #333; /* Change to a darker shade on hover */
-    transition: background-color 0.3s ease; 
-  }
-  
-  
- /* .button {
-    align-items: center;
-    margin-top: 30px; 
-  } */
- 
+.horizontalImage {
+  width: 420px;
+  height: auto;
+  margin-right: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
 
-.imageWithCaption:hover {
-  transform: scale(1.1); /* Increase the scale for a zoom effect on hover */
-  transition: transform 0.3s ease; /* Add a smooth transition effect */
-} 
+.imageWithCaption {
+  text-align: center;
+}
+
+.imageName {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.viewMoreButton {
+  background-color: black;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  width: auto;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+.viewMoreButton:hover {
+  background-color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.scrollButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: black;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.scrollButton:hover {
+  background-color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.scrollButton.left {
+  left: 10px;
+}
+
+.scrollButton.right {
+  right: 10px;
+}
