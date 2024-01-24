@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import { FaGoogle } from "react-icons/fa";
 import './App.css';
 
 const SigninForm = () => {
@@ -21,6 +22,12 @@ const SigninForm = () => {
         <input type="password" id="password" name="password" required />
 
         <button type="submit">Sign In</button>
+
+        {/* Google Sign-In Button with Icon */}
+        <button type="button" className="google-signin-button">
+          <FaGoogle style={{ marginRight: '10px' }} />
+          Sign in with Google
+        </button>
       </form>
     </div>
   );
