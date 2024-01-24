@@ -81,7 +81,8 @@ export default function page() {
                         </tbody>
                     </table>
                 </div>
-                {openPopup && <AddPlacePopup setOpenPopup={setOpenPopup} setPlaceDetails={setPlaceDetails} />}            </div>
+                {openPopup && <AddPlacePopup setOpenPopup={setOpenPopup} setPlaceDetails={setPlaceDetails} />}           
+               </div>
         </div>
     )
 }

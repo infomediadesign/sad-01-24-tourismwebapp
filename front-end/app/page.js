@@ -5,10 +5,11 @@
   import Navbar from './components/Navbar.js'
   import Homepagebody from './components/Homepagebody';
   import Aboutus from './components/Aboutus';  
+  import Footer from './components/Footer';
 
   export default function Home() {
     return (
-      <><div>
+      <><div >
 
         <Navbar />
         <div className={styles.imagecontainer}>
@@ -26,6 +27,7 @@
           <p>Next, where to go?</p>
         <Homepagebody />
         <Aboutus />
+        <Footer /> 
         </div>
         </>
   );

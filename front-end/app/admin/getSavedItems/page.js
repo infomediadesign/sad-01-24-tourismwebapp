@@ -12,23 +12,17 @@ export default function page() {
                     <table className={styles.table}>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Main Img</th>
-                                <th>Image1</th>
-                                <th>Image2</th>
-                                <th>Image3</th>
-                                <th>Description</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Main Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>HI</td>
-                                <td>Hi</td>
-                                <td>HI</td>
-                                <td>Hi</td>
-                                <td>HI</td>
-                                <td>HI</td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
                                 <td className={styles.buttons}>
                                     <button className={styles.add}>Add</button>
                                     <button className={styles.delete}>Delete</button>
