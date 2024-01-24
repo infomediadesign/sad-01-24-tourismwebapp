@@ -61,11 +61,7 @@ function Footer() {
                     <button>subscribe</button>
                 </form>
             </div>
-            {/* <Image
-                src="/Images/copyright.svg"
-                alt="Description of the first image"
-                width={10}
-                height={10} /> */}
+            
             <div className={styles.end}>
                 <FaCopyright size={15} />
                 <p className={styles.para}>
