@@ -2,13 +2,34 @@ const express = require('express')
 const router = express.Router()
 const cors = require('cors')
 const Place = require('../models/placeModel')
+const multer = require('multer')
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
 
-router.post('/addPlaces', async (req, res) => {
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "./public/images");
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now();
+        cb(null, uniqueSuffix + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+router.post('/addPlaces', upload.single('imageMain'), async (req, res) => {
+    console.log(req.file);
     try {
-        const place = await Place.create(req.body)
+        const imageName = req.file.filename;
+        const place = await Place.create({
+            name: req.body.name,
+            imageMain: imageName,
+            image: req.body.image,
+            country: req.body.country,
+            description: req.body.description,
+        })
         res.status(201).json(place);
     } catch (error) {
         console.log(error.message);
