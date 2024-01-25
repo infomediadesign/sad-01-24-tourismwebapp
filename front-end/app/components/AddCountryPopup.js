@@ -19,7 +19,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:4000/addCountry', {
+            const response = await fetch('http://localhost:5000/addCountry', {
                 method: 'POST',
                 body: JSON.stringify({ name, imageMain, image1, image2, image3, description }),
                 headers: {
@@ -28,7 +28,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
             });
 
             if (response.ok) {
-                const updatedData = await fetch('http://localhost:4000/getCountry').then(res => res.json());
+                const updatedData = await fetch('http://localhost:5000/getCountry').then(res => res.json());
                 setCountryDetail(updatedData);
                 setName("");
                 setDesc("");

@@ -9,7 +9,7 @@ export default function page() {
   const [countrydetails, setCountryDetail] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/getCountry')
+    fetch('http://localhost:5000/getCountry')
       .then(res => res.json())
       .then(data => {
         setCountryDetail(data)
@@ -25,7 +25,7 @@ export default function page() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/deleteCountry/${id}`, {
+      const response = await fetch(`http://localhost:5000/deleteCountry/${id}`, {
         method: 'DELETE',
       });
 
