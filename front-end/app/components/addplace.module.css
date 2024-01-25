@@ -1,0 +1,78 @@
+
+.container{
+    background: -webkit-linear-gradient(right, #262727, #99989a, #afb1b1, #eeedee);
+  width: 800px;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid;
+  padding: 20px;
+  background-color: #fff;
+  width: 600px;
+  border-radius: 6px;
+}
+.container .text{
+  text-align: center;
+  font-size: 41px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  background: -webkit-linear-gradient(right, #ffffff, #fff, #fff, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.container form{
+  padding: 30px 0 0 0;
+}
+.container form .formrow{
+  display: flex;
+  margin: 32px 0;
+}
+
+
+.inputdata {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Align items vertically in the center */
+  }
+  
+.label {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  
+.inputdata input {
+    flex: 1; 
+    font-size: 1;
+  }
+  .labelimg {
+    margin-right: 10px;
+    margin-left: 70px; /* Adjust the margin as needed */
+  }
+
+.msg {
+    margin-left: -75px;
+    
+   
+}
+.textarea{
+  margin-left: -20px;
+}
+
+  .button {
+    position: relative;
+    right: 0;
+   
+    overflow: hidden;
+    background-color: #f5f6f7; 
+    color: #0c0c0c;
+    padding: 10px 10px; 
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 8%;
+  }
+  
+
