@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import styles from './AddCountryForn.module.css'
+import styles from './addplace.module.css'
 import { useState } from 'react'
 
 export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
@@ -58,55 +58,83 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
     }
 
     return (
-        <div className={styles.formPopup}>
-            <h1>Add Places</h1>
+       
+        <div className={styles.container}>
+            <div className={styles.text}>
+                Add Places
+            </div>
             <form onSubmit={onSubmit}>
-                <div className={styles.cols}>
-                    <div className={styles.firstCol}>
-                        <p>Name</p>
+                <div className={styles.formrow}>
+
+                    <div className={styles.inputdata}>
+                        <label className={styles.label}>Name</label>
+
+
                         <input type='text'
                             onChange={(e) => setName(e.target.value)}
                             value={name}
                             required
                         />
-                        <p>Main Image</p>
+                    </div>
+                    <div className={styles.inputdata}>
+                        <label className={styles.labelimg}>Main Image</label>
+
                         <input type='file'
                             accept="image/*"
                             onChange={handleImageChange}
                             required
                         />
-                        <p>Image</p>
+                    </div>
+                </div>
+                <div className={styles.formrow}>
+                    <div className={styles.inputdata}>
+                        <label className={styles.label}>Image</label>
                         <input type='file'
                             onChange={(e) => setImg(e.target.value)}
                             value={image}
                             required
                         />
+
                     </div>
-                    <div className={styles.secondCol}>
-                        <p>Description</p>
+
+                    <div className={styles.inputdata} >
+                        <label className={styles.msg}>Write your message</label>
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
                             required
                         />
-                        <p>Country</p>
-                        <select name="cars" id="cars"
-                            onChange={(e) => setCountry(e.target.value)}
-                            value={country}
-                            required>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
-                        </select>
                     </div>
                 </div>
-                <div className={styles.button}>
-                    <button type="submit" className={styles.submit}>Submit</button>
-                    <button className={styles.cancel} onClick={handleClick}>Cancel</button>
+                <div className={styles.inputdata} >
+                    <label className={styles.label}>Country</label>
+                    <select name="cars" id="cars"
+                        onChange={(e) => setCountry(e.target.value)}
+                        value={country}
+                        required >
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="opel">Opel</option>
+                        <option value="audi">Audi</option>
+                    </select>
                 </div>
+
+
+                
+               
+                             <button type="submit" className={styles.button}>Submit</button>
+                            <button className={styles.button} onClick={handleClick}>Cancel</button>
+                         
             </form>
-            <div className='errMsg'>{errmsg}</div>
         </div>
+
+
+
+
+
+
+
+
+
     )
 }
