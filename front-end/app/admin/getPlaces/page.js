@@ -49,6 +49,7 @@ export default function page() {
                     <div className={styles.buttons}>
                         <button className={styles.add} onClick={handleClick}>Add</button>
                     </div>
+                    <br />
                     <table className={styles.table}>
                         <thead>
                             <tr>

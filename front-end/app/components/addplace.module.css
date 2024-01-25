@@ -52,12 +52,13 @@
   }
 
 .msg {
-    margin-left: -75px;
+    margin-left: -50px;
     
-   
+   margin-right: 10px;
 }
-.textarea{
-  margin-left: -20px;
+.img{
+  margin-left: -50px;
+  margin-right: 39px;
 }
 
   .button {
@@ -74,5 +75,36 @@
     margin-right: 10px;
     margin-bottom: 8%;
   }
+  .btn{
+    position: relative;
+    right: 0;
+   
+    overflow: hidden;
+    background-color: #f5f6f7; 
+    color: #0c0c0c;
+    padding: 10px 10px; 
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+   
+    margin-bottom: 8%;
+    margin-left: 180px;
+  }
+
+  .cnl {
+    position: relative;
+    right: 0;
+   
+    overflow: hidden;
+    background-color: #f5f6f7; 
+    color: #0c0c0c;
+    padding: 10px 10px; 
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 8%;
+  }
+  
   
 

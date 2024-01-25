@@ -9,7 +9,7 @@ export default function page() {
   const [countrydetails, setCountryDetail] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/getCountry')
+    fetch('http://localhost:4000/getCountry')
       .then(res => res.json())
       .then(data => {
         setCountryDetail(data)
@@ -25,7 +25,7 @@ export default function page() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/deleteCountry/${id}`, {
+      const response = await fetch(`http://localhost:4000/deleteCountry/${id}`, {
         method: 'DELETE',
       });
 
@@ -42,9 +42,15 @@ export default function page() {
   return (
     <div>
       <NavbarAdmin />
+      
+      <br />
       <div className={styles.countrydetails}>
         <div>
           <h1>Country Details</h1>
+          <div className={styles.buttons}>
+                        <button className={styles.add} onClick={handleClick}>Add</button>
+                    </div>
+                    <br />
           <table className={styles.table}>
             <thead>
               <tr>
@@ -67,7 +73,7 @@ export default function page() {
                   <td>{detail.image1} </td>
                   <td>{detail.description} </td>
                   <td className={styles.buttons}>
-                    <button className={styles.add} onClick={handleClick}>Add</button>
+                    <button className={styles.add} onClick={handleClick}>Update</button>
                     <button className={styles.delete} onClick={(e) => handleDelete(detail._id)}>Delete</button>
                   </td>
                 </tr>

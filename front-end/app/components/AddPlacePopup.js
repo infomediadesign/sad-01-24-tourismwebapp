@@ -98,7 +98,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                     </div>
 
                     <div className={styles.inputdata} >
-                        <label className={styles.msg}>Write your message</label>
+                        <label className={styles.msg}>Description</label>
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
@@ -118,23 +118,12 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                         <option value="audi">Audi</option>
                     </select>
                 </div>
-
-
-                
-               
                              <button type="submit" className={styles.button}>Submit</button>
                             <button className={styles.button} onClick={handleClick}>Cancel</button>
                          
             </form>
+            <div>{errmsg}</div>
         </div>
-
-
-
-
-
-
-
-
 
     )
 }
