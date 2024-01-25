@@ -27,7 +27,7 @@ export const Navbardata = [
   },
   {
     title: 'Favorites',
-    path: '/admin/getFavPlace',
+    path: '/admin/getSavedItems',
     icon: <MdFavorite />,
     cName: 'nav-text'
   },
