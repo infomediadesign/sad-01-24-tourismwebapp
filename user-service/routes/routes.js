@@ -17,6 +17,41 @@ const createPassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@/])[A-Za-z\d@/]{8,}$/;
     return passwordRegex.test(password);
 };
+/**
+ * @openapi
+ * '/register':
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *     responses:
+ *       201:
+ *         description: User created successfully. Please login.
+ *       400:
+ *         description: Password must be 8 characters long with at least one uppercase letter, one lowercase letter, one number, and one of the special characters @ or /
+ *       409:
+ *         description: User already exists with this email
+ *       500:
+ *         description: Internal Server Error
+ */
+
 
 router.post('/register', (req, res) => {
     const { name, email, password } = req.body;
@@ -41,7 +76,6 @@ router.post('/register', (req, res) => {
 
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
-    console.log(token)
     if (!token) {
         return res.status(404).json("Token is missing")
     } else {
@@ -59,9 +93,55 @@ const verifyUser = (req, res, next) => {
     }
 }
 
+/**
+ * @openapi
+ * '/country':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get all countries
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Not Admin
+ *       500:
+ *         description: Internal Server Error
+ */
+
 router.get('/country', verifyUser, (req, res) => {
     res.status(200).json("Success");
 })
+
+/**
+ * @openapi
+ * '/login':
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Login failed
+ *       500:
+ *         description: Internal Server Error
+ */
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
