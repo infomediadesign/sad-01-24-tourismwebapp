@@ -3,10 +3,26 @@ import NavbarAdmin from '@/app/components/NavbarAdmin'
 import React, { useState, useEffect } from 'react'
 import styles from './getCountry.module.css'
 import AddCountryPopup from '@/app/components/AddCountryPopup'
+import { useRouter } from 'next/navigation';
 
 export default function page() {
   const [openPopup, setOpenPopup] = useState(false);
   const [countrydetails, setCountryDetail] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch('http://localhost:4000/country', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        if (data === "Success") {
+          router.push('/admin/getCountry')
+        } else {
+          router.push('/admin')
+        }
+      })
+      .catch((error) => console.error(error));
+  }, [])
+
 
   useEffect(() => {
     fetch('http://localhost:5000/getCountry')
