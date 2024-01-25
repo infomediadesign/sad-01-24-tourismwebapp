@@ -1,7 +1,15 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import styles from './places.module.css';
 
 export default function Places() {
+  const [showMore, setShowMore] = useState(false);
+
+  const toggleContent = () => {
+    setShowMore(!showMore);
+  };
+
+
   return (
     <div className={styles.placesContainer}>
       <img
@@ -29,9 +37,34 @@ export default function Places() {
               16th century, conceived and planned the city as a single.
             </p>
           </div>
-          <button className={styles.readMoreButton}>Read More</button>
-        </div>
+          {showMore ? (
+          <>
+            <div className={styles.additionalContent}>
+              <p>
+                Valletta is located on the north-east coast of the island and is located on the Monte Sciberras headland, 
+                which is surrounded by the two largest natural harbors in the Mediterranean, Grand Harbor and Marsamxett Harbour. 
+                Valletta borders the neighboring town of Floriana to the southwest. Longitudinally (northeast-southwest), 
+                Republic Street (formerly Queen's Street) and the parallel Merchants Street have long been the main commercial streets.
+              </p>
+              </div>
+              <div>
+                  <img
+                    src="/image/valleta.jpg"
+                    alt=" Place "
+                    className={styles.horiImage}
+                  />
+                  
+                </div>
+                <button className={styles.readMoreButton} onClick={toggleContent}>
+              Read Less
+            </button>
+          </>
+        ) : (
+          <button className={styles.readMoreButton} onClick={toggleContent}>
+            Read More
+          </button>
+        )}
       </div>
-    
+    </div>
   );
 }

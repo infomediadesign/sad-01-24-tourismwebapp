@@ -1,8 +1,9 @@
 // page.js
 import React from 'react';
 /* import { useClient } from 'react-sdk'; */
-import Country from '../components/Country';
 import Navbar from '../components/Navbar';
+
+import Countries from '../components/Countries';
 
 const CountryPage = () => {
   /* useClient(); */
@@ -10,7 +11,7 @@ const CountryPage = () => {
   return (
     <div>
       <Navbar />
-      <Country />
+      <Countries />
     </div>
   );
 };

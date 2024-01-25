@@ -15,73 +15,70 @@
   margin: 10px;
 }
 
+
+/* 
 .imageContainer {
-  position: relative;
-}
-
-.scrollContainer {
-  display: flex;
   overflow-x: auto;
+  white-space: nowrap;
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+} */
+
+.imageContainer {
+  
+  position: relative;
+  display: flex;
 }
 
-.horizontalImage {
+.imageWithCaption {
+  margin-right: 20px;
+  text-align: center;
+}
+
+
+.horizontalImage{
   width: 420px;
   height: auto;
   margin-right: 5px;
   margin: 10px;
   cursor: pointer;
+ 
 }
 
-.imageWithCaption {
-  text-align: center;
+.horizontalImage:hover{
+  transform: scale(0.98);
+  filter: saturate(100%);
+  border-radius: 30px;
+
 }
+
 
 .imageName {
   font-weight: bold;
   font-size: 16px;
 }
 
-.viewMoreButton {
-  background-color: black;
-  color: #fff;
-  padding: 10px;
-  cursor: pointer;
-  border: none;
+.scrollButtons {
+  display: flex;
+  justify-content: right; /* Center the buttons horizontally */
+  margin-top: 150px;
+  flex-wrap: wrap; 
+  position: absolute;
+  right: 5%;
+  transform: translateX(50%);
   border-radius: 5px;
-  text-align: center;
-  width: auto;
-  margin: 0 auto;
-  transition: background-color 0.3s ease;
-}
-
-.viewMoreButton:hover {
   background-color: #333;
-  transition: background-color 0.3s ease;
+  padding: 10px;
 }
 
 .scrollButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: black;
-  color: #fff;
-  padding: 10px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  transition: background-color 0.3s ease;
-}
-
-.scrollButton:hover {
+  
   background-color: #333;
-  transition: background-color 0.3s ease;
-}
+  color: #fff;
+  border: none;
 
-.scrollButton.left {
-  left: 10px;
-}
-
-.scrollButton.right {
-  right: 10px;
+  height: 20px; /* Adjust this value to set the button height */
+  line-height: 20px; /* Reduced font size */
+  cursor: pointer;
 }
