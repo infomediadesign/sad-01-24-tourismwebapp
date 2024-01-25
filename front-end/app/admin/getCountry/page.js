@@ -58,9 +58,15 @@ export default function page() {
   return (
     <div>
       <NavbarAdmin />
+      
+      <br />
       <div className={styles.countrydetails}>
         <div>
           <h1>Country Details</h1>
+          <div className={styles.buttons}>
+                        <button className={styles.add} onClick={handleClick}>Add</button>
+                    </div>
+                    <br />
           <table className={styles.table}>
             <thead>
               <tr>
@@ -83,7 +89,7 @@ export default function page() {
                   <td>{detail.image1} </td>
                   <td>{detail.description} </td>
                   <td className={styles.buttons}>
-                    <button className={styles.add} onClick={handleClick}>Add</button>
+                    <button className={styles.add} onClick={handleClick}>Update</button>
                     <button className={styles.delete} onClick={(e) => handleDelete(detail._id)}>Delete</button>
                   </td>
                 </tr>
