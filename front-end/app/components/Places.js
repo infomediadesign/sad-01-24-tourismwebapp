@@ -1,6 +1,9 @@
 'use client'
 import React, { useState } from 'react';
 import styles from './places.module.css';
+import { MdRestaurant } from "react-icons/md";
+import { FaShoppingBag,  FaHotel  } from "react-icons/fa";
+
 
 export default function Places() {
   const [showMore, setShowMore] = useState(false);
@@ -40,7 +43,7 @@ export default function Places() {
           {showMore ? (
           <>
             <div className={styles.additionalContent}>
-              <p>
+              <p >
                 Valletta is located on the north-east coast of the island and is located on the Monte Sciberras headland, 
                 which is surrounded by the two largest natural harbors in the Mediterranean, Grand Harbor and Marsamxett Harbour. 
                 Valletta borders the neighboring town of Floriana to the southwest. Longitudinally (northeast-southwest), 
@@ -48,13 +51,34 @@ export default function Places() {
               </p>
               </div>
               <div>
-                  <img
-                    src="/image/valleta.jpg"
-                    alt=" Place "
-                    className={styles.horiImage}
-                  />
-                  
+              <p className="text-xl font-bold text-blue-500 ml-0">Things to do around Valletta</p>
+
+              <div>
+              <div className={styles.actionButtonsContainer}>
+            <button className={styles.actionButton}>
+            <MdRestaurant  />
+              Restaurants
+            </button>
+            
+            {/* Button for Hotels */}
+            <button className={styles.actionButton}>
+            <FaHotel />
+              Hotels
+            </button>
+            
+            {/* Button for Shopping */}
+            <button className={styles.actionButton}>
+            <FaShoppingBag />
+              Shopping
+            </button>
+          </div>
+           </div>       
                 </div>
+                <div className="flex mt-4">
+  <img src="/image/restaurant1.jpg" alt="Restaurant 1" className="w-64 h-64 mr-2" />
+  <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className="w-64 h-64 mr-2" />
+  <img src="/image/restaurant3.jpg" alt="Restaurant 3" className="w-64 h-64" />
+</div>
                 <button className={styles.readMoreButton} onClick={toggleContent}>
               Read Less
             </button>

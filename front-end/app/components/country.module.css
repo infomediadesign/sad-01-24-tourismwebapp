@@ -15,15 +15,10 @@
   margin: 10px;
 }
 
-
-/* 
-.imageContainer {
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-top: 20px;
-  position: relative;
-  display: flex;
-} */
+.description {
+  text-align: center;
+  margin: auto;
+}
 
 .imageContainer {
   

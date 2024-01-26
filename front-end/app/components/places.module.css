@@ -46,6 +46,28 @@
   margin-left: auto;
 
 }
+.placesContainer .actionButtonsContainer {
+  display: flex;
+  justify-content: space-between; /* Adjust as needed */
+}
+
+/* Style for action buttons */
+.placesContainer .actionButton {
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+/* Style for action button icons */
+.placesContainer .actionButton svg {
+  margin-right: 10px;
+  font-size: 20px; /* Adjust the font size as needed */
+  margin-right: 10px;
+}
 
 .description {
   text-align: center;

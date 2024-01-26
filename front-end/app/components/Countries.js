@@ -38,7 +38,7 @@ function Countries() {
           className={styles.bannerImage}
         />
       </div>
-      <div className={styles.contentContainer}>
+      <div className={styles.description}>
         <h1>MALTA</h1>
         <p>
           Malta offers many diverse types of activities to suit the entire
