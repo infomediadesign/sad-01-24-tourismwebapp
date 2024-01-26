@@ -14,9 +14,10 @@
   }
   
   .items:hover {
-   
     cursor: pointer;
     color: #121212;
+    background: rgb(202, 121, 129);
+    transition-delay: 0.1s;
   }
   
   .dropdownmenu {

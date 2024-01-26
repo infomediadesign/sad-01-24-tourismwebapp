@@ -5,24 +5,23 @@ import styles from './dropdownitems.module.css'
 
 const Dropdownitems = () => {
   const [countries, setCountries] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('http://localhost:5000/getCountry')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setCountries(data);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching country data:', error);
-        setLoading(false);
+        // setLoading(false);
       });
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (!countries || countries.length === 0) return <p>No country data</p>;
+  // if (isLoading) return <p>Loading...</p>;
+  // if (!countries || countries.length === 0) return <p>No country data</p>;
 
   return (
     <div className={styles.dropdownmenu}>

@@ -8,7 +8,7 @@ import { FaCopyright } from "react-icons/fa6";
 
 function Footer() {
     return (
-        <><div>
+        <div className={styles.footerContainer}>
             <div className={styles.logoContainer}>
                 <FaAddressCard size={20} />
                 <MdAddIcCall size={20} />
@@ -61,7 +61,7 @@ function Footer() {
                     <button>subscribe</button>
                 </form>
             </div>
-            
+
             <div className={styles.end}>
                 <FaCopyright size={15} />
                 <p className={styles.para}>
@@ -80,8 +80,6 @@ function Footer() {
 
 
         </div>
-        </>
-
     )
 }
 
