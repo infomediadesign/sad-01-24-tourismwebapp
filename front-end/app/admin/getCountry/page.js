@@ -4,10 +4,13 @@ import React, { useState, useEffect } from 'react'
 import styles from './getCountry.module.css'
 import AddCountryPopup from '@/app/components/AddCountryPopup'
 import { useRouter } from 'next/navigation';
+import UpdateCountryPopup from '@/app/components/UpdateCountryPopup'
 
 export default function page() {
   const [openPopup, setOpenPopup] = useState(false);
+  const [updatePopup, setUpdatePopup] = useState(false);
   const [countrydetails, setCountryDetail] = useState([]);
+  const [countryId, setCountryId] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -39,6 +42,23 @@ export default function page() {
     setOpenPopup(true);
   }
 
+  const handleUpdate = (id) => () => {
+    // router.push(`/admin/updateCountry/${id}`)
+    setUpdatePopup(true);
+    setCountryId(id);
+  }
+
+  const updatedCountry = () => {
+    fetch('http://localhost:5000/getCountry')
+      .then(res => res.json())
+      .then(data => {
+        setCountryDetail(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:5000/deleteCountry/${id}`, {
@@ -58,15 +78,15 @@ export default function page() {
   return (
     <div>
       <NavbarAdmin />
-      
+
       <br />
       <div className={styles.countrydetails}>
         <div>
           <h1>Country Details</h1>
           <div className={styles.buttons}>
-                        <button className={styles.add} onClick={handleClick}>Add</button>
-                    </div>
-                    <br />
+            <button className={styles.add} onClick={handleClick}>Add</button>
+          </div>
+          <br />
           <table className={styles.table}>
             <thead>
               <tr>
@@ -89,7 +109,7 @@ export default function page() {
                   <td>{detail.image1} </td>
                   <td>{detail.description} </td>
                   <td className={styles.buttons}>
-                    <button className={styles.add} onClick={handleClick}>Update</button>
+                    <button className={styles.add} onClick={handleUpdate(detail._id)}>Update</button>
                     <button className={styles.delete} onClick={(e) => handleDelete(detail._id)}>Delete</button>
                   </td>
                 </tr>
@@ -98,7 +118,8 @@ export default function page() {
           </table>
         </div>
       </div>
-      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} />}
+      {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} countryId={countryId} />}
+      {updatePopup && <UpdateCountryPopup setOpenPopup={setUpdatePopup} countryId={countryId} updatedCountryDetails = {updatedCountry} />}
     </div>
   )
 }
