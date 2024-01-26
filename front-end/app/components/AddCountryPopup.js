@@ -24,7 +24,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                 body: JSON.stringify({ name, imageMain, image1, image2, image3, description }),
                 headers: {
                     'Content-type': 'application/json'
-                }
+                },
             });
 
             if (response.ok) {
