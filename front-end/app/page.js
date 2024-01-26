@@ -20,7 +20,9 @@ export default function Home() {
         <h1>Explore travel moments worthy of a story to tell.</h1>
       </div>
     </div>
+   
       <div className={styles.text}>
+      <br/>
         <h2>Set up your trip.</h2>
         <button className={styles.button}>See all Destination</button>
         <p>Next, where to go?</p>
