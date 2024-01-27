@@ -1,9 +1,9 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './addplace.module.css'
 import { useState } from 'react'
 
-export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
+export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDetails }) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [imageMain, setMainImg] = useState("");
@@ -11,13 +11,52 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
     const [country, setCountry] = useState("");
     const [errmsg, setErrMsg] = useState("");
 
+    useEffect(() => {
+        if (placeId) {
+            fetch(`http://localhost:9000/getPlaces/${placeId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    setCountry(data.country);
+                    setDesc(data.description);
+                    setName(data.name);
+                    // setMainImg(data.imageMain);
+                    // setImg(data.image);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    }, [placeId]);
+
     const handleClick = () => {
         setOpenPopup(false);
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        fetch(`http://localhost:9000/updatePlace/${placeId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, country, description }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            setOpenPopup(false);
+            updatePlaceDetails();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            setErrMsg(error.message);
+        });
+    }
+
     const handleImageChange = (e) => {
-        // console.log(e.target.files[0]);
-        // setMainImg(e.target.files[0]);
+        console.log(e.target.files[0]);
+        setMainImg(e.target.files[0]);
         // var reader = new FileReader();
         // reader.readAsDataURL(e.target.files[0]);
         // reader.onload = () => {
@@ -27,36 +66,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
         // reader.onerror = function (error) {
         //     console.log('Error: ', error);
         // };
-        setMainImg(e.target.value);
     };
-
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await fetch('http://localhost:9000/addPlaces', {
-                method: 'POST',
-                body: JSON.stringify({ name, imageMain, image, country, description }),
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const updatedData = await fetch('http://localhost:9000/getPlaces').then(res => res.json());
-                setPlaceDetails(updatedData);
-                setName("");
-                setDesc("");
-                setMainImg("");
-                setImg("");
-                setCountry("");
-                setErrMsg("Form submitted successfully!");
-            } else {
-                setErrMsg(`Error: ${response.statusText}`);
-            }
-        } catch (error) {
-            setErrMsg(`Error: ${error.message}`);
-        }
-    }
 
     return (
 
@@ -64,8 +74,9 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
             <div className={styles.text}>
                 Add Places
             </div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className={styles.formrow}>
+
                     <div className={styles.inputdata}>
                         <label className={styles.label}>Name</label>
                         <input type='text'
@@ -76,6 +87,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                     </div>
                     <div className={styles.inputdata}>
                         <label className={styles.labelimg}>Main Image</label>
+
                         <input type='file'
                             accept="image/*"
                             onChange={handleImageChange}
@@ -92,6 +104,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                             required
                         />
                     </div>
+
                     <div className={styles.inputdata} >
                         <label className={styles.msg}>Description</label>
                         <textarea
@@ -115,7 +128,6 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                 </div>
                 <button type="submit" className={styles.button}>Submit</button>
                 <button className={styles.button} onClick={handleClick}>Cancel</button>
-
             </form>
             <div>{errmsg}</div>
         </div>

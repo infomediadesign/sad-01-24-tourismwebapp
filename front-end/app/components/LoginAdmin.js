@@ -2,36 +2,32 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-// import { useRouter } from 'next/router';
 import styles from './adminlogin.module.css'
 
 export default function LoginAdmin({ setRole, setStatus }) {
-    const [name, setName] = useState()
-    // const router = useRouter();
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [err, setErr] = useState()
-    // const [role, setRole] = useState()
 
     axios.defaults.withCredentials = true;
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     axios.post('http://localhost:4000/login', { email, password })
-    //     .then(res => {
-    //         setRole(res.data.role)
-    //         setStatus(res.data.status)
-    //     }).catch(err => {
-    //         setErr(err.response.data.message)
-    //     });
-    // }
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:4000/register', { name, email, password })
+        axios.post('http://localhost:4000/login', { email, password })
             .then(res => {
-                setErr(res.data.message);
-            }).catch(err => setErr(err.response.data.message))
+                setRole(res.data.role)
+                setStatus(res.data.status)
+            }).catch(err => {
+                setErr(err.response.data.message)
+            });
     }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     axios.post('http://localhost:4000/register', { name, email, password })
+    //         .then(res => {
+    //             setErr(res.data.message);
+    //         }).catch(err => setErr(err.response.data.message))
+    // }
 
     return (
         <div className={styles.loginPage}>
@@ -43,12 +39,6 @@ export default function LoginAdmin({ setRole, setStatus }) {
                     </div>
                 </div>
                 <form className={styles.loginForm} onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="username"
-                        required
-                        onChange={(e) => setName(e.target.value)}
-                    />
                     <input
                         type="email"
                         placeholder="email"

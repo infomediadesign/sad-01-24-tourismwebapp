@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import styles from '../getCountry/getCountry.module.css'
 import AddPlacePopup from '@/app/components/AddPlacePopup'
+import Link from 'next/link'
+import UpdatePlacePopup from '@/app/components/UpdatePlacePopup'
 
 export default function page() {
     const [openPopup, setOpenPopup] = useState(false);
+    const [openUpdatePopup, setUpdatePopup] = useState(false);
     const [placeDetails, setPlaceDetails] = useState([]);
+    const [placeId, setPlaceId] = useState("");
 
     useEffect(() => {
         fetch('http://localhost:9000/getPlaces')
@@ -24,6 +28,23 @@ export default function page() {
         setOpenPopup(true);
     }
 
+    const handleUpdateClick = (id) => { 
+        // console.log(id);
+        setPlaceId(id);
+        setUpdatePopup(true);
+    }
+
+    const updatePlaceDetails = () => {
+        fetch('http://localhost:9000/getPlaces')
+            .then(res => res.json())
+            .then(data => {
+                setPlaceDetails(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    };
+
     const handleDelete = async (id) => {
         try {
             const response = await fetch(`http://localhost:9000/deletePlace/${id}`, {
@@ -31,9 +52,9 @@ export default function page() {
             });
 
             if (response.ok) {
-                console.log(`Country with ID ${id} deleted successfully`);
+                console.log(`Place with ID ${id} deleted successfully`);
                 const updatedPlaceDetails = placeDetails.filter(detail => detail._id !== id);
-                setCountryDetail(updatedPlaceDetails);
+                setPlaceDetails(updatedPlaceDetails);
             }
         } catch (error) {
             console.error('Error during deletion:', error.message);
@@ -42,7 +63,6 @@ export default function page() {
     return (
         <div>
             <NavbarAdmin />
-
             <div className={styles.countrydetails}>
                 <div>
                     <h1>Place Details</h1>
@@ -62,7 +82,6 @@ export default function page() {
                             </tr>
                         </thead>
                         <tbody>
-
                             {placeDetails.map((detail) => (
                                 <tr key={detail._id}>
                                     <td>{detail.name}</td>
@@ -85,7 +104,7 @@ export default function page() {
                                     <td>{detail.country} </td>
                                     <td>{detail.description} </td>
                                     <td className={styles.buttons}>
-                                        <button className={styles.add} onClick={handleClick}>Update</button>
+                                        <button className={styles.add} onClick={(e) => handleUpdateClick(detail._id)}>Update</button>
                                         <button className={styles.delete} onClick={(e) => handleDelete(detail._id)}>Delete</button>
                                     </td>
                                 </tr>
@@ -94,6 +113,7 @@ export default function page() {
                     </table>
                 </div>
                 {openPopup && <AddPlacePopup setOpenPopup={setOpenPopup} setPlaceDetails={setPlaceDetails} />}
+                {openUpdatePopup && <UpdatePlacePopup setOpenPopup={setUpdatePopup} placeId={placeId} updatePlaceDetails={updatePlaceDetails} />}
             </div>
         </div>
     )

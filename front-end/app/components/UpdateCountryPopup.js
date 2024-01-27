@@ -1,9 +1,9 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './addplace.module.css'
 import { useState } from 'react'
 
-export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
+export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails, countryId }) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [imageMain, setMainImg] = useState("");
@@ -16,34 +16,44 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
         setOpenPopup(false);
     }
 
+    useEffect(() => {
+        if (countryId) {
+            console.log(countryId);
+            fetch(`http://localhost:5000/getCountry/${countryId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    setDesc(data.description);
+                    setName(data.name);
+                    // setMainImg(data.imageMain);
+                    // setImgOne(data.image1);
+                    // setImgTwo(data.image2);
+                    // setImgThree(data.image3);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    }, [countryId]);
+
     const onSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const response = await fetch('http://localhost:5000/addCountry', {
-                method: 'POST',
-                body: JSON.stringify({ name, imageMain, image1, image2, image3, description }),
-                headers: {
-                    'Content-type': 'application/json'
-                },
+        fetch(`http://localhost:5000/updateCountry/${countryId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, description, imageMain, image1, image2, image3 }),
+        }).then(response => response.json())
+            .then(data => {
+                setErrMsg(data.message);
+                // setOpenPopup(false);
+                console.log(data.message);
+                updatedCountryDetails();
+            })
+            .catch((error) => {
+                setErrMsg(error.message);
             });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                const updatedData = await fetch('http://localhost:5000/getCountry').then(res => res.json());
-                setCountryDetail(updatedData);
-                setName("");
-                setDesc("");
-                setMainImg("");
-                setImgOne("");
-                setImgTwo("");
-                setImgThree("");
-                setErrMsg(responseData.message);
-            } else {
-                setErrMsg(`Error: ${response.statusText}`);
-            }
-        } catch (error) {
-            setErrMsg(`Error: ${error.message}`);
-        }
     }
 
     return (
@@ -66,7 +76,6 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         <input type='file'
                             onChange={(e) => setMainImg(e.target.value)}
                             value={imageMain}
-                            required
                         />
                     </div>
                 </div>
@@ -76,7 +85,6 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         <input type='file'
                             onChange={(e) => setImgTwo(e.target.value)}
                             value={image2}
-                            required
                         />
                     </div>
                     <div className={styles.inputdata} >
@@ -84,7 +92,6 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
-                            required
                         />
                     </div>
                 </div>
@@ -94,7 +101,6 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         <input type='file'
                             onChange={(e) => setImgOne(e.target.value)}
                             value={image1}
-                            required
                         />
                     </div>
                     <div className={styles.inputdata}>
@@ -102,12 +108,11 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         <input type='file'
                             onChange={(e) => setImgThree(e.target.value)}
                             value={image3}
-                            required
                         />
                     </div>
                 </div>
                 <button type="submit" className={styles.btn}>Submit</button>
-                            <button className={styles.cnl} onClick={handleClick}>Cancel</button>
+                <button className={styles.cnl} onClick={handleClick}>Cancel</button>
             </form>
             <div>{errmsg}</div>
         </div>
