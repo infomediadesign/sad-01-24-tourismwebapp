@@ -33,7 +33,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:9000/addPlaces', {
+            const response = await fetch('http://localhost:7000/places/addPlaces', {
                 method: 'POST',
                 body: JSON.stringify({ name, imageMain, image, country, description }),
                 headers: {
@@ -42,7 +42,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
             });
 
             if (response.ok) {
-                const updatedData = await fetch('http://localhost:9000/getPlaces').then(res => res.json());
+                const updatedData = await fetch('http://localhost:7000/places/getPlaces').then(res => res.json());
                 setPlaceDetails(updatedData);
                 setName("");
                 setDesc("");
@@ -115,7 +115,6 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                 </div>
                 <button type="submit" className={styles.button}>Submit</button>
                 <button className={styles.button} onClick={handleClick}>Cancel</button>
-
             </form>
             <div>{errmsg}</div>
         </div>

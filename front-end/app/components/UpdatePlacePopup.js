@@ -13,7 +13,7 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
 
     useEffect(() => {
         if (placeId) {
-            fetch(`http://localhost:9000/getPlaces/${placeId}`)
+            fetch(`http://localhost:7000/places/getPlaces/${placeId}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
@@ -35,7 +35,7 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch(`http://localhost:9000/updatePlace/${placeId}`, {
+        fetch(`http://localhost:7000/places/update/${placeId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

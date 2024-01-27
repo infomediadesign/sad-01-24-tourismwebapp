@@ -6,7 +6,7 @@ const cors = require('cors');
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
 
-router.post('/addSavedItem', async (req, res) => {
+router.post('/saveditems/addSavedItem', async (req, res) => {
     try {
         const saveditem = await SavedItem.create(req.body)
         res.status(201).json(saveditem);
@@ -16,7 +16,7 @@ router.post('/addSavedItem', async (req, res) => {
     }
 })
 
-router.get('/getSavedItem', async (req, res) => {
+router.get('/saveditems', async (req, res) => {
     try {
         const saveditem = await SavedItem.find({})
         res.status(200).json(saveditem);
@@ -26,7 +26,7 @@ router.get('/getSavedItem', async (req, res) => {
     }
 })
 
-router.get('/getSavedItem/:id', async (req, res) => {
+router.get('/saveditems/get:id', async (req, res) => {
     try {
         const saveditem = await SavedItem.findById(req.params.id)
         res.status(200).json(saveditem);
@@ -36,7 +36,7 @@ router.get('/getSavedItem/:id', async (req, res) => {
     }
 })
 
-router.put('/updateSavedItem/:id', async (req, res) => {
+router.put('/saveditems/update/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await SavedItem.findByIdAndUpdate({ _id: id }, {

@@ -19,7 +19,7 @@ const createPassword = (password) => {
 };
 /**
  * @openapi
- * '/register':
+ * '/users/register':
  *   post:
  *     tags:
  *       - User
@@ -53,7 +53,7 @@ const createPassword = (password) => {
  */
 
 
-router.post('/register', (req, res) => {
+router.post('/users/register', (req, res) => {
     const { name, email, password } = req.body;
 
     UserModel.findOne({ email })
@@ -95,7 +95,7 @@ const verifyUser = (req, res, next) => {
 
 /**
  * @openapi
- * '/country':
+ * '/users/country':
  *   get:
  *     tags:
  *       - User
@@ -109,13 +109,13 @@ const verifyUser = (req, res, next) => {
  *         description: Internal Server Error
  */
 
-router.get('/country', verifyUser, (req, res) => {
+router.get('/users/country', verifyUser, (req, res) => {
     res.status(200).json("Success");
 })
 
 /**
  * @openapi
- * '/login':
+ * '/users/login':
  *   post:
  *     tags:
  *       - User
@@ -143,7 +143,7 @@ router.get('/country', verifyUser, (req, res) => {
  *         description: Internal Server Error
  */
 
-router.post('/login', (req, res) => {
+router.post('/users/login', (req, res) => {
     const { email, password } = req.body;
     UserModel.findOne({ email })
         .then(user => {

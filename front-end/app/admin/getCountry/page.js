@@ -14,7 +14,7 @@ export default function page() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch('http://localhost:4000/country', { credentials: 'include' })
+    fetch('http://localhost:7000/users/country', { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data === "Success") {
@@ -28,7 +28,7 @@ export default function page() {
 
 
   useEffect(() => {
-    fetch('http://localhost:5000/getCountry')
+    fetch('http://localhost:7000/countries')
       .then(res => res.json())
       .then(data => {
         setCountryDetail(data)
@@ -49,7 +49,7 @@ export default function page() {
   }
 
   const updatedCountry = () => {
-    fetch('http://localhost:5000/getCountry')
+    fetch('http://localhost:7000/countries')
       .then(res => res.json())
       .then(data => {
         setCountryDetail(data);
@@ -61,7 +61,7 @@ export default function page() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/deleteCountry/${id}`, {
+      const response = await fetch(`http://localhost:7000/countries/delete/${id}`, {
         method: 'DELETE',
       });
 
@@ -78,7 +78,6 @@ export default function page() {
   return (
     <div>
       <NavbarAdmin />
-
       <br />
       <div className={styles.countrydetails}>
         <div>

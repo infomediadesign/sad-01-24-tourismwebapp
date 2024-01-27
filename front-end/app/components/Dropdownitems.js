@@ -9,7 +9,7 @@ const Dropdownitems = () => {
   // const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/getCountry')
+    fetch('http://localhost:7000/countries')
       .then((res) => res.json())
       .then((data) => {
         setCountries(data);
