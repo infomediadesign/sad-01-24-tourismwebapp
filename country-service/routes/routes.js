@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Country = require('../models/countryModel');
 const cors = require('cors');
+const axios = require('axios');
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
@@ -217,5 +218,37 @@ router.delete('/deleteCountry/:id', async (req, res) => {
     }
 });
 
+/**
+ * @openapi
+ * /country:
+ *   get:
+ *     tags:
+ *       - Country
+ *     summary: Get all countries with places
+ *     responses:
+ *       200:
+ *         description: Fetched list of countries with places
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/country', async (req, res) => {
+    try {
+        const countries = await Country.find({})
+        const countriesWithPlaces = await Promise.all(countries.map(async country => {
+            const placesRes = await axios.get(`http://localhost:9000/places/${country.name}`)
+            const places = placesRes.data;
+            return {
+                ...country.toObject(),
+                places
+            };
+        })
+    );
+    res.status(200).json(countriesWithPlaces);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message })
+    }
+});
 
 module.exports = router;
