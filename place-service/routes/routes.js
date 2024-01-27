@@ -229,6 +229,38 @@ router.delete('/deletePlace/:id', async (req, res) => {
     }
 });
 
+/**
+ * @openapi
+ * /places/{countryName}:
+ *   get:
+ *     tags:
+ *       - Places
+ *     summary: Get places by country name
+ *     parameters:
+ *       - in: path
+ *         name: countryName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The country name
+ *     responses:
+ *       200:
+ *         description: Fetched places by country name
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/places/:countryName', async (req, res) => {
+    try {
+        const { countryName } = req.params;
+        const places = await Place.find({ country: countryName });
+
+        res.status(200).json(places);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
 
 
 module.exports = router;
