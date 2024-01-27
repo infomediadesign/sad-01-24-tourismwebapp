@@ -28,6 +28,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
             });
 
             if (response.ok) {
+                const responseData = await response.json();
                 const updatedData = await fetch('http://localhost:5000/getCountry').then(res => res.json());
                 setCountryDetail(updatedData);
                 setName("");
@@ -36,7 +37,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                 setImgOne("");
                 setImgTwo("");
                 setImgThree("");
-                setErrMsg("Form submitted successfully!");
+                setErrMsg(responseData.message);
             } else {
                 setErrMsg(`Error: ${response.statusText}`);
             }

@@ -6,15 +6,70 @@ const cors = require('cors');
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
 
+/**
+ * @openapi
+ * /addCountry:
+ *   post:
+ *     tags:
+ *       - Country
+ *     summary: Add a new country
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               imageMain:
+ *                 type: string
+ *               image1:
+ *                 type: string
+ *               image2:
+ *                 type: string
+ *               image3:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - imageMain
+ *               - image1
+ *               - image2
+ *               - image3
+ *               - description
+ *     responses:
+ *       201:
+ *         description: Country added successfully
+ *       500:
+ *         description: Internal Server Error
+ */
+
 router.post('/addCountry', async (req, res) => {
     try {
         const country = await Country.create(req.body)
-        res.status(201).json(country);
+        res.status(201).json({ message: 'Country added successfully', country });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
     }
 })
+
+/**
+ * @openapi
+ * /getCountry:
+ *   get:
+ *     tags:
+ *       - Country
+ *     summary: Get all countries
+ *     responses:
+ *       200:
+ *         description: Fetched list of countries
+ *       500:
+ *         description: Internal Server Error
+ */
+
 router.get('/getCountry', async (req, res) => {
     try {
         const country = await Country.find({})
@@ -25,15 +80,86 @@ router.get('/getCountry', async (req, res) => {
     }
 })
 
+/**
+ * @openapi
+ * /getCountry/{id}:
+ *   get:
+ *     tags:
+ *       - Country
+ *     summary: Get a country by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The country id
+ *     responses:
+ *       200:
+ *         description: Fetched country by id
+ *       500:
+ *         description: Internal Server Error
+ */
+
 router.get('/getCountry/:id', async (req, res) => { 
     try {
         const country = await Country.findById(req.params.id)
+        const id = req.params.id;
         res.status(200).json(country);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
     }
 })
+
+/**
+ * @openapi
+ * /updateCountry/{id}:
+ *   put:
+ *     tags:
+ *       - Country
+ *     summary: Update a country by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The country id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               imageMain:
+ *                 type: string
+ *               image1:
+ *                 type: string
+ *               image2:
+ *                 type: string
+ *               image3:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - imageMain
+ *               - image1
+ *               - image2
+ *               - image3
+ *               - description
+ *     responses:
+ *       200:
+ *         description: Country updated successfully
+ *       404:
+ *         description: Country not found
+ *       500:
+ *         description: Internal Server Error
+ */
 
 router.put('/updateCountry/:id', async (req, res) => {
     const id = req.params.id;
@@ -54,6 +180,29 @@ router.put('/updateCountry/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+/**
+ * @openapi
+ * /deleteCountry/{id}:
+ *   delete:
+ *     tags:
+ *       - Country
+ *     summary: Delete a country by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The country id
+ *     responses:
+ *       200:
+ *         description: Country deleted successfully
+ *       404:
+ *         description: Country not found
+ *       500:
+ *         description: Internal Server Error
+ */
 
 router.delete('/deleteCountry/:id', async (req, res) => {
     const id = req.params.id;
