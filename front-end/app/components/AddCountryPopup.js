@@ -19,7 +19,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:5000/addCountry', {
+            const response = await fetch('http://localhost:7000/countries/addCountry', {
                 method: 'POST',
                 body: JSON.stringify({ name, imageMain, image1, image2, image3, description }),
                 headers: {
@@ -29,7 +29,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
 
             if (response.ok) {
                 const responseData = await response.json();
-                const updatedData = await fetch('http://localhost:5000/getCountry').then(res => res.json());
+                const updatedData = await fetch('http://localhost:7000/countries').then(res => res.json());
                 setCountryDetail(updatedData);
                 setName("");
                 setDesc("");
@@ -107,7 +107,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                     </div>
                 </div>
                 <button type="submit" className={styles.btn}>Submit</button>
-                            <button className={styles.cnl} onClick={handleClick}>Cancel</button>
+                <button className={styles.cnl} onClick={handleClick}>Cancel</button>
             </form>
             <div>{errmsg}</div>
         </div>

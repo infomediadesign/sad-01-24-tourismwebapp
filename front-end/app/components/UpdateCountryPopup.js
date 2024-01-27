@@ -19,7 +19,7 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
     useEffect(() => {
         if (countryId) {
             console.log(countryId);
-            fetch(`http://localhost:5000/getCountry/${countryId}`)
+            fetch(`http://localhost:7000/countries/getCountry/${countryId}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
@@ -38,7 +38,7 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        fetch(`http://localhost:5000/updateCountry/${countryId}`, {
+        fetch(`http://localhost:7000/countries/update/${countryId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

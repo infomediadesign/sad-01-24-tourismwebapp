@@ -9,7 +9,7 @@ router.use(cors());
 
 /**
  * @openapi
- * /addCountry:
+ * /countries/addCountry:
  *   post:
  *     tags:
  *       - Country
@@ -47,7 +47,7 @@ router.use(cors());
  *         description: Internal Server Error
  */
 
-router.post('/addCountry', async (req, res) => {
+router.post('/countries/addCountry', async (req, res) => {
     try {
         const country = await Country.create(req.body)
         res.status(201).json({ message: 'Country added successfully', country });
@@ -59,7 +59,7 @@ router.post('/addCountry', async (req, res) => {
 
 /**
  * @openapi
- * /getCountry:
+ * /countries:
  *   get:
  *     tags:
  *       - Country
@@ -71,7 +71,7 @@ router.post('/addCountry', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/getCountry', async (req, res) => {
+router.get('/countries', async (req, res) => {
     try {
         const country = await Country.find({})
         res.status(200).json(country);
@@ -83,7 +83,7 @@ router.get('/getCountry', async (req, res) => {
 
 /**
  * @openapi
- * /getCountry/{id}:
+ * /countries/getCountry/{id}:
  *   get:
  *     tags:
  *       - Country
@@ -102,7 +102,7 @@ router.get('/getCountry', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/getCountry/:id', async (req, res) => { 
+router.get('/countries/getCountry/:id', async (req, res) => { 
     try {
         const country = await Country.findById(req.params.id)
         const id = req.params.id;
@@ -115,7 +115,7 @@ router.get('/getCountry/:id', async (req, res) => {
 
 /**
  * @openapi
- * /updateCountry/{id}:
+ * /countries/update/{id}:
  *   put:
  *     tags:
  *       - Country
@@ -162,7 +162,7 @@ router.get('/getCountry/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.put('/updateCountry/:id', async (req, res) => {
+router.put('/countries/update/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await Country.findByIdAndUpdate({ _id: id }, {
@@ -184,7 +184,7 @@ router.put('/updateCountry/:id', async (req, res) => {
 
 /**
  * @openapi
- * /deleteCountry/{id}:
+ * /countries/delete/{id}:
  *   delete:
  *     tags:
  *       - Country
@@ -205,7 +205,7 @@ router.put('/updateCountry/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.delete('/deleteCountry/:id', async (req, res) => {
+router.delete('/countries/delete/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await Country.findByIdAndDelete({ _id: id });
@@ -220,7 +220,7 @@ router.delete('/deleteCountry/:id', async (req, res) => {
 
 /**
  * @openapi
- * /country:
+ * /countries/places:
  *   get:
  *     tags:
  *       - Country
@@ -232,7 +232,7 @@ router.delete('/deleteCountry/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/country', async (req, res) => {
+router.get('/countries/places', async (req, res) => {
     try {
         const countries = await Country.find({})
         const countriesWithPlaces = await Promise.all(countries.map(async country => {

@@ -13,7 +13,7 @@ export default function LoginAdmin({ setRole, setStatus }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:4000/login', { email, password })
+        axios.post('http://localhost:7000/users/login', { email, password })
             .then(res => {
                 setRole(res.data.role)
                 setStatus(res.data.status)
@@ -23,7 +23,7 @@ export default function LoginAdmin({ setRole, setStatus }) {
     }
     // const handleSubmit = (e) => {
     //     e.preventDefault()
-    //     axios.post('http://localhost:4000/register', { name, email, password })
+    //     axios.post('http://localhost:7000/users/register', { name, email, password })
     //         .then(res => {
     //             setErr(res.data.message);
     //         }).catch(err => setErr(err.response.data.message))

@@ -21,7 +21,7 @@ router.use(cors());
 
 /**
  * @openapi
- * /addPlaces:
+ * /places/addPlaces:
  *   post:
  *     tags:
  *       - Places
@@ -56,7 +56,7 @@ router.use(cors());
  *         description: Internal Server Error
  */
 
-router.post('/addPlaces', async (req, res) => {
+router.post('/places/addPlaces', async (req, res) => {
     // console.log(req.file);
     try {
         // const imageName = req.file.filename;
@@ -76,7 +76,7 @@ router.post('/addPlaces', async (req, res) => {
 
 /**
  * @openapi
- * /getPlaces:
+ * /places/getPlaces:
  *   get:
  *     tags:
  *       - Places
@@ -88,7 +88,7 @@ router.post('/addPlaces', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/getPlaces', async (req, res) => {
+router.get('/places/getPlaces', async (req, res) => {
     try {
         const place = await Place.find({})
         res.status(200).json(place);
@@ -100,7 +100,7 @@ router.get('/getPlaces', async (req, res) => {
 
 /**
  * @openapi
- * /getPlaces/{id}:
+ * /places/getPlaces/{id}:
  *   get:
  *     tags:
  *       - Places
@@ -119,7 +119,7 @@ router.get('/getPlaces', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/getPlaces/:id', async (req, res) => {
+router.get('/places/getPlaces/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const place = await Place.findById(id);
@@ -132,7 +132,7 @@ router.get('/getPlaces/:id', async (req, res) => {
 
 /**
  * @openapi
- * /updatePlace/{id}:
+ * /places/update/{id}:
  *   put:
  *     tags:
  *       - Places
@@ -174,7 +174,7 @@ router.get('/getPlaces/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.put('/updatePlace/:id', async (req, res) => {
+router.put('/places/update/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await Place.findByIdAndUpdate({ _id: id }, {
@@ -195,7 +195,7 @@ router.put('/updatePlace/:id', async (req, res) => {
 
 /**
  * @openapi
- * /deletePlace/{id}:
+ * /places/delete/{id}:
  *   delete:
  *     tags:
  *       - Places
@@ -216,7 +216,7 @@ router.put('/updatePlace/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.delete('/deletePlace/:id', async (req, res) => {
+router.delete('/places/delete/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await Place.findByIdAndDelete({ _id: id });

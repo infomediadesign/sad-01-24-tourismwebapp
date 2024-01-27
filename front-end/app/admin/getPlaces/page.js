@@ -14,7 +14,7 @@ export default function page() {
     const [placeId, setPlaceId] = useState("");
 
     useEffect(() => {
-        fetch('http://localhost:9000/getPlaces')
+        fetch('http://localhost:7000/places/getPlaces')
             .then(res => res.json())
             .then(data => {
                 setPlaceDetails(data)
@@ -35,7 +35,7 @@ export default function page() {
     }
 
     const updatePlaceDetails = () => {
-        fetch('http://localhost:9000/getPlaces')
+        fetch('http://localhost:7000/places/getPlaces')
             .then(res => res.json())
             .then(data => {
                 setPlaceDetails(data);
@@ -47,7 +47,7 @@ export default function page() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:9000/deletePlace/${id}`, {
+            const response = await fetch(`http://localhost:7000/places/delete/${id}`, {
                 method: 'DELETE',
             });
 
