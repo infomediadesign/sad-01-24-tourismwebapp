@@ -2,42 +2,45 @@
 import React from 'react'
 import styles from './addplace.module.css'
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
-    const [imageMain, setMainImg] = useState("");
-    const [image1, setImgOne] = useState("");
-    const [image2, setImgTwo] = useState("");
-    const [image3, setImgThree] = useState("");
+    const [image, setImg] = useState();
     const [errmsg, setErrMsg] = useState("");
 
     const handleClick = () => {
         setOpenPopup(false);
     }
 
+    const handleImgChange = (e) => {
+        setImg(e.target.files[0]);
+    };
+
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:7000/countries/addCountry', {
-                method: 'POST',
-                body: JSON.stringify({ name, imageMain, image1, image2, image3, description }),
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('description', description);
+            formData.append('image', image);
+            console.log(formData.get('image'));
+            const response = await axios.post('http://localhost:7000/countries/addCountry', formData, {
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'multipart/form-data'
                 },
             });
 
-            if (response.ok) {
-                const responseData = await response.json();
+            if (response.status === 201) {
+                console.log(response.data);
+                // const responseData = await response.json();
                 const updatedData = await fetch('http://localhost:7000/countries').then(res => res.json());
                 setCountryDetail(updatedData);
                 setName("");
                 setDesc("");
-                setMainImg("");
-                setImgOne("");
-                setImgTwo("");
-                setImgThree("");
-                setErrMsg(responseData.message);
+                setImg("");
+                setErrMsg(response.data.message);
             } else {
                 setErrMsg(`Error: ${response.statusText}`);
             }
@@ -62,46 +65,20 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         />
                     </div>
                     <div className={styles.inputdata}>
-                        <label className={styles.labelimg}>Main Image</label>
+                        <label className={styles.labelimg}>Image</label>
                         <input type='file'
-                            onChange={(e) => setMainImg(e.target.value)}
-                            value={imageMain}
+                            onChange={handleImgChange}
+                            accept='image/*'
                             required
                         />
                     </div>
                 </div>
                 <div className={styles.formrow}>
-                    <div className={styles.inputdata}>
-                        <label className={styles.label}>Image1</label>
-                        <input type='file'
-                            onChange={(e) => setImgTwo(e.target.value)}
-                            value={image2}
-                            required
-                        />
-                    </div>
                     <div className={styles.inputdata} >
                         <label className={styles.msg}>Description</label>
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
-                            required
-                        />
-                    </div>
-                </div>
-                <div className={styles.formrow}>
-                    <div className={styles.inputdata}>
-                        <label className={styles.label}>Image2</label>
-                        <input type='file'
-                            onChange={(e) => setImgOne(e.target.value)}
-                            value={image1}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputdata}>
-                        <label className={styles.img}>Image3</label>
-                        <input type='file'
-                            onChange={(e) => setImgThree(e.target.value)}
-                            value={image3}
                             required
                         />
                     </div>

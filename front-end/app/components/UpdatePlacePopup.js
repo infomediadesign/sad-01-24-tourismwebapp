@@ -20,8 +20,8 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
                     setCountry(data.country);
                     setDesc(data.description);
                     setName(data.name);
-                    // setMainImg(data.imageMain);
-                    // setImg(data.image);
+                    setMainImg(data.imageMain);
+                    setImg(data.image);
                 })
                 .catch((error) => {
                     console.error('Error fetching data:', error);
@@ -35,37 +35,33 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('country', country);
+        formData.append('description', description);
+        formData.append('imageMain', imageMain);
+        formData.append('image', image);
         fetch(`http://localhost:7000/places/update/${placeId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, country, description }),
+            body: formData,
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            setOpenPopup(false);
-            updatePlaceDetails();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            setErrMsg(error.message);
-        });
+            .then(response => response.json())
+            .then(data => {
+                // console.log('Success:', data);
+                setErrMsg(data.message);
+                updatePlaceDetails();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setErrMsg(error.message);
+            });
     }
 
-    const handleImageChange = (e) => {
-        console.log(e.target.files[0]);
+    const handleMainImgChng = (e) => {
         setMainImg(e.target.files[0]);
-        // var reader = new FileReader();
-        // reader.readAsDataURL(e.target.files[0]);
-        // reader.onload = () => {
-        //     console.log(reader.result);
-        //     setMainImg(reader.result);
-        // };
-        // reader.onerror = function (error) {
-        //     console.log('Error: ', error);
-        // };
+    };
+    const handleImageChange = (e) => {
+        setImg(e.target.files[0]);
     };
 
     return (
@@ -76,22 +72,18 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
             </div>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formrow}>
-
                     <div className={styles.inputdata}>
                         <label className={styles.label}>Name</label>
                         <input type='text'
                             onChange={(e) => setName(e.target.value)}
                             value={name}
-                            required
                         />
                     </div>
                     <div className={styles.inputdata}>
                         <label className={styles.labelimg}>Main Image</label>
-
                         <input type='file'
                             accept="image/*"
-                            onChange={handleImageChange}
-                            required
+                            onChange={handleMainImgChng}
                         />
                     </div>
                 </div>
@@ -99,9 +91,8 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
                     <div className={styles.inputdata}>
                         <label className={styles.label}>Image</label>
                         <input type='file'
-                            onChange={(e) => setImg(e.target.value)}
-                            value={image}
-                            required
+                            onChange={handleImageChange}
+                            accept="image/*"
                         />
                     </div>
 
@@ -110,18 +101,16 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
-                            required
                         />
                     </div>
                 </div>
                 <div className={styles.inputdata} >
                     <label className={styles.label}>Country</label>
-                    <select name="cars" id="cars"
+                    <select
                         onChange={(e) => setCountry(e.target.value)}
-                        value={country}
-                        required >
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
+                        value={country}>
+                        <option value="Germany">Germany</option>
+                        <option value="Switzerland">Switzerland</option>
                         <option value="opel">Opel</option>
                         <option value="audi">Audi</option>
                     </select>
