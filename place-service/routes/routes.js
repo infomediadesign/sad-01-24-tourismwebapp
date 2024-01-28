@@ -2,23 +2,26 @@ const express = require('express')
 const router = express.Router()
 const cors = require('cors')
 const Place = require('../models/placeModel')
-// const multer = require('multer')
+const multer = require('multer')
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
+router.use(express.static('public'));
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, "./public/images");
-//     },
-//     filename: function (req, file, cb) {
-//         const uniqueSuffix = Date.now();
-//         cb(null, uniqueSuffix + file.originalname);
-//     },
-// });
-
-// const upload = multer({ storage: storage });
-
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        return cb(null, "./public/images");
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now();
+        return cb(null, uniqueSuffix + file.originalname);
+    },
+});
+const upload = multer({ storage: storage });
+const uploadImage = upload.fields([
+    { name: 'imageMain' },
+    { name: 'image', maxCount: 1 },
+]);
 /**
  * @openapi
  * /places/addPlaces:
@@ -56,18 +59,17 @@ router.use(cors());
  *         description: Internal Server Error
  */
 
-router.post('/places/addPlaces', async (req, res) => {
-    // console.log(req.file);
+router.post('/places/addPlaces', uploadImage, async (req, res) => {
     try {
         // const imageName = req.file.filename;
         const place = await Place.create({
             name: req.body.name,
-            imageMain: req.body.imageMain,
-            image: req.body.image,
+            imageMain: req.files.imageMain[0].filename,
+            image: req.files.image[0].filename,
             country: req.body.country,
             description: req.body.description,
         })
-        res.status(201).json({place, message: 'Place added successfully'});
+        res.status(201).json({ place, message: 'Place added successfully' });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
@@ -174,16 +176,24 @@ router.get('/places/getPlaces/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.put('/places/update/:id', async (req, res) => {
+router.put('/places/update/:id', uploadImage, async (req, res) => {
     const id = req.params.id;
     try {
-        const result = await Place.findByIdAndUpdate({ _id: id }, {
+        const updateFields = {
             name: req.body.name,
-            imageMain: req.body.imageMain,
-            image: req.body.image,
             country: req.body.country,
             description: req.body.description,
-        });
+        };
+
+        if (req.files.imageMain && req.files.imageMain.length > 0) {
+            updateFields.imageMain = req.files.imageMain[0].filename;
+        }
+
+        if (req.files.image && req.files.image.length > 0) {
+            updateFields.image = req.files.image[0].filename;
+        }
+
+        const result = await Place.findByIdAndUpdate({ _id: id }, updateFields);
         res.status(result ? 200 : 404).json({
             message: result ? 'Place updated successfully' : 'Place not found'
         });
