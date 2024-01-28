@@ -1,9 +1,16 @@
-import React from 'react'
 
-const CountryDetail = ( {params} ) => {
+import React from 'react';
+import Navbar from '../components/Navbar';
+
+import Countries from '../components/Countries';
+
+const CountryPage = () => {
   return (
-    <div>CountryDetail: {params.country} </div>
-  )
-}
+    <div>
+      <Navbar />
+      <Countries />
+    </div>
+  );
+};
 
-export default CountryDetail
+export default CountryPage;
