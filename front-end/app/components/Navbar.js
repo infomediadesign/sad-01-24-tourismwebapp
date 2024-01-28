@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from './navbar.module.css'
 import Dropdownitems from './Dropdownitems';
 import { IoSearchSharp } from "react-icons/io5";
-
+import Link from 'next/link'
 
 
 const Navbar = () => {
@@ -25,9 +25,6 @@ const Navbar = () => {
     const handleMouseLeave = () => {
         setDropdownVisible(false);
     };
-
-
-
 
 
     return (
@@ -52,7 +49,7 @@ const Navbar = () => {
                         alt="Description of the first image"
                         width={50}
                         height={50} />
-                    <p>Wanderlust</p>
+                    <Link  className={styles.logo} href="/">Wanderlust</Link>
                 </div>
 
 
@@ -60,22 +57,19 @@ const Navbar = () => {
                     <li 
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}>
-                        <a href="#">Destination</a>
+                        <Link  className={styles.navLink} href="/">Destination</Link>
 
                         {/* <DropdownMenu /> */}
                         {isDropdownVisible && <Dropdownitems />}
 
-
-
-
                     </li>
 
 
                     <li>
-                        <a href="#">About Us</a>
+                        <Link className={styles.navLink} href="/Aboutus">About Us</Link>
                     </li>
                     <li>
-                        <a href="#">Sign In</a>
+                        <Link className={styles.navLink} href="/">Sign In</Link>
                     </li>
                 </ul>
             </div>

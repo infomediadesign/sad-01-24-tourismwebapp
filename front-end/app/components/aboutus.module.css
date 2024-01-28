@@ -1,7 +1,7 @@
 .Paris {
     background-image: url('/Images/europe.webp');
     background-size: cover;
-   
+   background-color: black;
    height: 100vh; 
   
   }
@@ -34,16 +34,19 @@
   }
 
   .logoContainer {
-    position: absolute;
+    
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    
+    align-items: flex-end;
+  
     top: 1750px; /* Adjust the distance from the top as needed */
     right: 0;
     transform: translateY(-50%);
-    margin: 200px;
-
+   flex-direction: column;
+   margin-right: 200px;
+   margin-top:-120px;
+   
+   
   }
   .logoContainer img {
     margin-bottom: 20px; /* Adjust the spacing between images */

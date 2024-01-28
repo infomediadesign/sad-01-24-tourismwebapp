@@ -6,7 +6,7 @@
 }
 
 
-.logoContainer p {
+.logo {
   position: absolute;
   color: #c2a8a8;
 }
@@ -39,7 +39,7 @@
     justify-content: Right;
   }
   
-  .nav a {
+  .navLink {
     color: #fff;
     text-decoration: none;
     padding: 7px 15px;
@@ -51,7 +51,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
   
-  .nav.active a {
+  .nav.active Link {
     color: #000;
   }
   
@@ -59,8 +59,8 @@
     padding: 10px 0;
   }
   
-  .nav a.current,
-  .nav a:hover {
+
+  .navLink:hover {
     color: #c0392b;
     font-weight: bold;
   }

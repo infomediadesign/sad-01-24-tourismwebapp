@@ -1,7 +1,10 @@
 import React from 'react'
 import styles from './aboutus.module.css'
 import Image from 'next/image';
-
+import { IoLogoTwitter } from "react-icons/io";
+import { FaFacebook } from "react-icons/fa";
+import { RiInstagramFill } from "react-icons/ri";
+import { FaYoutube } from "react-icons/fa6";
 
 function Aboutus() {
   return (
@@ -14,34 +17,41 @@ function Aboutus() {
         to a curated selection of enchanting tourist places, each with its own unique 
         charm and cultural significance. </p>
         <div className={styles.logoContainer}>
-        <Image
+        {/* <Image
                     src="/Images/twitter.svg"
                     alt="Description of the first image"
                     width={50}
                     height={50}
                     
-                />
+                /> */}
+          <IoLogoTwitter size={30} style={{ marginBottom: '10px' }}/>
 
-        <Image
+
+        {/* <Image
                     src="/Images/facebook.svg"
                     alt="Description of the first image"
                     width={50}
                     height={50}
-                />
+                /> */}
+            <FaFacebook size={30} style={{ marginBottom: '10px' }}/>
+          
 
-        <Image
+        {/* <Image
                     src="/Images/instagram.svg"
                     alt="Description of the first image"
                     width={50}
                     height={50}
-                />
+                /> */}
+              <RiInstagramFill size={30} style={{ marginBottom: '10px' }}/>
 
-        <Image
+        {/* <Image
                     src="/Images/youtube.svg"
                     alt="Description of the first image"
                     width={50}
                     height={50}
-                />
+                /> */}
+              <FaYoutube size={30}/>
+                
         </div>
        
     </div>
