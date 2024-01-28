@@ -61,7 +61,6 @@ const uploadImage = upload.fields([
 
 router.post('/places/addPlaces', uploadImage, async (req, res) => {
     try {
-        // const imageName = req.file.filename;
         const place = await Place.create({
             name: req.body.name,
             imageMain: req.files.imageMain[0].filename,

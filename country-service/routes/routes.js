@@ -3,9 +3,21 @@ const router = express.Router();
 const Country = require('../models/countryModel');
 const cors = require('cors');
 const axios = require('axios');
+const multer = require('multer');
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
+router.use(express.static('public'));
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        return cb(null, "./public/images");
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now();
+        return cb(null, uniqueSuffix + file.originalname);
+    },
+});
 
 /**
  * @openapi
@@ -23,22 +35,13 @@ router.use(cors());
  *             properties:
  *               name:
  *                 type: string
- *               imageMain:
- *                 type: string
- *               image1:
- *                 type: string
- *               image2:
- *                 type: string
- *               image3:
+ *               image:
  *                 type: string
  *               description:
  *                 type: string
  *             required:
  *               - name
- *               - imageMain
- *               - image1
- *               - image2
- *               - image3
+ *               - image
  *               - description
  *     responses:
  *       201:
@@ -46,10 +49,14 @@ router.use(cors());
  *       500:
  *         description: Internal Server Error
  */
-
-router.post('/countries/addCountry', async (req, res) => {
+const upload = multer({ storage: storage });
+router.post('/countries/addCountry', upload.single('image'), async (req, res) => {
     try {
-        const country = await Country.create(req.body)
+        const country = await Country.create({
+            name: req.body.name,
+            image: req.file.filename,
+            description: req.body.description,
+        })
         res.status(201).json({ message: 'Country added successfully', country });
     } catch (error) {
         console.log(error.message);
@@ -136,22 +143,13 @@ router.get('/countries/getCountry/:id', async (req, res) => {
  *             properties:
  *               name:
  *                 type: string
- *               imageMain:
- *                 type: string
- *               image1:
- *                 type: string
- *               image2:
- *                 type: string
- *               image3:
+ *               image:
  *                 type: string
  *               description:
  *                 type: string
  *             required:
  *               - name
- *               - imageMain
- *               - image1
- *               - image2
- *               - image3
+ *               - image
  *               - description
  *     responses:
  *       200:
@@ -162,17 +160,19 @@ router.get('/countries/getCountry/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.put('/countries/update/:id', async (req, res) => {
+router.put('/countries/update/:id',upload.single('image') ,async (req, res) => {
     const id = req.params.id;
     try {
-        const result = await Country.findByIdAndUpdate({ _id: id }, {
+        const updateFields = {
             name: req.body.name,
-            imageMain: req.body.imageMain,
-            image1: req.body.image1,
-            image2: req.body.image2,
-            image3: req.body.image3,
             description: req.body.description,
-        });
+        };
+
+        if (req.file) {
+            updateFields.image = req.file.filename;
+        }
+
+        const result = await Country.findByIdAndUpdate({ _id: id }, updateFields);
         res.status(result ? 200 : 404).json({
             message: result ? 'Country updated successfully' : 'Country not found'
         });
