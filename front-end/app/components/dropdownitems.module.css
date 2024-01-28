@@ -4,7 +4,7 @@
     margin: unset;
     display: flex;  /* Apply flex to the list */
     flex-direction: column;
-    color: rgb(208, 38, 38);
+    color: rgb(15, 15, 15);
   }
   
   .items {
@@ -15,8 +15,8 @@
   
   .items:hover {
     cursor: pointer;
-    color: #121212;
-    background: rgb(202, 121, 129);
+    color: #ef0c0c;
+    
     transition-delay: 0.1s;
   }
   

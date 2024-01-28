@@ -8,6 +8,7 @@
 }
 
 .footerContainer {
+  background-color: #0c0c0c;
   color: white;
   padding: 50px;
 }
@@ -74,6 +75,7 @@
 }
 
 .Lang {
+  
   color: #efe8e8;
   font-family: Inter;
   font-size: 20px;
