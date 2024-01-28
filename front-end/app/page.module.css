@@ -1,17 +1,19 @@
- /*
-.image {
-  height: calc(100vh - 50px);  
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 20px;  
+.text {
+ background-color: #0c0c0c;
+  padding: 20px;
+  color: #f5f6f7;
+ 
 }
- */
 
- .imagecontainer {
+.imagecontainer {
   display: flex;
-  height: calc(100vh - 50px); /* Adjust height as needed */
+  height: calc(100vh - 50px);
+  
+  background-color: black;
+
 }
- .image {
+
+.image {
   flex: 1;
   background-size: cover;
   background-position: center;
@@ -21,22 +23,37 @@
   background-image: url('/Images/Pic.jpeg');
 }
 
-.centerImage{
+.centerImage {
   background-image: url('/Images/Pic2.jpeg');
 }
 
 .rightImage {
   background-image: url('/Images/Pic3.jpeg');
 }
-  
-  .overlaytext {
-    position: absolute;
-    font-size: 30px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    width: 120%;
-    text-shadow: 2px 2px 6px rgb(25, 25, 26);
-  }
+
+.overlaytext{
+  position: absolute;
+  font-size: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  width: 100%;
+  text-shadow: 2px 2px 6px rgb(25, 25, 26);
+
+}
+
+.button {
+  position: absolute;
+
+  right: 10px;
+  overflow: hidden;
+  background-color: #f5f6f7;
+  color: #0c0c0c;
+  padding: 10px 20px;
+  border-radius: 60px;
+  outline: none;
+  cursor: pointer;
+  margin-top: -20px;
+}
