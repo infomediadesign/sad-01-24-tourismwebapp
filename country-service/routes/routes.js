@@ -236,7 +236,7 @@ router.get('/countries/places', async (req, res) => {
     try {
         const countries = await Country.find({})
         const countriesWithPlaces = await Promise.all(countries.map(async country => {
-            const placesRes = await axios.get(`http://localhost:9000/places/${country.name}`)
+            const placesRes = await axios.get(`http://localhost:7000/places/${country.name}`)
             const places = placesRes.data;
             return {
                 ...country.toObject(),
