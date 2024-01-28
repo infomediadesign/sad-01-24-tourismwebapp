@@ -24,7 +24,7 @@ function Aboutus() {
                     height={50}
                     
                 /> */}
-          <IoLogoTwitter size={30} style={{ marginBottom: '10px' }}/>
+          <IoLogoTwitter size={30} style={{ marginBottom: '10px',color: 'white' }}/>
 
 
         {/* <Image
@@ -33,7 +33,7 @@ function Aboutus() {
                     width={50}
                     height={50}
                 /> */}
-            <FaFacebook size={30} style={{ marginBottom: '10px' }}/>
+            <FaFacebook size={30} style={{ marginBottom: '10px',color: 'white'  }}/>
           
 
         {/* <Image
@@ -42,7 +42,7 @@ function Aboutus() {
                     width={50}
                     height={50}
                 /> */}
-              <RiInstagramFill size={30} style={{ marginBottom: '10px' }}/>
+              <RiInstagramFill size={30} style={{ marginBottom: '10px',color: 'white' }}/>
 
         {/* <Image
                     src="/Images/youtube.svg"
@@ -50,7 +50,7 @@ function Aboutus() {
                     width={50}
                     height={50}
                 /> */}
-              <FaYoutube size={30}/>
+              <FaYoutube size={30} style={{ color: 'white' }} />
                 
         </div>
        

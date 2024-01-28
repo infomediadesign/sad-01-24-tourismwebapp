@@ -66,7 +66,7 @@ const Navbar = () => {
 
 
                     <li>
-                        <Link className={styles.navLink} href="/Aboutus">About Us</Link>
+                        <Link className={styles.navLink} href="/Userpage/Aboutus">About Us</Link>
                     </li>
                     <li>
                         <Link className={styles.navLink} href="/">Sign In</Link>
