@@ -59,7 +59,7 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
     return (
         <div className={styles.container}>
             <div className={styles.text}>
-                Add Country
+                Update Country
             </div>
             <form onSubmit={onSubmit}>
                 <div className={styles.formrow}>

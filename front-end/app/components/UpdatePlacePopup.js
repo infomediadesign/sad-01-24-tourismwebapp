@@ -72,7 +72,7 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
 
         <div className={styles.container}>
             <div className={styles.text}>
-                Add Places
+                Update Places
             </div>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formrow}>
