@@ -37,11 +37,11 @@
 .inputdata {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Align items vertically in the center */
+    align-items: center; 
   }
   
 .label {
-    margin-right: 10px; /* Adjust the margin as needed */
+    margin-right: 10px; 
   }
   
 .inputdata input {
@@ -50,13 +50,18 @@
   }
   .labelimg {
     margin-right: 10px;
-    margin-left: 70px; /* Adjust the margin as needed */
+    margin-left: 70px;
+  }
+
+  .labelplace {
+    margin-right: 10px;
+    margin-left: 70px; 
   }
 
 .msg {
+
     margin-left: -95px;
-    margin-right: 15px;
-    
+    margin-right: 15px;    
   
 }
 .img{
@@ -107,13 +112,6 @@
     cursor: pointer;
     margin-left: 10px;
     margin-bottom: 8%;
-  }
-
-  .date{
-  
- 
-      margin-right: 15px;
-      
   }
   
   
