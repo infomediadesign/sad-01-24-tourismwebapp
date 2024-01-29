@@ -48,7 +48,7 @@
 }
 .placesContainer .actionButtonsContainer {
   display: flex;
-  justify-content: space-between; /* Adjust as needed */
+   /* Adjust as needed */
 }
 
 /* Style for action buttons 

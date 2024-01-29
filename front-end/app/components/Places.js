@@ -15,35 +15,32 @@ export default function Places() {
   };
 
   const renderImages = () => {
+    const commonImageStyle = "w-64 h-64 mr-10";
     switch (activeCategory) {
       case 'restaurants':
         return (
-          <div className="flex mt-4 min-h-64 relative">
-            <img src="/image/restaurant1.jpg" alt="Restaurant 1" className="w-64 h-64 mr-2" />
-            <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className="w-64 h-64 mr-2" />
-            <img src="/image/restaurant3.jpg" alt="Restaurant 3" className="w-64 h-64 mr-2" />
-            <img src="/image/restaurant4.jpg" alt="Restaurant 4" className="w-64 h-64 mr-2" />
-            <img src="/image/restaurant5.jpg" alt="Restaurant 5" className="w-64 h-64" />
+          <div className="flex mt-4 min-h-64 justify-center items-center">
+            <img src="/image/restaurant1.jpg" alt="Restaurant 1" className={commonImageStyle} />
+            <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className={commonImageStyle} />
+            <img src="/image/restaurant3.jpg" alt="Restaurant 3" className={commonImageStyle}/>
+           
           </div>
         );
       case 'hotels':
         return (
-          <div className="flex mt-4 min-h-64 relative">
-            <img src="/image/hotel2.jpg" alt="Hotel 1" className="w-64 h-64 mr-2" />
-            <img src="/image/hotel3.jpg" alt="Hotel 2" className="w-64 h-64 mr-2" />
-            <img src="/image/hotel4.jpg" alt="Hotel 3" className="w-64 h-64 mr-2" />
-            <img src="/image/hotel5.jpg" alt="Hotel 4" className="w-64 h-64 mr-2" />
-            <img src="/image/hotel6.jpg" alt="Hotel 5" className="w-64 h-64" />
+           <div className="flex mt-4 min-h-64 justify-center items-center">
+            <img src="/image/hotel2.jpg" alt="Hotel 1" className= {commonImageStyle}/>
+            <img src="/image/hotel3.jpg" alt="Hotel 2" className={commonImageStyle} />
+            <img src="/image/hotel4.jpg" alt="Hotel 3" className={commonImageStyle} />
+           
           </div>
         );
       case 'shopping':
         return (
-          <div className="flex mt-4 min-h-64 relative">
-            <img src="/image/shopping1.jpeg" alt="Shopping 1" className="w-64 h-64 mr-2" />
-            <img src="/image/shopping2.jpg" alt="Shopping 2" className="w-64 h-64 mr-2" />
-            <img src="/image/shopping3.jpg" alt="Shopping 3" className="w-64 h-64 mr-2" />
-            <img src="/image/shopping4.jpg" alt="Shopping 4" className="w-64 h-64 mr-2" />
-            <img src="/image/shopping5.jpg" alt="Shopping 5" className="w-64 h-64" />
+          <div className="flex mt-4 min-h-64 justify-center items-center">
+            <img src="/image/shopping1.jpeg" alt="Shopping 1" className={commonImageStyle} />
+            <img src="/image/shopping2.jpg" alt="Shopping 2" className={commonImageStyle} />
+            <img src="/image/shopping5.jpg" alt="Shopping 5" className={commonImageStyle} />
           </div>
         );
       default:
@@ -109,6 +106,7 @@ export default function Places() {
                 </button>
                 </div>
               </div>
+              <div className="flex justify-center items-center"></div>
               {renderImages()}
             </div>
             <div className={styles.googleMapsImageContainer}>
