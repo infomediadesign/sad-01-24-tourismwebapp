@@ -94,9 +94,10 @@ export default function page() {
                         <tbody>
                         {saveditemsdetails.map((detail) => (
                             <tr  key={detail._id}>
-                                 <td> {detail.name}</td>
+                               <td> {detail.place}</td>
+                                 <td> {detail.custid}</td>
                                 <td> {detail.country}</td>
-                                <td> {detail.place}</td>
+                               
                                 <td> {detail.date}</td>
                                 <td className={styles.buttons}>
                                     <button className={styles.add}  onClick={handleUpdate(detail._id)}>Update</button>
