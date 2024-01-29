@@ -70,19 +70,20 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
                         />
                     </div>
                     <div className={styles.inputdata}>
-                        <label className={styles.labelimg}>Image</label>
-                        <input type='file'
-                            accept='image/*'
-                            onChange={handleImgChange}
+                    <label className={styles.labelimg} >Description</label>
+                        <textarea
+                            onChange={(e) => setDesc(e.target.value)}
+                            value={description}
                         />
+                        
                     </div>
                 </div>
                 <div className={styles.formrow}>
                     <div className={styles.inputdata} >
-                        <label className={styles.msg}>Description</label>
-                        <textarea
-                            onChange={(e) => setDesc(e.target.value)}
-                            value={description}
+                    <label className={styles.label}>Image</label>
+                        <input type='file'
+                            accept='image/*'
+                            onChange={handleImgChange}
                         />
                     </div>
                 </div>
