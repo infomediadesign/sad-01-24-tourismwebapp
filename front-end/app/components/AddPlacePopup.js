@@ -34,33 +34,31 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
         setOpenPopup(false);
     }
 
-    const handleImageChange = (e) => {
-        // console.log(e.target.files[0]);
-        // setMainImg(e.target.files[0]);
-        // var reader = new FileReader();
-        // reader.readAsDataURL(e.target.files[0]);
-        // reader.onload = () => {
-        //     console.log(reader.result);
-        //     setMainImg(reader.result);
-        // };
-        // reader.onerror = function (error) {
-        //     console.log('Error: ', error);
-        // };
-        setMainImg(e.target.value);
+    const handleMainImgChange = (e) => {
+        setMainImg(e.target.files[0]);
+    };
+    const handleImgChange = (e) => {
+        setImg(e.target.files[0]);
     };
 
     const onSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            const response = await fetch('http://localhost:7000/places/addPlaces', {
-                method: 'POST',
-                body: JSON.stringify({ name, imageMain, image, country, description }),
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('imageMain', imageMain);
+            formData.append('image', image);
+            formData.append('country', country);
+            formData.append('description', description);
+
+            const response = await axios.post('http://localhost:7000/places/addPlaces', formData, {
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-Type': 'multipart/form-data'
                 }
             });
 
-            if (response.ok) {
+            if (response.status === 201) {
+                console.log(response.data);
                 const updatedData = await fetch('http://localhost:7000/places/getPlaces').then(res => res.json());
                 setPlaceDetails(updatedData);
                 setName("");
@@ -68,9 +66,9 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                 setMainImg("");
                 setImg("");
                 setCountry("");
-                setErrMsg("Form submitted successfully!");
+                setErrMsg(response.data.message);
             } else {
-                setErrMsg(`Error: ${response.statusText}`);
+                setErrMsg(error.message);
             }
         } catch (error) {
             setErrMsg(`Error: ${error.message}`);
@@ -97,7 +95,7 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                         <label className={styles.labelimg}>Main Image</label>
                         <input type='file'
                             accept="image/*"
-                            onChange={handleImageChange}
+                            onChange={handleMainImgChange}
                             required
                         />
                     </div>
@@ -106,8 +104,8 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                     <div className={styles.inputdata}>
                         <label className={styles.label}>Image</label>
                         <input type='file'
-                            onChange={(e) => setImg(e.target.value)}
-                            value={image}
+                            onChange={handleImgChange}
+                            accept='image/*'
                             required
                         />
                     </div>

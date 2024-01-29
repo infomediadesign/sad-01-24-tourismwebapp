@@ -18,6 +18,7 @@ export default function page() {
             .then(res => res.json())
             .then(data => {
                 setPlaceDetails(data)
+                console.log(data);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -86,9 +87,9 @@ export default function page() {
                                 <tr key={detail._id}>
                                     <td>{detail.name}</td>
                                     <td>
-                                        {placeDetails.imageMain && (
+                                        {detail.imageMain && (
                                             <img
-                                                src={`../images/${detail.imageMain}`}
+                                                src={`http://localhost:9000/images/${detail.imageMain}`}
                                                 height={100}
                                                 width={100}
                                             />
@@ -96,7 +97,7 @@ export default function page() {
                                     </td>
                                     <td>{detail.image && (
                                         <img
-                                            src={`../images/${detail.image}`}
+                                            src={`http://localhost:9000/images/${detail.image}`}
                                             height={100}
                                             width={100}
                                         />

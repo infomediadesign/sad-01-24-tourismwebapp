@@ -90,10 +90,7 @@ export default function page() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Main Img</th>
-                <th>Image1</th>
-                <th>Image2</th>
-                <th>Image3</th>
+                <th>Image</th>
                 <th>Description</th>
                 <th>Action</th>
               </tr>
@@ -102,10 +99,11 @@ export default function page() {
               {countrydetails.map((detail) => (
                 <tr key={detail._id}>
                   <td>{detail.name}</td>
-                  <td>{detail.imageMain} </td>
-                  <td>{detail.image1} </td>
-                  <td>{detail.image1} </td>
-                  <td>{detail.image1} </td>
+                  <td><img
+                    src={`http://localhost:5000/images/${detail.image}`}
+                    height={100}
+                    width={100}
+                  /></td>
                   <td>{detail.description} </td>
                   <td className={styles.buttons}>
                     <button className={styles.add} onClick={handleUpdate(detail._id)}>Update</button>
@@ -118,7 +116,7 @@ export default function page() {
         </div>
       </div>
       {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} countryId={countryId} />}
-      {updatePopup && <UpdateCountryPopup setOpenPopup={setUpdatePopup} countryId={countryId} updatedCountryDetails = {updatedCountry} />}
+      {updatePopup && <UpdateCountryPopup setOpenPopup={setUpdatePopup} countryId={countryId} updatedCountryDetails={updatedCountry} />}
     </div>
   )
 }

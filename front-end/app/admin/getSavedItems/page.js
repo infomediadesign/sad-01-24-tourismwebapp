@@ -14,7 +14,7 @@ export default function page() {
                             <tr>
                                 <th>Country</th>
                                 <th>City</th>
-                                <th>Main Image</th>
+                                <th>MainImave</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 
 const countrySchema = mongoose.Schema({
     name: String,
-    imageMain: String,
-    image1: String,
-    image2: String,
-    image3: String,
+    image: String,
     description: String,
 })
 
