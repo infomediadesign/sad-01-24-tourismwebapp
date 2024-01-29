@@ -35,11 +35,11 @@
 .inputdata {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Align items vertically in the center */
+    align-items: center; 
   }
   
 .label {
-    margin-right: 10px; /* Adjust the margin as needed */
+    margin-right: 10px; 
   }
   
 .inputdata input {
@@ -48,11 +48,16 @@
   }
   .labelimg {
     margin-right: 10px;
-    margin-left: 70px; /* Adjust the margin as needed */
+    margin-left: 70px;
+  }
+
+  .labelplace {
+    margin-right: 10px;
+    margin-left: 70px; 
   }
 
 .msg {
-    margin-left: -50px;
+    margin-left: -40px;
     
    margin-right: 10px;
 }

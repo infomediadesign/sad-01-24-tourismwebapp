@@ -62,7 +62,7 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         />
                     </div>
                     <div className={styles.inputdata}>
-                        <label className={styles.labelimg}>Main Image</label>
+                        <label className={styles.labelplace}>Main Image</label>
                         <input type='file'
                             onChange={(e) => setMainImg(e.target.value)}
                             value={imageMain}
