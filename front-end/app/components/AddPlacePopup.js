@@ -1,8 +1,7 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './addplace.module.css'
-import { useState } from 'react'
-import axios from 'axios'
+
 
 export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
     const [name, setName] = useState("");
@@ -11,6 +10,25 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
     const [image, setImg] = useState("");
     const [country, setCountry] = useState("");
     const [errmsg, setErrMsg] = useState("");
+
+    const [countries, setCountries] = useState([]);
+    // const [isLoading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      fetch('http://localhost:7000/countries')
+        .then((res) => res.json())
+        .then((data) => {
+          setCountries(data);
+          // setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching country data:', error);
+          // setLoading(false);
+        });
+    }, []);
+
+
+
 
     const handleClick = () => {
         setOpenPopup(false);
@@ -102,15 +120,23 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                 </div>
                 <div className={styles.inputdata} >
                     <label className={styles.label}>Country</label>
+                    {countries.map((country, index) => (
+
                     <select name="cars" id="cars"
                         onChange={(e) => setCountry(e.target.value)}
                         value={country}
-                        required >
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
+                        required className={styles.option} >
+                        <option key={index}  value={country.name}>{country.name}</option>
+
+
+                        {/* <option value="saab">Saab</option>
                         <option value="opel">Opel</option>
-                        <option value="audi">Audi</option>
+                        <option value="audi">Audi</option> */}
                     </select>
+
+                    
+))}
+
                 </div>
                 <button type="submit" className={styles.button}>Submit</button>
                 <button className={styles.button} onClick={handleClick}>Cancel</button>
