@@ -16,7 +16,37 @@ export default function Places() {
   const toggleContent = () => {
     setShowMore(!showMore);
   };
-
+  const renderImages = () => {
+    const commonImageStyle = "w-64 h-64 mr-10";
+    switch (activeCategory) {
+      case 'restaurants':
+        return (
+          <div className="flex mt-4 min-h-64 justify-center items-center">
+            <img src="/image/restaurant1.jpg" alt="Restaurant 1" className={commonImageStyle} />
+            <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className={commonImageStyle} />
+            <img src="/image/restaurant3.jpg" alt="Restaurant 3" className={commonImageStyle}/>
+           
+          </div>
+        );
+      case 'hotels':
+        return (
+           <div className="flex mt-4 min-h-64 justify-center items-center">
+            <img src="/image/hotel2.jpg" alt="Hotel 1" className= {commonImageStyle}/>
+            <img src="/image/hotel3.jpg" alt="Hotel 2" className={commonImageStyle} />
+            <img src="/image/hotel4.jpg" alt="Hotel 3" className={commonImageStyle} />
+           
+          </div>
+        );
+      case 'shopping':
+        return (
+          <div className="flex mt-4 min-h-64 justify-center items-center">
+            <img src="/image/shopping1.jpeg" alt="Shopping 1" className={commonImageStyle} />
+            <img src="/image/shopping2.jpg" alt="Shopping 2" className={commonImageStyle} />
+            <img src="/image/shopping5.jpg" alt="Shopping 5" className={commonImageStyle} />
+          </div>
+        );
+      default:
+        return null;
   const handleSave = async () => {
     try {
       const response = await fetch('http://localhost:7000/users/auth', { credentials: 'include' });
@@ -129,6 +159,18 @@ export default function Places() {
                 </div>
                 {renderImages()}
               </div>
+              <div className="flex justify-center items-center"></div>
+              {renderImages()}
+            </div>
+            <div className={styles.googleMapsImageContainer}>
+            <div className="flex mt-4">
+              <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/image/valleta_map.PNG"
+                  alt="Google Maps Link"
+                  className="w-full h-full"
+                />
+              </Link>
               <div className={styles.googleMapsImageContainer}>
                 <div className="flex mt-4">
                   <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">

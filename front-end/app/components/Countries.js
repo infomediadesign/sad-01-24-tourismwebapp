@@ -39,7 +39,7 @@ function Countries() {
         />
       </div>
       <div className={styles.description}>
-        <h1>MALTA</h1>
+      <h1 className="font-bold text-4xl">MALTA</h1>
         <p>
           Malta offers many diverse types of activities to suit the entire
           family. From walking around Valletta, the walled capital and a UNESCO
