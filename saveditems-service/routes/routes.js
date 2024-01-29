@@ -19,7 +19,8 @@ router.post('/saveditems/addSavedItem', async (req, res) => {
 router.get('/saveditems', async (req, res) => {
     try {
         const saveditem = await SavedItem.find({})
-        res.status(200).json(saveditem);
+        const count = await SavedItem.countDocuments();
+        res.status(200).json({saveditem, count});
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
@@ -48,6 +49,18 @@ router.put('/saveditems/update/:id', async (req, res) => {
         });
         res.status(result ? 200 : 404).json({
             message: result ? 'SavedItem updated successfully' : 'SavedItem not found'
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.delete('/saveditems/delete/:id', async (req, res) => {
+    try {
+        const result = await SavedItem.findByIdAndDelete(req.params.id);
+        res.status(result ? 200 : 404).json({
+            message: result ? 'SavedItem deleted successfully' : 'SavedItem not found'
         });
     } catch (error) {
         console.error(error.message);
