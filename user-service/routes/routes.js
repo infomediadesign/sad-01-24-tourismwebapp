@@ -95,11 +95,11 @@ const verifyUser = (req, res, next) => {
 
 /**
  * @openapi
- * '/users/country':
+ * '/users/auth':
  *   get:
  *     tags:
  *       - User
- *     summary: Get all countries
+ *     summary: Authenticate a user
  *     responses:
  *       200:
  *         description: Success
@@ -109,7 +109,7 @@ const verifyUser = (req, res, next) => {
  *         description: Internal Server Error
  */
 
-router.get('/users/country', verifyUser, (req, res) => {
+router.get('/users/auth', verifyUser, (req, res) => {
     res.status(200).json("Success");
 })
 

@@ -14,7 +14,7 @@ export default function page() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch('http://localhost:7000/users/country', { credentials: 'include' })
+    fetch('http://localhost:7000/users/auth', { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data === "Success") {
