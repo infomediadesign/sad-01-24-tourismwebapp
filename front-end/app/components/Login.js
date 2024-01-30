@@ -1,8 +1,9 @@
 import React from "react";
-import { AiOutlineTwitter } from "react-icons/ai";
+import { FaGoogle } from 'react-icons/fa'
 import { BiLogoFacebook } from "react-icons/bi";
 import styles from '../components/login.module.css'
 import Image from "next/image";
+
 
 const Login = () => {
   return (
@@ -24,12 +25,9 @@ const Login = () => {
           </button>
           <button
             type="button"
-            className="inlne-block mx-1 h-9 w-9 rounded-full bg-blue-600 hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
+            className="inline-block mx-1 h-9 w-9 rounded-full bg-red-600 hover:bg-red-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
           >
-            <AiOutlineTwitter
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
+            <FaGoogle size={20} className="flex justify-center items-center w-full" />
           </button>
         </div>
         <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
