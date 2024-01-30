@@ -65,16 +65,12 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                         />
                     </div>
                     <div className={styles.inputdata}>
-
                     <label className={styles.labelimg}>Description</label>
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
-
-
-                        
-
-                        
+                            required
+                        />
                         
                     </div>
                 </div>

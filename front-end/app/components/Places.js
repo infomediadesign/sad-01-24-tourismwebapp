@@ -131,7 +131,6 @@ export default function Places() {
                   src="/image/valleta_map.PNG"
                   alt="Google Maps Link"
                   className="w-full h-full"
-                  style={{ width: '100%' }}
                 />
               </Link>
               </div>
