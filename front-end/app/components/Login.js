@@ -3,6 +3,8 @@ import { FaGoogle } from 'react-icons/fa'
 import { BiLogoFacebook } from "react-icons/bi";
 import styles from '../components/login.module.css'
 import Image from "next/image";
+import { FcGoogle } from "react-icons/fc"
+
 
 
 const Login = () => {
@@ -25,9 +27,11 @@ const Login = () => {
           </button>
           <button
             type="button"
-            className="inline-block mx-1 h-9 w-9 rounded-full bg-red-600 hover:bg-red-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
+            className="mx-1 h-9 w-9 rounded-full bg-white hover:bg-blue-700 text-blue-600 shadow-[0_4px_9px_-4px_#3b71ca]"
           >
-            <FaGoogle size={20} className="flex justify-center items-center w-full" />
+            <FcGoogle size={20}
+              className="flex justify-center items-center w-full"
+            /> 
           </button>
         </div>
         <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
