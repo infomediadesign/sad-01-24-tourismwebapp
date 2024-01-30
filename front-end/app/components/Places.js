@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './places.module.css';
 import { MdRestaurant } from "react-icons/md";
-import { FaShoppingBag, FaHotel, FaRegHeart } from "react-icons/fa";
+import { FaShoppingBag, FaHotel, FaRegHeart, FaMapMarkedAlt, FaCloudSun } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Webweather from '../components/Webweather';
@@ -10,10 +10,21 @@ import Webweather from '../components/Webweather';
 export default function Places() {
   const [showMore, setShowMore] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
+  
 
   const toggleContent = () => {
     setShowMore(!showMore);
   };
+ /* const handleCategoryClick = async (category) => {
+    setActiveCategory(category);
+    if (category === 'weather') {
+      < Webweather/>
+      setWeatherComponent(() => weatherModule.default);
+      fetchWeatherData();
+    } else {
+      setWeatherComponent(null);
+    }
+  }; */
 
   const renderImages = () => {
     const commonImageStyle = "w-64 h-64 mr-20";
@@ -25,10 +36,7 @@ export default function Places() {
             <img src="/image/restaurant1.jpg" alt="Restaurant 1" className={commonImageStyle} />
             <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className={commonImageStyle} />
             <img src="/image/restaurant3.jpg" alt="Restaurant 3" className={commonImageStyle}/>
-            <div className="flex mt-4 justify-center items-right">
-         
-          <Webweather />
-            </div> 
+             
           </div>
         );
       case 'hotels':
@@ -37,10 +45,7 @@ export default function Places() {
             <img src="/image/hotel2.jpg" alt="Hotel 1" className= {commonImageStyle}/>
             <img src="/image/hotel3.jpg" alt="Hotel 2" className={commonImageStyle} />
             <img src="/image/hotel4.jpg" alt="Hotel 3" className={commonImageStyle} />
-            <div className="flex mt-4 justify-center items-center">
-          
-          <Webweather />
-            </div>
+           
           </div>
         );
       case 'shopping':
@@ -50,12 +55,29 @@ export default function Places() {
             <img src="/image/shopping1.jpeg" alt="Shopping 1" className={commonImageStyle} />
             <img src="/image/shopping2.jpg" alt="Shopping 2" className={commonImageStyle} />
             <img src="/image/shopping5.jpg" alt="Shopping 5" className={commonImageStyle} />
-            <div className="flex mt-4 justify-center items-center">
-          
-            <Webweather />
+            
           </div>
-          </div>
-        );
+       );
+
+       case 'maps':
+        return (
+        <div className="flex mt-4">
+              <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/image/valleta_map.PNG"
+                  alt="Google Maps Link"
+                  className="w-full h-full"
+                />
+              </Link>
+              </div>
+         );
+       case 'weather': 
+       return ( 
+       <div> 
+        <Webweather/>
+       </div>
+       );
+
       default:
         return null;
     }
@@ -105,26 +127,39 @@ export default function Places() {
               <p className="text-xl font-bold text-blue-500 ml-0 text-left mb-4">Things to do around Valletta</p>
               <div className={`${styles.buttonsAndImagesContainer} mb-4`}>
               <div className={styles.actionButtonsContainer}>
+
               <button className={`px-4 py-2 mr-4 focus:outline-none ${activeCategory === 'restaurants' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('restaurants')}>
                   <MdRestaurant className="inline-block mr-2" />
                   Restaurants
                 </button>
-                {/* Button for Hotels */}
-                <button className={`px-4 py-2 mr-4 focus:outline-none ${activeCategory === 'hotels' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('hotels')}>
+
+               <button className={`px-4 py-2 mr-4 focus:outline-none ${activeCategory === 'hotels' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('hotels')}>
                   <FaHotel className="inline-block mr-2" />
                   Hotels
                 </button>
-                {/* Button for Shopping */}
-                <button className={`px-4 py-2 focus:outline-none ${activeCategory === 'shopping' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('shopping')}>
+                
+                <button className={`px-4 py-2 mr-4 focus:outline-none ${activeCategory === 'shopping' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('shopping')}>
                   <FaShoppingBag className="inline-block mr-2" />
                   Shopping
                 </button>
+
+                <button className={`px-4 py-2 mr-4 focus:outline-none ${activeCategory === 'maps' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('maps')}>
+                <FaMapMarkedAlt className="inline-block mr-2" />
+                  Maps
+                </button>
+
+
+               <button className={`px-4 py-2 focus:outline-none ${activeCategory === 'weather' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('weather')}>
+                <FaCloudSun className="inline-block mr-2" />
+                 Weather
+               </button>
                 </div>
               </div>
-              <div className="flex justify-center items-center"></div>
+
+                <div className="flex justify-center items-center"></div>
               {renderImages()}
             </div>
-            <div className={styles.googleMapsImageContainer}>
+            {/* <div className={styles.googleMapsImageContainer}>
             <div className="flex mt-4">
               <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
                 <img
@@ -134,7 +169,9 @@ export default function Places() {
                 />
               </Link>
               </div>
-            </div>
+  
+            </div>  */}
+
             <button className={`${styles.readMoreButton} bg-transparent text-black font-bold flex items-center`} onClick={toggleContent}>
             Read Less <FaAngleUp className="ml-4" />
           </button>

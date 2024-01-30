@@ -31,18 +31,25 @@ const WeatherComponent = () => {
   return (
     <div className="bg-blue-500 rounded-lg p-4 text-white ml-auto">
       {weatherData && (
-        <div>
-          <h2 className="font-bold">Weather in {weatherData.name}</h2>
+       
+        <div className="text-center">
+          <h2 className="font-bold"> {weatherData.name}</h2>
           <p className="flex items-center">
             <span className="mr-2 text-2xl">&#9729;</span>{weatherData.clouds.all}%
           </p>
           <p className="flex items-center">
             <span className="mr-2 text-2xl">&#x1F321;</span>{kelvinToCelsius(weatherData.main.temp).toFixed(2)} °C
           </p>
-          <p className="flex items-center">
+          <p className="flex items-right">
             <span className="mr-2 text-2xl">&#x1F4A7;</span>{weatherData.main.humidity}%
           </p>
-          {/* Add more weather information as needed */}
+          <p className="flex items-right">
+          <span className="mr-2 text-2xl">&#x2191;</span>{kelvinToCelsius(weatherData.main.temp_max).toFixed(2)} °C {/* Max Temp */}
+        </p>
+        <p className="flex items-center">
+          <span className="mr-2 text-2xl">&#x2193;</span>{kelvinToCelsius(weatherData.main.temp_min).toFixed(2)} °C {/* Min Temp */}
+        </p>
+        
         </div>
       )}
     </div>
