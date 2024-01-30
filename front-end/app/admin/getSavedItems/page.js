@@ -72,10 +72,6 @@ export default function page() {
   };
 
 
-
-
-
-
     return (
         <div>
             <NavbarAdmin />

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { format } from 'date-fns';
 
 export default function Updatesavedpop({ setOpenPopup, updatedSaveditemsDetails, saveditemsId }) {
-    const [description, setName] = useState("");
+    const [custid, setName] = useState("");
     const [country, setCountry] = useState("");
     const [place, setPlace] = useState("");
     const [date, setDate] = useState("");
@@ -32,7 +32,7 @@ export default function Updatesavedpop({ setOpenPopup, updatedSaveditemsDetails,
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    setName(data.description);
+                    setName(data.custid);
                     setCountry(data.country);
                     setPlace(data.place);
                     setDate(data.date);
@@ -46,7 +46,7 @@ export default function Updatesavedpop({ setOpenPopup, updatedSaveditemsDetails,
     const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData();
-        formData.append('description', description);
+        formData.append('custid', custid);
         formData.append('country', country);
         formData.append('place', place);
         formData.append('date', date);
