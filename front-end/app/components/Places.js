@@ -5,6 +5,7 @@ import { MdRestaurant } from "react-icons/md";
 import { FaShoppingBag, FaHotel, FaRegHeart } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Link from 'next/link';
+import Webweather from '../components/Webweather';
 
 export default function Places() {
   const [showMore, setShowMore] = useState(false);
@@ -15,32 +16,44 @@ export default function Places() {
   };
 
   const renderImages = () => {
-    const commonImageStyle = "w-64 h-64 mr-10";
+    const commonImageStyle = "w-64 h-64 mr-20";
     switch (activeCategory) {
       case 'restaurants':
         return (
-          <div className="flex mt-4 min-h-64 justify-center items-center">
+         
+          <div className="flex mt-4 min-h-64 justify-center items-center ">
             <img src="/image/restaurant1.jpg" alt="Restaurant 1" className={commonImageStyle} />
             <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className={commonImageStyle} />
             <img src="/image/restaurant3.jpg" alt="Restaurant 3" className={commonImageStyle}/>
-           
+            <div className="flex mt-4 justify-center items-right">
+         
+          <Webweather />
+            </div> 
           </div>
         );
       case 'hotels':
         return (
-           <div className="flex mt-4 min-h-64 justify-center items-center">
+           <div className="flex mt-4 min-h-64 justify-center items-center ">
             <img src="/image/hotel2.jpg" alt="Hotel 1" className= {commonImageStyle}/>
             <img src="/image/hotel3.jpg" alt="Hotel 2" className={commonImageStyle} />
             <img src="/image/hotel4.jpg" alt="Hotel 3" className={commonImageStyle} />
-           
+            <div className="flex mt-4 justify-center items-center">
+          
+          <Webweather />
+            </div>
           </div>
         );
       case 'shopping':
         return (
-          <div className="flex mt-4 min-h-64 justify-center items-center">
+         
+          <div className="flex mt-4 min-h-64 justify-center items-center mr-20">
             <img src="/image/shopping1.jpeg" alt="Shopping 1" className={commonImageStyle} />
             <img src="/image/shopping2.jpg" alt="Shopping 2" className={commonImageStyle} />
             <img src="/image/shopping5.jpg" alt="Shopping 5" className={commonImageStyle} />
+            <div className="flex mt-4 justify-center items-center">
+          
+            <Webweather />
+          </div>
           </div>
         );
       default:
@@ -76,6 +89,8 @@ export default function Places() {
             16th century, conceived and planned the city as a single.
           </p>
         </div>
+        
+       
         {showMore ? (
           <>
             <div className={styles.additionalContent + ' text-justify mb-4' }>
@@ -116,6 +131,7 @@ export default function Places() {
                   src="/image/valleta_map.PNG"
                   alt="Google Maps Link"
                   className="w-full h-full"
+                  style={{ width: '100%' }}
                 />
               </Link>
               </div>

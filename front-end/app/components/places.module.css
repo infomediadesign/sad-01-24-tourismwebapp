@@ -90,9 +90,10 @@
 }
 
 
-/* Style for the Google Maps link */
+
 .flex a {
-  margin-left: 80%; /* Adjust the margin as needed */
+  margin-left: 80%;
+  width: 100% 
 
 }
   

@@ -1,39 +1,52 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useEffect } from 'react';
+// import { TbTemperatureCelsius } from "react-icons/tb";
+// import { FaCloud, FaTint } from 'react-icons/fa';
 
-const WeatherForecast = () => {
+const WeatherComponent = () => {
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    const socket = io('http://localhost:3001');
+    const fetchWeatherData = async () => {
+      try {
+        const response = await fetch(
+          'https://api.openweathermap.org/data/2.5/weather?q=valletta&appid=0e93c77502c1ddc4802a0937111ae25b'
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-    // Subscribe to weather updates
-    socket.on('weatherUpdate', (data) => {
-      setWeatherData(data);
-    });
-
-    // Cleanup the socket connection on component unmount
-    return () => {
-      socket.disconnect();
+        const data = await response.json();
+        setWeatherData(data);
+      } catch (error) {
+        console.error('Error fetching weather data:', error.message);
+      }
     };
-  }, []);
+
+    fetchWeatherData();
+  }, []); // Make the request only once when the component mounts
+
+  const kelvinToCelsius = (kelvin) => kelvin - 273.15;
 
   return (
-    <div>
-      <h2>Weather Forecast</h2>
-      {weatherData ? (
+    <div className="bg-blue-500 rounded-lg p-4 text-white ml-auto">
+      {weatherData && (
         <div>
-          <p>Date: {weatherData.date}</p>
-          <p>Day: {weatherData.day}</p>
-          <p>Time: {weatherData.time}</p>
-          <p>Weather Report: {weatherData.weatherReport}</p>
+          <h2 className="font-bold">Weather in {weatherData.name}</h2>
+          <p className="flex items-center">
+            <span className="mr-2 text-2xl">&#9729;</span>{weatherData.clouds.all}%
+          </p>
+          <p className="flex items-center">
+            <span className="mr-2 text-2xl">&#x1F321;</span>{kelvinToCelsius(weatherData.main.temp).toFixed(2)} °C
+          </p>
+          <p className="flex items-center">
+            <span className="mr-2 text-2xl">&#x1F4A7;</span>{weatherData.main.humidity}%
+          </p>
+          {/* Add more weather information as needed */}
         </div>
-      ) : (
-        <p>Loading weather data...</p>
       )}
     </div>
   );
 };
 
-export default WeatherForecast;
+export default WeatherComponent;
