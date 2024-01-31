@@ -7,6 +7,10 @@
     left: 15%;
     position: relative;
 }
+.label{
+    font-weight: 600;
+    font-size: 22px;
+}
 .test {
     margin-top: 5%;
 }

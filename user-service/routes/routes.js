@@ -152,7 +152,7 @@ router.post('/users/login', (req, res) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
                         res.cookie('token', token, { httpOnly: true })
-                        return res.status(200).json({ status: "successful", token, role: user.role })
+                        return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful"})
                     } else {
                         return res.status(401).json({ message: "Login failed" })
                     }

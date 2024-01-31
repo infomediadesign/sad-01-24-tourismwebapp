@@ -3,12 +3,13 @@ import React from 'react'
 import styles from './addplace.module.css'
 import { useState } from 'react'
 import axios from 'axios'
+import { toast, Toaster } from 'sonner'
 
 export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [image, setImg] = useState();
-    const [errmsg, setErrMsg] = useState("");
+    // const [errmsg, setErrMsg] = useState("");
 
     const handleClick = () => {
         setOpenPopup(false);
@@ -40,12 +41,15 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                 setName("");
                 setDesc("");
                 setImg("");
-                setErrMsg(response.data.message);
+                // setErrMsg(response.data.message);
+                toast.success(response.data.message);
             } else {
-                setErrMsg(`Error: ${response.statusText}`);
+                // setErrMsg(`Error: ${response.statusText}`);
+                toast.error(`Error: ${response.statusText}`);
             }
         } catch (error) {
-            setErrMsg(`Error: ${error.message}`);
+            // setErrMsg(`Error: ${error.message}`);
+            toast.error(`Error: ${error.message}`);
         }
     }
 
@@ -87,7 +91,6 @@ export default function AddCountryPopup({ setOpenPopup, setCountryDetail }) {
                 <button type="submit" className={styles.btn}>Submit</button>
                 <button className={styles.cnl} onClick={handleClick}>Cancel</button>
             </form>
-            <div>{errmsg}</div>
         </div>
     )
 }
