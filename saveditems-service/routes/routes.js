@@ -26,7 +26,7 @@ router.get('/saveditems', async (req, res) => {
     }
 })
 
-router.get('/saveditems/get:id', async (req, res) => {
+router.get('/saveditems/get/:id', async (req, res) => {
     try {
         const saveditem = await SavedItem.findById(req.params.id)
         res.status(200).json(saveditem);
@@ -38,14 +38,16 @@ router.get('/saveditems/get:id', async (req, res) => {
 
 router.put('/saveditems/update/:id', async (req, res) => {
     const id = req.params.id;
+    console.log(`request: ${req.body}`);
+    // console.log(`id: ${id}`);
     try {
         const result = await SavedItem.findByIdAndUpdate({ _id: id }, {
             place: req.body.place,
-            custid: req.body.custid,
+            email: req.body.email,
             country: req.body.country,
             date: req.body.date,
-            description: req.body.description,
         });
+        console.log(`result: ${result}`);
         res.status(result ? 200 : 404).json({
             message: result ? 'SavedItem updated successfully' : 'SavedItem not found'
         });

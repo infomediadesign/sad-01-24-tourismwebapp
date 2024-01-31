@@ -6,19 +6,32 @@ import styles from '../getCountry/getCountry.module.css'
 import AddPlacePopup from '@/app/components/AddPlacePopup'
 import Link from 'next/link'
 import UpdatePlacePopup from '@/app/components/UpdatePlacePopup'
+import { toast, Toaster } from 'sonner'
 
 export default function page() {
     const [openPopup, setOpenPopup] = useState(false);
     const [openUpdatePopup, setUpdatePopup] = useState(false);
     const [placeDetails, setPlaceDetails] = useState([]);
     const [placeId, setPlaceId] = useState("");
+    const [countries, setCountries] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:7000/countries')
+            .then((res) => res.json())
+            .then((data) => {
+                setCountries(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching country data:', error);
+            });
+    }, []);
 
     useEffect(() => {
         fetch('http://localhost:7000/places/getPlaces')
             .then(res => res.json())
             .then(data => {
                 setPlaceDetails(data)
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -29,7 +42,7 @@ export default function page() {
         setOpenPopup(true);
     }
 
-    const handleUpdateClick = (id) => { 
+    const handleUpdateClick = (id) => {
         // console.log(id);
         setPlaceId(id);
         setUpdatePopup(true);
@@ -53,12 +66,13 @@ export default function page() {
             });
 
             if (response.ok) {
-                console.log(`Place with ID ${id} deleted successfully`);
+                toast.error("Place Deleted Successfully");
                 const updatedPlaceDetails = placeDetails.filter(detail => detail._id !== id);
                 setPlaceDetails(updatedPlaceDetails);
             }
         } catch (error) {
             console.error('Error during deletion:', error.message);
+            toast.error(error.message);
         }
     };
     return (
@@ -66,7 +80,7 @@ export default function page() {
             <NavbarAdmin />
             <div className={styles.countrydetails}>
                 <div>
-                    <h1>Place Details</h1>
+                    <h1 className={styles.label}>Place Details</h1>
                     <div className={styles.buttons}>
                         <button className={styles.add} onClick={handleClick}>Add</button>
                     </div>
@@ -112,9 +126,10 @@ export default function page() {
                             ))}
                         </tbody>
                     </table>
+                    <Toaster position="bottom-center" richColors duration={5000} />
                 </div>
-                {openPopup && <AddPlacePopup setOpenPopup={setOpenPopup} setPlaceDetails={setPlaceDetails} />}
-                {openUpdatePopup && <UpdatePlacePopup setOpenPopup={setUpdatePopup} placeId={placeId} updatePlaceDetails={updatePlaceDetails} />}
+                {openPopup && <AddPlacePopup setOpenPopup={setOpenPopup} setPlaceDetails={setPlaceDetails} countries={countries}/>}
+                {openUpdatePopup && <UpdatePlacePopup setOpenPopup={setUpdatePopup} placeId={placeId} updatePlaceDetails={updatePlaceDetails} countries={countries}  />}
             </div>
         </div>
     )

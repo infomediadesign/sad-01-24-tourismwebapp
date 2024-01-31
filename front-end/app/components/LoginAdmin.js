@@ -3,11 +3,12 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import styles from './adminlogin.module.css'
+import { Toaster, toast } from 'sonner';
 
 export default function LoginAdmin({ setRole, setStatus }) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [err, setErr] = useState()
+    // const [err, setErr] = useState()
 
     axios.defaults.withCredentials = true;
 
@@ -17,8 +18,10 @@ export default function LoginAdmin({ setRole, setStatus }) {
             .then(res => {
                 setRole(res.data.role)
                 setStatus(res.data.status)
+                // toast.success(res.data.message);
             }).catch(err => {
-                setErr(err.response.data.message)
+                // setErr(err.response.data.message)
+                toast.error(err.response.data.message);
             });
     }
     // const handleSubmit = (e) => {
@@ -52,7 +55,7 @@ export default function LoginAdmin({ setRole, setStatus }) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button type='submit'>login</button>
-                    <p>{err}</p>
+                    <Toaster position="bottom-center" richColors duration={5000}/>
                 </form>
             </div>
         </div>

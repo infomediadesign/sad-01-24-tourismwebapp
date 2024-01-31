@@ -2,12 +2,13 @@
 import React, { useEffect } from 'react'
 import styles from './addplace.module.css'
 import { useState } from 'react'
+import { toast, Toaster } from 'sonner'
 
 export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails, countryId }) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [image, setImg] = useState("");
-    const [errmsg, setErrMsg] = useState("");
+    // const [errmsg, setErrMsg] = useState("");
 
     const handleClick = () => {
         setOpenPopup(false);
@@ -45,13 +46,15 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
             body: formData,
         }).then(response => response.json())
             .then(data => {
-                setErrMsg(data.message);
+                // setErrMsg(data.message);
                 // setOpenPopup(false);
+                toast.success(data.message);
                 console.log(data.message);
                 updatedCountryDetails();
             })
             .catch((error) => {
-                setErrMsg(error.message);
+                // setErrMsg(error.message);
+                toast.error(error.message);
             });
     }
 
@@ -70,17 +73,17 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
                         />
                     </div>
                     <div className={styles.inputdata}>
-                    <label className={styles.labelimg} >Description</label>
+                        <label className={styles.labelimg} >Description</label>
                         <textarea
                             onChange={(e) => setDesc(e.target.value)}
                             value={description}
                         />
-                        
+
                     </div>
                 </div>
                 <div className={styles.formrow}>
                     <div className={styles.inputdata} >
-                    <label className={styles.label}>Image</label>
+                        <label className={styles.label}>Image</label>
                         <input type='file'
                             accept='image/*'
                             onChange={handleImgChange}
@@ -90,7 +93,6 @@ export default function UpdateCountryPopup({ setOpenPopup, updatedCountryDetails
                 <button type="submit" className={styles.btn}>Submit</button>
                 <button className={styles.cnl} onClick={handleClick}>Cancel</button>
             </form>
-            <div>{errmsg}</div>
         </div>
     )
 }
