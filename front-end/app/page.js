@@ -15,12 +15,13 @@ export default function Home() {
         <div className={`${styles.image} ${styles.leftImage}`}></div>
         <div className={`${styles.image} ${styles.centerImage}`}></div>
         <div className={`${styles.image} ${styles.rightImage}`}></div>
+        
       </div>
       <div className={styles.overlaytext}>
-        <h1>Explore travel moments worthy of a story to tell.</h1>
+        <p>Explore travel moments worthy of a story to tell.</p>
       </div>
-    </div>
-   
+      </div>
+     
       <div className={styles.text}>
       <br/>
         <h2>Set up your trip.</h2>

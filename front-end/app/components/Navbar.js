@@ -5,9 +5,26 @@ import styles from './navbar.module.css'
 import Dropdownitems from './Dropdownitems';
 import { IoSearchSharp } from "react-icons/io5";
 import Link from 'next/link'
+import Login from '@/app/components/Login';
+import { useState } from 'react';
+
 
 
 const Navbar = () => {
+
+    const [openPopup, setOpenPopup] = useState(false);
+
+
+    const handleLogin = () => {
+        setOpenPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setOpenPopup(false);
+    };
+
+
+
 
     const [active, setActive] = React.useState(false);
 
@@ -69,17 +86,14 @@ const Navbar = () => {
                         <Link className={styles.navLink} href="/Userpage/Aboutus">About Us</Link>
                     </li>
                     <li>
-                        <Link className={styles.navLink} href="/">Sign In</Link>
+                    <button  onClick={handleLogin}>Sign In</button>
                     </li>
                 </ul>
+                {openPopup && <Login setOpenPopup={setOpenPopup} handleClosePopup={handleClosePopup} />}
             </div>
         </nav>
     );
 }
-
-
-
-
 
 
 export default Navbar;
