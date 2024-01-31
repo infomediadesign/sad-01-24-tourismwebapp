@@ -8,9 +8,18 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
     <div className={styles.overlay}>
       <div className={styles.popup}>
         <div className={styles.container}>
-          <section className="h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
+        <button className={styles.closeButton} onClick={handleClosePopup}>
+          X
+        </button>
+        <section className={`h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 items-center my-2 mx-5 md:mx-0 ${styles.mdMyOverride}`}>
             <div className="md:w-1/2 max-w-sm mx-auto">
               <div className="text-center md:text-left">
+
+
+
+
+              <div className={styles.labelContainer}> 
+
                 <label className="mr-1">Sign in with</label>
                 <button
                   type="button"
@@ -30,6 +39,11 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
                     className="flex justify-center items-center w-full"
                   />
                 </button>
+
+
+
+                </div>
+                
               </div>
               <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold text-slate-500">
@@ -73,12 +87,13 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
                   href="#"
                 >
                   Register
+                  
                 </a>
               </div>
             </div>
           </section>
         </div>
-        <button onClick={handleClosePopup}>Close</button>
+        
       </div>
     </div>
   );
