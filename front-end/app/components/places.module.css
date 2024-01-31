@@ -1,4 +1,4 @@
-/* places.module.css */
+
 
 .placesContainer {
   position: relative;
@@ -37,7 +37,7 @@
 }
 
 .saveButton {
-  background-color: black; /* Change to black background */
+  background-color: black;
   color: #fff;
   padding: 10px 20px;
   cursor: pointer;
@@ -48,24 +48,15 @@
 }
 .placesContainer .actionButtonsContainer {
   display: flex;
-   /* Adjust as needed */
+ 
 }
 
-/* Style for action buttons 
-.placesContainer .actionButton {
-  background-color: black;
-  color: white;
-  border-radius: 8px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-} */
 
-/* Style for action button icons */
+
+
 .placesContainer .actionButton svg {
   margin-right: 10px;
-  font-size: 20px; /* Adjust the font size as needed */
+  font-size: 20px; 
   margin-right: 10px;
 }
 
@@ -78,22 +69,14 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  text-align: center; /* Align text center */
-  width: auto; /* Change to auto for variable width */ 
+  text-align: center; 
+  width: auto;
   margin: 0 auto; 
 }
 
 
 
-.flex {
-  display: flex;
-}
 
 
 
-.flex a {
-  margin-left: 80%;
-  width: 100% 
-
-}
   

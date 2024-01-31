@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 const WeatherComponent = () => {
   const [weatherData, setWeatherData] = useState(null);
+  const [currentDateTime, setCurrentDateTime] = useState(null);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -23,34 +24,54 @@ const WeatherComponent = () => {
       }
     };
 
-    fetchWeatherData();
-  }, []); // Make the request only once when the component mounts
+    const updateCurrentDateTime = () => {
+      const now = new Date();
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-  const kelvinToCelsius = (kelvin) => kelvin - 273.15;
+  
+      const formattedDate = now.toLocaleDateString(undefined, dateOptions);
+     
+  
+      setCurrentDateTime(`${formattedDate} `);
+    };
+
+    fetchWeatherData();
+    updateCurrentDateTime();
+
+  }, []); 
+
+  const kelvinToCelsius = (kelvin) => (kelvin - 273.15).toFixed(2);
 
   return (
-    <div className="bg-blue-500 rounded-lg p-4 text-white ml-auto">
+    <div className="bg-blue-500 rounded-lg p-2 text-white ml-auto w-56 h-72">
+      
       {weatherData && (
-       
-        <div className="text-center">
-          <h2 className="font-bold"> {weatherData.name}</h2>
-          <p className="flex items-center">
-            <span className="mr-2 text-2xl">&#9729;</span>{weatherData.clouds.all}%
-          </p>
-          <p className="flex items-center">
-            <span className="mr-2 text-2xl">&#x1F321;</span>{kelvinToCelsius(weatherData.main.temp).toFixed(2)} °C
-          </p>
-          <p className="flex items-right">
-            <span className="mr-2 text-2xl">&#x1F4A7;</span>{weatherData.main.humidity}%
-          </p>
-          <p className="flex items-right">
-          <span className="mr-2 text-2xl">&#x2191;</span>{kelvinToCelsius(weatherData.main.temp_max).toFixed(2)} °C {/* Max Temp */}
-        </p>
-        <p className="flex items-center">
-          <span className="mr-2 text-2xl">&#x2193;</span>{kelvinToCelsius(weatherData.main.temp_min).toFixed(2)} °C {/* Min Temp */}
-        </p>
-        
-        </div>
+        <>
+        <h2 className="font-bold text-center">{weatherData.name}</h2>
+         
+        <div className="flex justify-between">
+        <p className="text-sm mt-2 mr-4">{currentDateTime}</p>
+</div>
+<div className="flex flex-wrap justify-center mt-4">
+  <div className="flex flex-col items-center mr-6">
+    <span className="mr-2 text-4xl">&#x1F321;</span>
+    <p className="text-sm">Temperature</p>
+    <p className="text-sm">{kelvinToCelsius(weatherData.main.temp)} °C</p>
+  </div>
+
+  <div className="flex flex-col items-center mr-6">
+    <span className="mr-2 text-4xl">&#9729;</span>
+    <p className="text-sm">Clouds</p>
+    <p className="text-sm">{weatherData.clouds.all}%</p>
+  </div>
+            
+  <div className="flex flex-col items-center">
+    <span className="mr-2 text-4xl">&#x1F4A7;</span>
+    <p className="text-sm">Humidity</p>
+    <p className="text-sm">{weatherData.main.humidity}%</p>
+  </div>
+          </div>
+        </>
       )}
     </div>
   );

@@ -61,12 +61,12 @@ export default function Places() {
 
        case 'maps':
         return (
-        <div className="flex mt-4">
+          <div className="flex mt-4 justify-center items-center h-full">
               <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
                 <img
                   src="/image/valleta_map.PNG"
                   alt="Google Maps Link"
-                  className="w-full h-full"
+                  className="w-full h-full object-cover mr-4"
                 />
               </Link>
               </div>
@@ -180,7 +180,7 @@ export default function Places() {
           <button className={`${styles.readMoreButton} bg-transparent text-black font-bold flex items-center`} onClick={toggleContent}>
             Read More <FaAngleDown className="ml-4" />
         </button>
-        )}
+        )} 
       </div>
     </div>
   );
