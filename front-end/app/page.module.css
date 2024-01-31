@@ -31,7 +31,7 @@
   background-image: url('/Images/Pic3.jpeg');
 }
 
-.overlaytext{
+.overlaytext {
   position: absolute;
   font-size: 30px;
   top: 50%;
@@ -41,9 +41,8 @@
   text-align: center;
   width: 100%;
   text-shadow: 2px 2px 6px rgb(25, 25, 26);
-
+ /* Adjust as needed */
 }
-
 .button {
   position: absolute;
 
