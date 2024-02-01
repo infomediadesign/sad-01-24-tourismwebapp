@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react'
 import styles from './dropdownitems.module.css'
 import Link from 'next/link'
+// import { useRouter } from 'next/router'
 
 const Dropdownitems = () => {
   const [countries, setCountries] = useState([]);
   // const [isLoading, setLoading] = useState(true);
+  // const router = useRouter();
 
   useEffect(() => {
     fetch('http://localhost:7000/countries')
@@ -28,8 +30,8 @@ const Dropdownitems = () => {
     <div className={styles.dropdownmenu}>
       <ul className={styles.item}>
         {countries.map((country, index) => (
-          <Link href= {`/${country.name}`}  >
-            <li key={index} className={styles.items}>
+          <Link href={`/countries/${country.name}`}  >
+            <li key={index} className={styles.items} >
               {country.name}
             </li>
           </Link>

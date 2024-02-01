@@ -271,5 +271,48 @@ router.get('/places/:countryName', async (req, res) => {
     }
 });
 
+/**
+ * @openapi
+ * /countries/{countryName}/{placeName}:
+ *   get:
+ *     tags:
+ *       - Places
+ *     summary: Get place by country name and place name
+ *     parameters:
+ *       - in: path
+ *         name: countryName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The country name
+ *       - in: path
+ *         name: placeName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The place name
+ *     responses:
+ *       200:
+ *         description: Fetched place by country name and place name
+ *       404:
+ *         description: Place not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/places/countries/:countryName/:placeName', async (req, res) => {
+    try {
+        const { countryName, placeName } = req.params;
+        const place = await Place.findOne({ country: countryName, name: placeName });
+
+        if (!place) {
+            return res.status(404).json({ message: 'Place not found' });
+        }
+        res.status(200).json(place);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
 
 module.exports = router;
