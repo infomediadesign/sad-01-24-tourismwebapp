@@ -6,11 +6,14 @@ import { FaShoppingBag, FaHotel, FaRegHeart, FaMapMarkedAlt, FaCloudSun } from "
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Webweather from '../components/Webweather';
+import {useRouter} from 'next/navigation';
 
 export default function Places({ place , country}) {
   const [showMore, setShowMore] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [placeData, setPlaceData] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     fetch(`http://localhost:7000/places/countries/${country}/${place}`)
@@ -95,6 +98,21 @@ export default function Places({ place , country}) {
     }
   };
 
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:7000/users/auth', { credentials: 'include' });
+      const data = await response.json();
+      console.log(data);
+      if (data === "Success") {
+        router.push('/saveditems');
+      } else {
+        router.push('/forgotpassword');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div className={styles.placesContainer}>
       <img
@@ -108,7 +126,7 @@ export default function Places({ place , country}) {
           <p className={`${styles.subHeading} text-sm`}>Malta, Southern Europe</p>
         </div>
 
-        <button className={`${styles.saveButton} flex items-center`}>
+        <button className={`${styles.saveButton} flex items-center`} onClick={handleSave}>
           <FaRegHeart className="mr-2" />
           save
         </button>

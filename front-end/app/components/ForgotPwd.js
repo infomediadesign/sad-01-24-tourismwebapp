@@ -6,15 +6,16 @@ import axios from "axios";
 import { UserAuth } from "../context/AuthContext";
 import { toast, Toaster } from "sonner";
 import Link from "next/link";
-import Register from "../components/Register";
-// import { set } from "mongoose";
+import Register from "./Register";
 
-const Login = ({ setOpenPopup, handleClosePopup }) => {
+
+const ForgotPwd = ({ setOpenPopup, handleClosePopup }) => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const { user, googleSignIn, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
   const [openRegister, setOpenRegister] = useState(false);
+
   const handleSignIn = async () => {
     try {
       await googleSignIn();
@@ -22,42 +23,39 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
       console.log(error);
     }
   };
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleRegister = () => {
-    setOpenRegister(true);
-    // setOpenPopup(false);
-  };
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 50));
-      setLoading(false);
-    };
-    checkAuthentication();
-  }, [user]);
 
-  axios.defaults.withCredentials = true;
-const handleLogIn = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post('http://localhost:7000/users/login', { email, password });
-    toast.success(response.data.message);
-    // setOpenPopup(false);
-  } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message);
-    } else if (error.request) {
-      toast.error('No response received from the server');
-    } else {
-      toast.error('An unexpected error occurred');
-    }
+//   const handleSignOut = async () => {
+//     try {
+//       await logOut();
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   const handleRegister = () => {
+//     setOpenRegister(true);
+//     // setOpenPopup(false);
+//   };
+
+//   useEffect(() => {
+//     const checkAuthentication = async () => {
+//       await new Promise((resolve) => setTimeout(resolve, 50));
+//       setLoading(false);
+//     };
+//     checkAuthentication();
+//   }, [user]);
+
+//   axios.defaults.withCredentials = true;
+
+  const handleLogIn = (e) => {
+    e.preventDefault()
+    axios.post('http://localhost:7000/users/login', { email, password })
+      .then(res => {
+        // setErr(res.data.message);
+        toast.success(res.data.message)
+        setOpenPopup(false)
+      }).catch(err => toast.error(err))
   }
-};
 
   return (
     <div className={styles.overlay}>
@@ -91,6 +89,7 @@ const handleLogIn = async (e) => {
                           className="flex justify-center items-center w-full"
                         />
                       </button>
+
                     ) : (
                       <div>
                         <p>Welcome, {user.displayName}</p>
@@ -144,7 +143,7 @@ const handleLogIn = async (e) => {
                   Don&apos;t have an account?{" "}
                   <Link
                     className="text-red-600 hover:underline hover:underline-offset-4"
-                    href=""
+                    href="#"
                     onClick={handleRegister}
                   >
                     Register
@@ -160,4 +159,5 @@ const handleLogIn = async (e) => {
     </div>
   );
 };
-export default Login;
+
+export default ForgotPwd;
