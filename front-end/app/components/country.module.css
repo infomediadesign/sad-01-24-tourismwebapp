@@ -15,15 +15,16 @@
   margin: 10px;
 }
 
-/*.description {
-  text-align: center;
-  margin: auto;
-} */
+.description {
+  /* text-align: center; */
+  margin: 2%;
+}
 
 .imageContainer {
-  
+  justify-content: center;
   position: relative;
   display: flex;
+  margin-bottom: 2%;
 }
 
 .imageWithCaption {
@@ -34,7 +35,7 @@
 
 .horizontalImage{
   width: 420px;
-  height: auto;
+  height: 400px;
   margin-right: 5px;
   margin: 10px;
   cursor: pointer;
@@ -44,8 +45,7 @@
 .horizontalImage:hover{
   transform: scale(0.98);
   filter: saturate(100%);
-  border-radius: 30px;
-
+  border-radius: 50px;
 }
 
 
