@@ -220,21 +220,29 @@ router.delete('/countries/delete/:id', async (req, res) => {
 
 /**
  * @openapi
- * /countries/places:
+ * /countries/{countryname}:
  *   get:
  *     tags:
  *       - Country
- *     summary: Get all countries with places
+ *     summary: Get details of a specific country with associated places
+ *     parameters:
+ *       - in: path
+ *         name: countryname
+ *         required: true
+ *         description: Name of the country to retrieve details for
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
- *         description: Fetched list of countries with places
+ *         description: Successful response with details of the country and its places
  *       500:
- *         description: Internal Server Error
+ *         description: Internal server error
  */
 
-router.get('/countries/places', async (req, res) => {
+router.get('/countries/:countryname', async (req, res) => {
+    const countryname = req.params.countryname;
     try {
-        const countries = await Country.find({})
+        const countries = await Country.find({ name: countryname })
         const countriesWithPlaces = await Promise.all(countries.map(async country => {
             const placesRes = await axios.get(`http://localhost:7000/places/${country.name}`)
             const places = placesRes.data;

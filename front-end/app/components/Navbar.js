@@ -8,13 +8,11 @@ import Link from 'next/link'
 import Login from '@/app/components/Login';
 import { useState } from 'react';
 
-
-
 const Navbar = () => {
 
     const [openPopup, setOpenPopup] = useState(false);
-
-
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [active, setActive] = useState(false);
     const handleLogin = () => {
         setOpenPopup(true);
     };
@@ -23,17 +21,10 @@ const Navbar = () => {
         setOpenPopup(false);
     };
 
-
-
-
-    const [active, setActive] = React.useState(false);
-
     const handleClick = () => {
         setActive(!active);
     };
 
-
-    const [isDropdownVisible, setDropdownVisible] = React.useState(false);
 
     const handleMouseEnter = () => {
         setDropdownVisible(true);
@@ -42,7 +33,6 @@ const Navbar = () => {
     const handleMouseLeave = () => {
         setDropdownVisible(false);
     };
-
 
     return (
         <nav className={styles.nav}>
@@ -68,7 +58,6 @@ const Navbar = () => {
                         height={50} />
                     <Link  className={styles.logo} href="/">Wanderlust</Link>
                 </div>
-
 
                 <ul>
                     <li 
