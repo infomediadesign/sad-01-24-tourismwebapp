@@ -7,7 +7,7 @@
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('/Images/R.jpg');
+  
     background-size: cover;
     background-position: center;
   }
@@ -39,7 +39,7 @@
   
   .input {
     width: 100%;
-    padding: 10px;
+    /* padding: 10px; */
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -48,7 +48,7 @@
   .button {
     display: block;
     width: 100%;
-    padding: 10px;
+    /* padding: 10px; */
     margin-top: 20px;
     background-color: #ff009d;
     color: #fff;
@@ -75,8 +75,32 @@
   
   .popup {
     background-color: white;
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
    
   }
+  .closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333; /* Close button color */
+}
+
+.closeButton:hover {
+  color: #555; /* Hover color */
+}
+
+
+.labelContainer {
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.mdMyOverride {
+  margin-top: -80px;
+  margin-bottom: 0px;
+}
