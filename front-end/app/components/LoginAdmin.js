@@ -14,7 +14,7 @@ export default function LoginAdmin({ setRole, setStatus }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:7000/users/login', { email, password })
+        axios.post('http://localhost:7000/users/admin/login', { email, password })
             .then(res => {
                 setRole(res.data.role)
                 setStatus(res.data.status)

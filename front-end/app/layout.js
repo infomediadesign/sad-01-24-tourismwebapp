@@ -2,7 +2,7 @@
 "use client";
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Navbar from '../app/components/Navbar'
+// import Navbar from '../app/components/Navbar'
 import { AuthContextProvider } from "../app/context/AuthContext";
 
 
@@ -15,7 +15,7 @@ export default function Layout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthContextProvider>
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
         </AuthContextProvider>
       </body>
