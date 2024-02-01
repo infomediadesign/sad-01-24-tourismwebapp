@@ -1,9 +1,48 @@
-import React from "react";
 import { BiLogoFacebook } from "react-icons/bi";
 import styles from '../components/login.module.css'
 import { FcGoogle } from "react-icons/fc"
-
+import React, { useEffect, useState } from "react";
+ 
+import { UserAuth } from "../context/AuthContext";
+ 
 const Login = ({ setOpenPopup, handleClosePopup }) => {
+  
+  
+  const { user, googleSignIn, logOut } = UserAuth();
+  const [loading, setLoading] = useState(true);
+ 
+  const handleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+ 
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      setLoading(false);
+    };
+    checkAuthentication();
+  }, [user]);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   return (
     <div className={styles.overlay}>
       <div className={styles.popup}>
@@ -14,12 +53,13 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
         <section className={`h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 items-center my-2 mx-5 md:mx-0 ${styles.mdMyOverride}`}>
             <div className="md:w-1/2 max-w-sm mx-auto">
               <div className="text-center md:text-left">
-
-
-
-
-              <div className={styles.labelContainer}> 
-
+ 
+ 
+ 
+            
+ 
+ 
+              <div className={styles.labelContainer}>
                 <label className="mr-1">Sign in with</label>
                 <button
                   type="button"
@@ -30,7 +70,15 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
                     className="flex justify-center items-center w-full"
                   />
                 </button>
-                <button
+ 
+ 
+ 
+ 
+ 
+                {loading ? null : !user ? (
+ 
+ 
+                <button onClick={handleSignIn} // Call handleGoogleSignIn when Google sign-in button is clicked
                   type="button"
                   className="mx-1 h-9 w-9 rounded-full bg-white hover:bg-blue-700 text-blue-600 shadow-[0_4px_9px_-4px_#3b71ca]"
                 >
@@ -39,11 +87,26 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
                     className="flex justify-center items-center w-full"
                   />
                 </button>
-
-
-
-                </div>
                 
+                ) : (
+        <div>
+          <p>Welcome, {user.displayName}</p>
+          <p className="cursor-pointer" onClick={handleSignOut}>
+            Sign out
+          </p>
+        </div>
+ 
+ 
+ 
+)}
+ 
+ 
+ 
+              </div>
+ 
+ 
+ 
+ 
               </div>
               <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold text-slate-500">
@@ -87,16 +150,14 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
                   href="#"
                 >
                   Register
-                  
                 </a>
               </div>
             </div>
           </section>
         </div>
-        
       </div>
     </div>
   );
 };
-
+ 
 export default Login;
