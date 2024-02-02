@@ -6,9 +6,9 @@ import { FaShoppingBag, FaHotel, FaRegHeart, FaMapMarkedAlt, FaCloudSun } from "
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Webweather from '../components/Webweather';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export default function Places({ place , country}) {
+export default function Places({ place, country }) {
   const [showMore, setShowMore] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [placeData, setPlaceData] = useState([]);
@@ -20,7 +20,7 @@ export default function Places({ place , country}) {
       .then((res) => res.json())
       .then((data) => {
         setPlaceData(data);
-        console.log(data);
+        // console.log(data);
       }).catch((error) => {
         console.error('Error fetching country data:', error);
       });
@@ -46,7 +46,6 @@ export default function Places({ place , country}) {
     switch (activeCategory) {
       case 'restaurants':
         return (
-
           <div className="flex mt-4 min-h-64 justify-center items-center ">
             <img src="/image/restaurant1.jpg" alt="Restaurant 1" className={commonImageStyle} />
             <img src="/image/restaurant 2.jpg" alt="Restaurant 2" className={commonImageStyle} />
@@ -103,7 +102,19 @@ export default function Places({ place , country}) {
       const response = await fetch('http://localhost:7000/users/auth', { credentials: 'include' });
       const data = await response.json();
       console.log(data);
-      if (data === "Success") {
+      if (data.message === "Success") {
+        await fetch('http://localhost:7000/saveditems/addSavedItem', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            place: placeData.name,
+            email: data.email,
+            country: country,
+            image: placeData.image
+          })
+        });
         router.push('/saveditems');
       } else {
         router.push('/forgotpassword');
@@ -122,7 +133,7 @@ export default function Places({ place , country}) {
       />
       <div className={styles.contentContainer}>
         <div className={styles.headingLeft + ' text-center'}>
-          <h1 className="font-bold text-4xl">{place}</h1>
+          <h1 className="font-bold text-4xl">{placeData.name}</h1>
           <p className={`${styles.subHeading} text-sm`}>Malta, Southern Europe</p>
         </div>
 

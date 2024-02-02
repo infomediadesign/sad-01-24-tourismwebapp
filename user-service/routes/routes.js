@@ -84,11 +84,15 @@ const verifyUser = (req, res, next) => {
             if (err) {
                 return res.status(400).json("Invalid token")
             } else {
+                // req.email = decoded.email;
                 if (decoded.role === 'admin') {
                     next()
+                } else if (decoded.role === 'visitor') {
+                    return res.status(400).json({email: decoded.email, message: "Success"})
                 } else {
-                    return res.status(401).json("Not Admin")
+                    return res.status(401).json("Not a valid user")
                 }
+
             }
         })
     }
@@ -111,7 +115,9 @@ const verifyUser = (req, res, next) => {
  */
 
 router.get('/users/auth', verifyUser, (req, res) => {
+    // const userEmail = req.email;
     res.status(200).json("Success");
+    console.log(userEmail);
 })
 
 /**

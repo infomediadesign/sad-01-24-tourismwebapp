@@ -23,6 +23,9 @@ router.post('/saveditems/addSavedItem', async (req, res) => {
 
 router.get('/saveditems', async (req, res) => {
     try {
+        //const saveditem = await SavedItem.find({})
+        //const count = await SavedItem.countDocuments();
+        //res.status(200).json(saveditem);
         // Check if the data exists in Redis cache
         const cachedData = await client.get('saveditems');
         if (cachedData) {
