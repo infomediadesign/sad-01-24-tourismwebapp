@@ -2,14 +2,15 @@
 import React, { useEffect } from 'react'
 import styles from './addplace.module.css'
 import { useState } from 'react'
+import { Toaster, toast } from 'sonner'
 
-export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDetails }) {
+export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDetails, countries }) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [imageMain, setMainImg] = useState("");
     const [image, setImg] = useState("");
     const [country, setCountry] = useState("");
-    const [errmsg, setErrMsg] = useState("");
+    // const [errmsg, setErrMsg] = useState("");
 
     useEffect(() => {
         if (placeId) {
@@ -48,12 +49,14 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
             .then(response => response.json())
             .then(data => {
                 // console.log('Success:', data);
-                setErrMsg(data.message);
+                // setErrMsg(data.message);
+                toast.success(data.message);
                 updatePlaceDetails();
             })
             .catch((error) => {
                 console.error('Error:', error);
-                setErrMsg(error.message);
+                // setErrMsg(error.message);
+                toast.error(error.message);
             });
     }
 
@@ -108,17 +111,19 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
                     <label className={styles.label}>Country</label>
                     <select
                         onChange={(e) => setCountry(e.target.value)}
-                        value={country}>
-                        <option value="Germany">Germany</option>
-                        <option value="Switzerland">Switzerland</option>
-                        <option value="opel">Opel</option>
-                        <option value="audi">Audi</option>
+                        required
+                        className={styles.option}>
+                        {countries.map((country, index) => (
+                            <option key={index}>
+                                {country.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <button type="submit" className={styles.button}>Submit</button>
                 <button className={styles.button} onClick={handleClick}>Cancel</button>
             </form>
-            <div>{errmsg}</div>
+            {/* <div>{errmsg}</div> */}
         </div>
 
     )

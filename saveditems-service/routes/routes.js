@@ -62,14 +62,16 @@ router.get('/saveditems/get/:id', async (req, res) => {
 
 router.put('/saveditems/update/:id', async (req, res) => {
     const id = req.params.id;
+    console.log(`request: ${req.body}`);
+    // console.log(`id: ${id}`);
     try {
         const result = await SavedItem.findByIdAndUpdate({ _id: id }, {
             place: req.body.place,
-            custid: req.body.custid,
+            email: req.body.email,
             country: req.body.country,
             date: req.body.date,
-            description: req.body.description,
         });
+
         if (result) {
             // If the item is updated, remove it from Redis cache
             await client.del(`saveditem:${id}`);
@@ -77,10 +79,28 @@ router.put('/saveditems/update/:id', async (req, res) => {
         } else {
             res.status(404).json({ message: 'SavedItem not found' });
         }
+
+        console.log(`result: ${result}`);
+        res.status(result ? 200 : 404).json({
+            message: result ? 'SavedItem updated successfully' : 'SavedItem not found'
+        });
+
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ error: error.message });
     }
 });
 
+router.delete('/saveditems/delete/:id', async (req, res) => {
+    try {
+        const result = await SavedItem.findByIdAndDelete(req.params.id);
+        res.status(result ? 200 : 404).json({
+            message: result ? 'SavedItem deleted successfully' : 'SavedItem not found'
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
 module.exports = router;
+
