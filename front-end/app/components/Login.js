@@ -1,3 +1,5 @@
+'use client'
+
 import { BiLogoFacebook } from "react-icons/bi";
 import styles from '../components/login.module.css'
 import { FcGoogle } from "react-icons/fc"
@@ -144,8 +146,8 @@ const handleLogIn = async (e) => {
                   Don&apos;t have an account?{" "}
                   <Link
                     className="text-red-600 hover:underline hover:underline-offset-4"
-                    href=""
-                    onClick={handleRegister}
+                    href="/Userpage/Register"
+                    
                   >
                     Register
                   </Link>
@@ -154,7 +156,7 @@ const handleLogIn = async (e) => {
               </div>
             </section>
           </form>
-          {openRegister && <Register setOpenRegister={setOpenRegister} />}
+          {/* {openRegister && <Register setOpenRegister={setOpenRegister} />} */}
         </div>
       </div>
     </div>

@@ -75,10 +75,11 @@ const Navbar = () => {
                         <Link className={styles.navLink} href="/Userpage/Aboutus">About Us</Link>
                     </li>
                     <li>
-                    <button  onClick={handleLogin}>Sign In</button>
+                    <Link className={styles.navLink} href="/Userpage/Login">Sigin</Link>
+                    {/* <button  onClick={handleLogin}>Sign In</button> */}
                     </li>
                 </ul>
-                {openPopup && <Login setOpenPopup={setOpenPopup} handleClosePopup={handleClosePopup} />}
+                {/* {openPopup && <Login setOpenPopup={setOpenPopup} handleClosePopup={handleClosePopup} />} */}
             </div>
         </nav>
     );

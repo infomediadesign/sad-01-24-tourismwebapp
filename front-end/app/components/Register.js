@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { BiLogoFacebook } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
