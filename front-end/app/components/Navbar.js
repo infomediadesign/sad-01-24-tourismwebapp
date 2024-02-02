@@ -9,9 +9,11 @@ import { UserAuth } from '../context/AuthContext';
 import Login from './Login';
 import { useState } from 'react';
 
+
 const Navbar = () => {
   const { user } = UserAuth();
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -19,6 +21,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     try {
       await logOut();
+     
     } catch (error) {
       console.log(error);
     }
@@ -71,17 +74,19 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            {user ? (
-              <><p>{user.displayName}</p>
-              <p className="cursor-pointer" onClick={handleSignOut}>
-                              Sign out
-                          </p></>
+          {user ? (
+  <div>
+    <p>{user.displayName}</p>
+    <Link href={"/Userpage/Login"}>
+      Logout
+    </Link>
+  </div>
+) : (
+  <Link className={styles.navLink} href="/Userpage/Login">
+    Sign In
+  </Link>
+)}
 
-            ) : (
-              <Link className={styles.navLink} href="/Userpage/Login">
-                Sign In
-              </Link>
-            )}
           </li>
         </ul>
       </div>
