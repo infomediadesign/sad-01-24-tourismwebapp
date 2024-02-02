@@ -5,7 +5,7 @@ import styles from './navbar.module.css'
 import Dropdownitems from './Dropdownitems';
 import { IoSearchSharp } from "react-icons/io5";
 import Link from 'next/link'
-import Login from '@/app/components/Login';
+import Login from './Login';
 import { useState } from 'react';
 
 const Navbar = () => {
