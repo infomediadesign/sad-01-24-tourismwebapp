@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './login.module.css';
-import Login from '../../components/Login';
+import Register from '../../components/Register';
 import Navbar from '@/app/components/Navbar';
+
 
 
 
@@ -11,7 +12,7 @@ const Page = ({ handleClosePopup }) => {
       <div className={styles.popup}>
         <Navbar />
         <h2>Login</h2>
-        <Login handleClosePopup={handleClosePopup} />
+        <Register handleClosePopup={handleClosePopup} />
         <button onClick={handleClosePopup}>Close</button>
       </div>
     </div>
