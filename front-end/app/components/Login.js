@@ -83,7 +83,7 @@ const handleLogIn = async (e) => {
                         className="flex justify-center items-center w-full"
                       />
                     </button>
-                    {loading ? null : !user ? (
+                    {/* {loading ? null : !user ? ( */}
                       <button onClick={handleSignIn} // Call handleGoogleSignIn when Google sign-in button is clicked
                         type="button"
                         className="mx-1 h-9 w-9 rounded-full bg-white hover:bg-blue-700 text-blue-600 shadow-[0_4px_9px_-4px_#3b71ca]"
@@ -93,14 +93,14 @@ const handleLogIn = async (e) => {
                           className="flex justify-center items-center w-full"
                         />
                       </button>
-                    ) : (
-                      <div>
-                        <p>Welcome, {user.displayName}</p>
-                        <p className="cursor-pointer" onClick={handleSignOut}>
-                          Sign out
-                        </p>
-                      </div>
-                    )}
+                     {/* ) : (
+                       <div>
+                         <p>Welcome, {user.displayName}</p>
+                         <p className="cursor-pointer" onClick={handleSignOut}>
+                           Sign out
+                         </p>
+                    </div>
+                     )} */}
                   </div>
                 </div>
                 <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
