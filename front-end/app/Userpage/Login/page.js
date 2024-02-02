@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './login.module.css';
 import Login from '../../components/Login';
 import Navbar from '@/app/components/Navbar';
-
-
+import { IoCloseCircle } from "react-icons/io5";
+import Link from 'next/link';
 
 const Page = ({ handleClosePopup }) => {
   return (
@@ -12,7 +12,12 @@ const Page = ({ handleClosePopup }) => {
         <Navbar />
         <h2>Login</h2>
         <Login handleClosePopup={handleClosePopup} />
-        <button onClick={handleClosePopup}>Close</button>
+        
+        <Link href="/" >
+        <IoCloseCircle size={24} style={{ color: 'red' }} /> 
+        </Link>
+
+
       </div>
     </div>
   );
