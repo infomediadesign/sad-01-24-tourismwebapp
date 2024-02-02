@@ -4,6 +4,7 @@ const saveditemSchema = mongoose.Schema({
     place: String,
     email: String,
     country: String,
+    image: String,
     date: {
         type: Date,
         default: Date.now
