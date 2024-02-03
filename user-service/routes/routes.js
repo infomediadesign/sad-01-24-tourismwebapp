@@ -76,25 +76,18 @@ router.post('/users/register', (req, res) => {
 });
 
 const verifyUser = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-        return res.status(404).json("Token is missing")
-    } else {
-        jwt.verify(token, "auth_token_key_header", (err, decoded) => {
+    const usertoken = req.cookies.usertoken;
+    if (usertoken) {
+        jwt.verify(usertoken, "auth_token_key_header", (err, decoded) => {
             if (err) {
-                return res.status(400).json("Invalid token")
+                return res.status(400).json("Invalid token");
             } else {
-                // req.email = decoded.email;
-                if (decoded.role === 'admin') {
-                    next()
-                } else if (decoded.role === 'visitor') {
-                    return res.status(400).json({email: decoded.email, message: "Success"})
-                } else {
-                    return res.status(401).json("Not a valid user")
-                }
-
+                req.email = decoded.email;
+                next();
             }
-        })
+        });
+    } else {
+        return res.status(404).json("Token is missing");
     }
 }
 
@@ -115,9 +108,43 @@ const verifyUser = (req, res, next) => {
  */
 
 router.get('/users/auth', verifyUser, (req, res) => {
-    // const userEmail = req.email;
+    const userEmail = req.email;
+    res.status(200).json({ message: "Success" , email: userEmail});
+})
+
+const verifyAdmin = (req, res, next) => {
+    const admintoken = req.cookies.admintoken;
+    if (admintoken) {
+        jwt.verify(admintoken, "auth_token_key_header", (err, decoded) => {
+            if (err) {
+                return res.status(400).json("Invalid token");
+            } else {
+                next();
+            }
+        });
+    } else {
+        return res.status(404).json("Token is missing");
+    }
+}
+
+/**
+ * @openapi
+ * '/users/admin/auth':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Authenticate an admin
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Not Admin
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/users/admin/auth', verifyAdmin, (req, res) => {
     res.status(200).json("Success");
-    console.log(userEmail);
 })
 
 /**
@@ -158,7 +185,7 @@ router.post('/users/admin/login', (req, res) => {
                 bcrypt.compare(password, user.password, (err, response) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
-                        res.cookie('token', token, { httpOnly: true })
+                        res.cookie('admintoken', token, { httpOnly: true })
                         return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful" })
                     } else {
                         return res.status(401).json({ message: "Login failed" })
@@ -208,7 +235,7 @@ router.post('/users/login', (req, res) => {
                 bcrypt.compare(password, user.password, (err, response) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
-                        res.cookie('token', token, { httpOnly: true })
+                        res.cookie('usertoken', token, { httpOnly: true })
                         return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful" })
                     } else {
                         return res.status(401).json({ message: "Login failed. You can forget password or try logging in again." })
