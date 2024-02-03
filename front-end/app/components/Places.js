@@ -101,7 +101,6 @@ export default function Places({ place, country }) {
     try {
       const response = await fetch('http://localhost:7000/users/auth', { credentials: 'include' });
       const data = await response.json();
-      console.log(data);
       if (data.message === "Success") {
         await fetch('http://localhost:7000/saveditems/addSavedItem', {
           method: 'POST',

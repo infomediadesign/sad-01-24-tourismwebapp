@@ -17,6 +17,7 @@ export default function LoginAdmin({ setRole, setStatus }) {
             .then(res => {
                 setRole(res.data.role)
                 setStatus(res.data.status)
+                console.log(res.data)
                 // toast.success(res.data.message);
             }).catch(err => {
                 // setErr(err.response.data.message)
