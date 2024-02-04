@@ -8,7 +8,6 @@ import { Toaster, toast } from 'sonner';
 export default function LoginAdmin({ setRole, setStatus }) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    // const [err, setErr] = useState()
 
     axios.defaults.withCredentials = true;
 
@@ -18,19 +17,13 @@ export default function LoginAdmin({ setRole, setStatus }) {
             .then(res => {
                 setRole(res.data.role)
                 setStatus(res.data.status)
+                console.log(res.data)
                 // toast.success(res.data.message);
             }).catch(err => {
                 // setErr(err.response.data.message)
                 toast.error(err.response.data.message);
             });
     }
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     axios.post('http://localhost:7000/users/register', { name, email, password })
-    //         .then(res => {
-    //             setErr(res.data.message);
-    //         }).catch(err => setErr(err.response.data.message))
-    // }
 
     return (
         <div className={styles.loginPage}>
