@@ -9,9 +9,15 @@ import { UserAuth } from "../context/AuthContext";
 import { toast, Toaster } from "sonner";
 import Link from "next/link";
 import Register from "../components/Register";
+import { useRouter } from 'next/navigation';
+
+
 // import { set } from "mongoose";
 
+
+
 const Login = ({ setOpenPopup, handleClosePopup }) => {
+  const router = useRouter();
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const { user, googleSignIn, logOut } = UserAuth();
@@ -20,6 +26,7 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
   const handleSignIn = async () => {
     try {
       await googleSignIn();
+      router.push('/');
     } catch (error) {
       console.log(error);
     }
@@ -49,6 +56,7 @@ const handleLogIn = async (e) => {
   try {
     const response = await axios.post('http://localhost:7000/users/login', { email, password });
     toast.success(response.data.message);
+    router.push('/');
     // setOpenPopup(false);
   } catch (error) {
     if (error.response) {
@@ -83,7 +91,7 @@ const handleLogIn = async (e) => {
                         className="flex justify-center items-center w-full"
                       />
                     </button>
-                    {/* {loading ? null : !user ? ( */}
+                     {loading ? null : !user ? ( 
                       <button onClick={handleSignIn} // Call handleGoogleSignIn when Google sign-in button is clicked
                         type="button"
                         className="mx-1 h-9 w-9 rounded-full bg-white hover:bg-blue-700 text-blue-600 shadow-[0_4px_9px_-4px_#3b71ca]"
@@ -93,14 +101,11 @@ const handleLogIn = async (e) => {
                           className="flex justify-center items-center w-full"
                         />
                       </button>
-                     {/* ) : (
+                      ) : (
                        <div>
-                         <p>Welcome, {user.displayName}</p>
-                         <p className="cursor-pointer" onClick={handleSignOut}>
-                           Sign out
-                         </p>
+                         <Link href="/"></Link>
                     </div>
-                     )} */}
+                     )} 
                   </div>
                 </div>
                 <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">

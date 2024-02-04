@@ -11,18 +11,21 @@ import { useState } from 'react';
 
 
 const Navbar = () => {
-  const { user } = UserAuth();
+  
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const { user, googleSignIn, logOut } = UserAuth();
   
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
+
+
   const handleSignOut = async () => {
     try {
       await logOut();
-     
-    } catch (error) {
+    } 
+    catch (error) {
       console.log(error);
     }
   };
@@ -76,10 +79,23 @@ const Navbar = () => {
           <li>
           {user ? (
   <div>
+    {/* <img src={user.profilepic} alt="Profile Pic" style={{ width: '50px', height: '50px', borderRadius: '50%' }} /> */}
+    {/* {user.profilepic ? (
+        <Image
+          src={user.profilepic}
+          alt="Profile Pic"
+          width={50}
+          height={50}
+          className={styles.profilePic} // Add your styles here if needed
+        />
+      ) : (
+        <p>No profile picture available</p>
+      )} */}
     <p>{user.displayName}</p>
-    <Link href={"/Userpage/Login"}>
+    <button  onClick={handleSignOut}>
       Logout
-    </Link>
+
+    </button>
   </div>
 ) : (
   <Link className={styles.navLink} href="/Userpage/Login">
