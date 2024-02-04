@@ -10,6 +10,7 @@ const AdminChat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [chatVisible, setChatVisible] = useState(false);
+  const [unreadMessages, setUnreadMessages] = useState(0);
 
   useEffect(() => {
     const handleChatMessage = (message) => {
@@ -38,9 +39,16 @@ const AdminChat = () => {
 
   const handleOpen = () => {
     setChatVisible(true);
+    setUnreadMessages(0);
   };
 
   const showNotification = (message) => {
+    // Check if the chat box is not currently visible
+    if (!chatVisible) {
+      // Increase the unread messages count
+      setUnreadMessages((prevUnreadMessages) => prevUnreadMessages + 1);
+    }
+
     if (Notification.permission === 'granted') {
       new Notification('New Message from Client', {
         body: message,
@@ -55,7 +63,7 @@ const AdminChat = () => {
       });
     }
   };
-
+  
 
   return (
     <>
