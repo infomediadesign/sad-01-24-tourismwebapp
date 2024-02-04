@@ -16,12 +16,13 @@ export default function page() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch('http://localhost:7000/users/auth', { credentials: 'include' })
+    fetch('http://localhost:7000/users/admin/auth', { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data === "Success") {
           router.push('/admin/getCountry')
           // toast.success("Login Successful")
+          // console.log(data);
         } else {
           router.push('/admin')
         }
