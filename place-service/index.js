@@ -36,4 +36,4 @@ mongoose.connect('mongodb+srv://admin:aLDQhMWr2AQ3bsBe@cluster0.yz76vjj.mongodb.
     console.log('Connected to MongoDB')
 }).catch((error) => {
     console.log(error);
-})
+});

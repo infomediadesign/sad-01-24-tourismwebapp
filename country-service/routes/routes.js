@@ -4,6 +4,7 @@ const Country = require('../models/countryModel');
 const cors = require('cors');
 const axios = require('axios');
 const multer = require('multer');
+const amqp = require('amqplib');
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
@@ -109,7 +110,7 @@ router.get('/countries', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/countries/getCountry/:id', async (req, res) => { 
+router.get('/countries/getCountry/:id', async (req, res) => {
     try {
         const country = await Country.findById(req.params.id)
         const id = req.params.id;
@@ -160,7 +161,7 @@ router.get('/countries/getCountry/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.put('/countries/update/:id',upload.single('image') ,async (req, res) => {
+router.put('/countries/update/:id', upload.single('image'), async (req, res) => {
     const id = req.params.id;
     try {
         const updateFields = {
@@ -239,24 +240,53 @@ router.delete('/countries/delete/:id', async (req, res) => {
  *         description: Internal server error
  */
 
+// router.get('/countries/:countryname', async (req, res) => {
+//     const countryname = req.params.countryname;
+//     try {
+//         const countries = await Country.find({ name: countryname })
+//         const countriesWithPlaces = await Promise.all(countries.map(async country => {
+//             const placesRes = await axios.get(`http://localhost:7000/places/${country.name}`)
+//             const places = placesRes.data;
+//             return {
+//                 ...country.toObject(),
+//                 places
+//             };
+//         })
+//     );
+//     res.status(200).json(countriesWithPlaces);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).json({ message: error.message })
+//     }
+// });
+
 router.get('/countries/:countryname', async (req, res) => {
     const countryname = req.params.countryname;
     try {
-        const countries = await Country.find({ name: countryname })
+        const countries = await Country.find({ name: countryname });
+        const channel = await setupRabbitMQChannel();
         const countriesWithPlaces = await Promise.all(countries.map(async country => {
-            const placesRes = await axios.get(`http://localhost:7000/places/${country.name}`)
-            const places = placesRes.data;
+            await channel.sendToQueue('placesQueue', Buffer.from(JSON.stringify({ countryName: country.name })));
             return {
                 ...country.toObject(),
-                places
+                places: []  // Placeholder, you'll receive places via RabbitMQ
             };
-        })
-    );
-    res.status(200).json(countriesWithPlaces);
+        }));
+
+        res.status(200).json(countriesWithPlaces);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
     }
 });
+
+async function setupRabbitMQChannel() {
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+    channel.assertQueue('placesQueue', { durable: false });
+
+    return channel;
+}
+
 
 module.exports = router;

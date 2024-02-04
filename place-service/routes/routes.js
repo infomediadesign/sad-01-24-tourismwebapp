@@ -3,6 +3,7 @@ const router = express.Router()
 const cors = require('cors')
 const Place = require('../models/placeModel')
 const multer = require('multer')
+const amqp = require('amqplib');
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
@@ -68,6 +69,10 @@ router.post('/places/addPlaces', uploadImage, async (req, res) => {
             country: req.body.country,
             description: req.body.description,
         })
+        const channel = await setupRabbitMQChannel();
+        // const message = { countryName: req.body.country, placeName: req.body.name };
+        await channel.sendToQueue('placesQueue', Buffer.from(JSON.stringify(place)));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         res.status(201).json({ place, message: 'Place added successfully' });
     } catch (error) {
         console.log(error.message);
@@ -259,17 +264,39 @@ router.delete('/places/delete/:id', async (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/places/:countryName', async (req, res) => {
-    try {
-        const { countryName } = req.params;
-        const places = await Place.find({ country: countryName });
+// router.get('/places/:countryName', async (req, res) => {
+//     try {
+//         const { countryName } = req.params;
+//         const places = await Place.find({ country: countryName });
 
-        res.status(200).json(places);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: error.message });
-    }
-});
+//         res.status(200).json(places);
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+(async () => {
+    const channel = await setupRabbitMQChannel();
+    channel.consume('placesQueue', async (msg) => {
+        const { countryName, placeName } = JSON.parse(msg.content.toString());
+        try {
+            const places = await Place.find({ country: countryName, name: placeName });
+            console.log(`Places for ${countryName}:`, places);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }, { noAck: true });
+})();
+
+async function setupRabbitMQChannel() {
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+    channel.assertQueue('placesQueue', { durable: false });
+
+    return channel;
+}
+
 
 /**
  * @openapi
