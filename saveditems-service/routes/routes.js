@@ -4,7 +4,7 @@ const SavedItem = require('../models/saveditemModel');
 const cors = require('cors');
 const Redis = require("ioredis");
 
-const client = new Redis("rediss://default:93c9879fa7d141129359fb775c931e09@eu2-adjusted-stag-31853.upstash.io:31853");
+const client = new Redis("rediss://default:0dad784f1863461d8cc985643958d167@eu2-saving-egret-32292.upstash.io:32292");
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
@@ -97,10 +97,14 @@ router.put('/saveditems/update/:id', async (req, res) => {
 router.delete('/saveditems/delete/:id', async (req, res) => {
     try {
         const result = await SavedItem.findByIdAndDelete(req.params.id);
+        // If the item is deleted, also remove it from Redis cache
+        if (result) {
+            await client.del(`saveditem:${req.params.id}`);
+        }
         res.status(result ? 200 : 404).json({
             message: result ? 'SavedItem deleted successfully' : 'SavedItem not found'
         });
-    } catch (error) {
+    }catch (error) {
         console.error(error.message);
         res.status(500).json({ error: error.message });
     }
