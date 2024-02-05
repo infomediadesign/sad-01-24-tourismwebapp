@@ -85,15 +85,15 @@ const Navbar = () => {
                   Sign out
                 </p></>
       ) : (
-        <p>No profile picture available</p>
-      )} */}
-    <p>{user.displayName}</p>
-    <button  onClick={handleSignOut}>
-      Logout
+//         <p>No profile picture available</p>
+//       )} */}
+//     <p>{user.displayName}</p>
+//     <button  onClick={handleSignOut}>
+//       Logout
 
-    </button>
-  </div>
-) : (
+//     </button>
+//   </div>
+// ) : (
   <Link className={styles.navLink} href="/Userpage/Login">
     Sign In
   </Link>
