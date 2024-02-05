@@ -50,14 +50,14 @@ const AdminChat = () => {
     }
 
     if (Notification.permission === 'granted') {
-      new Notification('New Message from Client', {
-        body: message,
+      new Notification('New Message', {
+        body: 'You have a new message!',
       });
     } else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
-          new Notification('New Message from Client', {
-            body: message,
+          new Notification('New Message', {
+            body:'You have a new message!',
           });
         }
       });

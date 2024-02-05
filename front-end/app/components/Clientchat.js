@@ -41,6 +41,28 @@ const ChatBox  = () => {
       setChatVisible(true);
     };
 
+    const showNotification = (message) => {
+      // Check if the chat box is not currently visible
+      if (!chatVisible) {
+        // Increase the unread messages count
+        setUnreadMessages((prevUnreadMessages) => prevUnreadMessages + 1);
+      }
+  
+      if (Notification.permission === 'granted') {
+        new Notification('New Message', {
+          body: 'You have a new message!',
+        });
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then((permission) => {
+          if (permission === 'granted') {
+            new Notification('New Message', {
+              body: 'You have a new message!',
+            });
+          }
+        });
+      }
+    };
+
    
 
   return (
