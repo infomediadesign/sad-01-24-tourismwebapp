@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { UserAuth } from '../context/AuthContext';
 import Login from './Login';
 import { useState } from 'react';
+import ChatBox from '@/app/components/Clientchat'
 
 
 const Navbar = () => {
@@ -85,6 +86,7 @@ const Navbar = () => {
                   Sign out
                 </p></>
       ) : (
+
   <Link className={styles.navLink} href="/Userpage/Login">
     Sign In
   </Link>
@@ -94,6 +96,10 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+
+      <ChatBox />
+
+      
     </nav>
   );
 };

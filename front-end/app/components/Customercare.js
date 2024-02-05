@@ -26,8 +26,15 @@ const AdminChat = () => {
   }, []);
 
   const handleSendMessage = () => {
-    socket.emit('chatMessage', newMessage);
-    setNewMessage('');
+    // Check if the message is not empty before sending
+    if (newMessage.trim() !== '') {
+      // Emit a chatMessage event to the server
+      socket.emit('chatMessage', newMessage);
+      setNewMessage('');
+    } else {
+      // Handle empty message (show a notification, for example)
+      console.log("Message cannot be empty!");
+    }
   };
 
   const handleClose = () => {
@@ -68,7 +75,7 @@ const AdminChat = () => {
   return (
     <>
       {chatVisible && (
-    <div className="fixed bottom-4 left-4 w-80 border rounded overflow-hidden" style={{ borderColor: 'black' }}>
+    <div className="fixed bottom-4 right-4 w-80 border rounded overflow-hidden" style={{ borderColor: 'black' }}>
       <div className="flex justify-end items-center p-2">
         <button
           onClick={handleClose}
