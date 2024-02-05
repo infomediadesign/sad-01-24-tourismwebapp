@@ -86,7 +86,7 @@ const Navbar = () => {
                   Sign out
                 </p></>
       ) : (
-       
+
   <Link className={styles.navLink} href="/Userpage/Login">
     Sign In
   </Link>
