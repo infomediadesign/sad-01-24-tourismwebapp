@@ -72,10 +72,12 @@ const Navbar = () => {
           </li>
           <li>
             {user ? (
-              <><p>{user.displayName}</p>
-              <p className="cursor-pointer" onClick={handleSignOut}>
-                              Sign out
-                          </p></>
+              <><div className={styles.profilepiccontainer}>
+                <img src={user.profilepic} alt={user.displayName} />
+                {/* <><p>{user.displayName}</p> */}
+              </div><p className="cursor-pointer" onClick={handleSignOut}>
+                  Sign out
+                </p></>
 
             ) : (
               <Link className={styles.navLink} href="/Userpage/Login">

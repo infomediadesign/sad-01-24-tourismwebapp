@@ -104,3 +104,10 @@
   margin-top: -120px;
   margin-bottom: 0px;
 }
+.profilepiccontainer {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  border-radius: 50%; /* Makes the image round */
+  overflow: hidden; /* Ensures the image is not displayed outside the container */
+  border: 2px solid #ffffff; /* Border around the image */
+}
