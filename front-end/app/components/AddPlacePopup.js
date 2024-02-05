@@ -1,34 +1,29 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import styles from './addplace.module.css'
+import axios from 'axios'
+import { toast, Toaster } from 'sonner'
 
-
-export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
+export default function AddPlacePopup({ setOpenPopup, setPlaceDetails, countries}) {
     const [name, setName] = useState("");
     const [description, setDesc] = useState("");
     const [imageMain, setMainImg] = useState("");
     const [image, setImg] = useState("");
     const [country, setCountry] = useState("");
-    const [errmsg, setErrMsg] = useState("");
+    // const [errmsg, setErrMsg] = useState("");
 
-    const [countries, setCountries] = useState([]);
-    // const [isLoading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      fetch('http://localhost:7000/countries')
-        .then((res) => res.json())
-        .then((data) => {
-          setCountries(data);
-          // setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching country data:', error);
-          // setLoading(false);
-        });
-    }, []);
+    // const [countries, setCountries] = useState([]);
 
-
-
+    // useEffect(() => {
+    //     fetch('http://localhost:7000/countries')
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setCountries(data);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error fetching country data:', error);
+    //         });
+    // }, []);
 
     const handleClick = () => {
         setOpenPopup(false);
@@ -66,12 +61,16 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                 setMainImg("");
                 setImg("");
                 setCountry("");
-                setErrMsg(response.data.message);
+                // setErrMsg(response.data.message);
+                toast.success(response.data.message);
+
             } else {
-                setErrMsg(error.message);
+                // setErrMsg(error.message);
+                toast.error(error.message);
             }
         } catch (error) {
-            setErrMsg(`Error: ${error.message}`);
+            // setErrMsg(`Error: ${error.message}`);
+            toast.error(error.message);
         }
     }
 
@@ -120,28 +119,21 @@ export default function AddPlacePopup({ setOpenPopup, setPlaceDetails }) {
                 </div>
                 <div className={styles.inputdata} >
                     <label className={styles.label}>Country</label>
-                    {countries.map((country, index) => (
-
-                    <select name="cars" id="cars"
+                    <select
                         onChange={(e) => setCountry(e.target.value)}
-                        value={country}
-                        required className={styles.option} >
-                        <option key={index}  value={country.name}>{country.name}</option>
-
-
-                        {/* <option value="saab">Saab</option>
-                        <option value="opel">Opel</option>
-                        <option value="audi">Audi</option> */}
+                        required
+                        className={styles.option}>
+                        {countries.map((country, index) => (
+                            <option key={index}>
+                                {country.name}
+                            </option>
+                        ))}
                     </select>
-
-                    
-))}
-
                 </div>
                 <button type="submit" className={styles.button}>Submit</button>
                 <button className={styles.button} onClick={handleClick}>Cancel</button>
             </form>
-            <div>{errmsg}</div>
+            {/* <div>{errmsg}</div> */}
         </div>
 
     )

@@ -1,35 +1,39 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from '../components/saveditem.module.css'
-
-
-
+import { useRouter } from 'next/navigation'
 
 export default function SavedItems() {
-  const [imageCount, setImageCount] = useState([]);
+  const [saveItems, setSaveItems] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
-    // Fetch image data from backend
-    fetchImageData()
-      .then(images => {
-        // Calculate the count of images
-        const count = images.length;
-        setImageCount(count);
+    fetch('http://localhost:7000/users/auth', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message === "Success") {
+          router.push('/saveditems')
+          // toast.success("Login Successful")
+          console.log(data);
+        } else {
+          router.push('/')
+        }
+      })
+      .catch((error) => console.error(error));
+  }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:7000/saveditems')
+      .then(res => res.json())
+      .then(data => {
+        setSaveItems(data);
+        console.log(data);
       })
       .catch(error => {
-        console.error('Error fetching image data:', error);
+        console.error('Error fetching data:', error);
       });
   }, []);
 
-  const fetchImageData = async () => {
-    // Make API call to fetch image data from backend
-    const response = await fetch('http://localhost:7000/saveditems');
-    if (!response.ok) {
-      throw new Error('Failed to fetch image data');
-    }
-    const data = await response.json();
-    return data;
-  };
   return (
     <div>
       <div className={styles.container}>
@@ -38,29 +42,21 @@ export default function SavedItems() {
         </div>
         <header className={styles.header}>
 
-          <h1>MY LIST ({imageCount}) </h1>
+          <h1>MY LIST ({saveItems.length}) </h1>
           <div className={styles.headerContent}>
             <button className={styles.removeBtn}>REMOVE LIST</button>
           </div>
         </header>
+
         <div className={styles.imageCollage}>
-          <div className={styles.imageItem}>
-            <img src='/images/Greece.jpg' alt="Greece" 
-            className={styles.horizontalImage} />
-            <p>Greece</p>
-          </div>
-          <div className={styles.imageItem}>
-            <img src="/images/Cochem.jpg" alt="Cochem" 
-            className={styles.horizontalImage}  />
-            <p>Cochem</p>
-          </div>
-          <div className={styles.imageItem}>
-            <img src="/images/Amsterdam.jpg" alt="Amsterdam" 
-            className={styles.horizontalImage} />
-            <p>Amsterdam</p>
-          </div>
+          {saveItems.map((item, index) =>
+            <div className={styles.imageItem}>
+              <img src={`http://localhost:9000/images/${item.image}`} alt={item.place}
+                className={styles.horizontalImage} />
+              <p>{item.place}</p>
+            </div>
+          )}
         </div>
-      
       </div>
     </div>
   );

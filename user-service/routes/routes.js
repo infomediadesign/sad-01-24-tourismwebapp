@@ -5,6 +5,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
+const nodemailer = require('nodemailer')
 
 router.use(express.json());
 router.use(cors({
@@ -75,31 +76,28 @@ router.post('/users/register', (req, res) => {
 });
 
 const verifyUser = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-        return res.status(404).json("Token is missing")
-    } else {
-        jwt.verify(token, "auth_token_key_header", (err, decoded) => {
+    const usertoken = req.cookies.usertoken;
+    if (usertoken) {
+        jwt.verify(usertoken, "auth_token_key_header", (err, decoded) => {
             if (err) {
-                return res.status(400).json("Invalid token")
+                return res.status(400).json("Invalid token");
             } else {
-                if (decoded.role === 'admin') {
-                    next()
-                } else {
-                    return res.status(401).json("Not Admin")
-                }
+                req.email = decoded.email;
+                next();
             }
-        })
+        });
+    } else {
+        return res.status(404).json("Token is missing");
     }
 }
 
 /**
  * @openapi
- * '/users/country':
+ * '/users/auth':
  *   get:
  *     tags:
  *       - User
- *     summary: Get all countries
+ *     summary: Authenticate a user
  *     responses:
  *       200:
  *         description: Success
@@ -109,13 +107,99 @@ const verifyUser = (req, res, next) => {
  *         description: Internal Server Error
  */
 
-router.get('/users/country', verifyUser, (req, res) => {
+router.get('/users/auth', verifyUser, (req, res) => {
+    const userEmail = req.email;
+    res.status(200).json({ message: "Success" , email: userEmail});
+})
+
+const verifyAdmin = (req, res, next) => {
+    const admintoken = req.cookies.admintoken;
+    if (admintoken) {
+        jwt.verify(admintoken, "auth_token_key_header", (err, decoded) => {
+            if (err) {
+                return res.status(400).json("Invalid token");
+            } else {
+                next();
+            }
+        });
+    } else {
+        return res.status(404).json("Token is missing");
+    }
+}
+
+/**
+ * @openapi
+ * '/users/admin/auth':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Authenticate an admin
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Not Admin
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/users/admin/auth', verifyAdmin, (req, res) => {
     res.status(200).json("Success");
 })
 
 /**
  * @openapi
  * '/users/login':
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Login failed
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.post('/users/admin/login', (req, res) => {
+    const { email, password } = req.body;
+    UserModel.findOne({ email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (response) {
+                        const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
+                        res.cookie('admintoken', token, { httpOnly: true })
+                        return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful" })
+                    } else {
+                        return res.status(401).json({ message: "Login failed" })
+                    }
+                })
+            } else {
+                return res.status(401).json({ message: "Auth failed" })
+            }
+        }).catch(err => res.status(500).json({ message: err.message }));
+})
+
+/**
+ * @openapi
+ * /users/login:
  *   post:
  *     tags:
  *       - User
@@ -151,15 +235,49 @@ router.post('/users/login', (req, res) => {
                 bcrypt.compare(password, user.password, (err, response) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
-                        res.cookie('token', token, { httpOnly: true })
-                        return res.status(200).json({ status: "successful", token, role: user.role })
+                        res.cookie('usertoken', token, { httpOnly: true })
+                        return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful" })
                     } else {
-                        return res.status(401).json({ message: "Login failed" })
+                        return res.status(401).json({ message: "Login failed. You can forget password or try logging in again." })
                     }
                 })
             } else {
-                return res.status(401).json({ message: "Auth failed" })
+                return res.status(401).json({ message: "Auth failed. Please register" })
             }
+        }).catch(err => res.status(500).json({ message: err.message }));
+})
+
+router.post('/users/forgotpassword', (req, res) => {
+    const { email } = req.body;
+    UserModel.findOne({ email })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: "User not found" })
+            }
+            const token = jwt.sign({ id: user._id }, 'auth_token_key_header', { expiresIn: '1d' })
+            var nodemailer = require('nodemailer');
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: '',
+                    pass: ''
+                }
+            });
+
+            var mailOptions = {
+                from: 'swagatpruseth0911@gmail.com',
+                to: 'arpitamishra1497@gmail.com',
+                subject: 'Reset Password Link',
+                text: `http://localhost:3000/resetpassword/${user._id}/${token}`
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    return res.send({ message: 'Email sent: ' + info.response });
+                }
+            })
         }).catch(err => res.status(500).json({ message: err.message }));
 })
 

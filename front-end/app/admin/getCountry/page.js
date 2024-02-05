@@ -5,20 +5,24 @@ import styles from './getCountry.module.css'
 import AddCountryPopup from '@/app/components/AddCountryPopup'
 import { useRouter } from 'next/navigation';
 import UpdateCountryPopup from '@/app/components/UpdateCountryPopup'
+import { toast, Toaster } from 'sonner'
 
 export default function page() {
   const [openPopup, setOpenPopup] = useState(false);
   const [updatePopup, setUpdatePopup] = useState(false);
   const [countrydetails, setCountryDetail] = useState([]);
   const [countryId, setCountryId] = useState('');
+  
   const router = useRouter();
 
   useEffect(() => {
-    fetch('http://localhost:7000/users/country', { credentials: 'include' })
+    fetch('http://localhost:7000/users/admin/auth', { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data === "Success") {
           router.push('/admin/getCountry')
+          // toast.success("Login Successful")
+          // console.log(data);
         } else {
           router.push('/admin')
         }
@@ -66,12 +70,13 @@ export default function page() {
       });
 
       if (response.ok) {
-        console.log(`Country with ID ${id} deleted successfully`);
+        toast.error("Country Deleted Successfully");
         const updatedCountryDetails = countrydetails.filter(detail => detail._id !== id);
         setCountryDetail(updatedCountryDetails);
       }
     } catch (error) {
       console.error('Error during deletion:', error.message);
+      toast.error("Error during deletion");
     }
   };
 
@@ -81,7 +86,7 @@ export default function page() {
       <br />
       <div className={styles.countrydetails}>
         <div>
-          <h1>Country Details</h1>
+          <h1 className={styles.label}>Country Details</h1>
           <div className={styles.buttons}>
             <button className={styles.add} onClick={handleClick}>Add</button>
           </div>
@@ -114,6 +119,7 @@ export default function page() {
             </tbody>
           </table>
         </div>
+        <Toaster position="bottom-center" richColors duration={5000}/>
       </div>
       {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} countryId={countryId} />}
       {updatePopup && <UpdateCountryPopup setOpenPopup={setUpdatePopup} countryId={countryId} updatedCountryDetails={updatedCountry} />}
