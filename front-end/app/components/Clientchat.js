@@ -25,9 +25,15 @@ const ChatBox  = () => {
   }, []);
 
   const handleSendMessage = () => {
-    // Emit a chatMessage event to the server
-    socket.emit('chatMessage', newMessage);
-    setNewMessage('');
+    // Check if the message is not empty before sending
+    if (newMessage.trim() !== '') {
+      // Emit a chatMessage event to the server
+      socket.emit('chatMessage', newMessage);
+      setNewMessage('');
+    } else {
+      // Handle empty message (show a notification, for example)
+      console.log("Message cannot be empty!");
+    }
   };
 
     const handleClose = () => {
@@ -44,7 +50,7 @@ const ChatBox  = () => {
   return (
     <>
       {chatVisible && (
-    <div className="fixed bottom-4 left-4 w-80 border rounded overflow-hidden" style={{ borderColor: 'black' }}>
+   <div className="fixed bottom-4 right-4 w-80 border rounded overflow-hidden bg-white">
       <div className="flex justify-end items-center p-2">
         <button
           onClick={handleClose}
@@ -58,12 +64,13 @@ const ChatBox  = () => {
         {messages.map((message, index) => (
           <div key={index} className="mb-2">{message}</div>
         ))}
-        <div className="flex items-center p-2">
+        <div className="flex items-center p-2" style={{ borderColor: 'black' }}>
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
+            required
             className="w-3/4 p-2 mr-2 rounded border"
           />
           <button
@@ -80,10 +87,10 @@ const ChatBox  = () => {
     {!chatVisible && (
       <button
         onClick={handleNeedHelp}
-        className="fixed bottom-4 left-4 p-2 rounded cursor-pointer"
+        className="fixed bottom-4 right-4 p-2 rounded cursor-pointer"
         style={{ backgroundColor: 'green', color: 'white' }}
       >
-        Need Help
+        Need Help!
       </button>
     )}
   </>
