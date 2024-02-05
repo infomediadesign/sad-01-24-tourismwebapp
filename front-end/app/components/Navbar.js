@@ -9,17 +9,23 @@ import { UserAuth } from '../context/AuthContext';
 import Login from './Login';
 import { useState } from 'react';
 
+
 const Navbar = () => {
-  const { user } = UserAuth();
+  
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const { user, googleSignIn, logOut } = UserAuth();
+  
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
+
+
   const handleSignOut = async () => {
     try {
       await logOut();
-    } catch (error) {
+    } 
+    catch (error) {
       console.log(error);
     }
   };
@@ -71,19 +77,29 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            {user ? (
+          {user ? (
               <><div className={styles.profilepiccontainer}>
                 <img src={user.profilepic} alt={user.displayName} />
                 {/* <><p>{user.displayName}</p> */}
               </div><p className="cursor-pointer" onClick={handleSignOut}>
                   Sign out
                 </p></>
+      ) : (
+        <p>No profile picture available</p>
+      )} */}
+    <p>{user.displayName}</p>
+    <button  onClick={handleSignOut}>
+      Logout
 
-            ) : (
-              <Link className={styles.navLink} href="/Userpage/Login">
-                Sign In
-              </Link>
-            )}
+    </button>
+  </div>
+) : (
+  <Link className={styles.navLink} href="/Userpage/Login">
+    Sign In
+  </Link>
+)}
+           
+
           </li>
         </ul>
       </div>
