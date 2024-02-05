@@ -27,6 +27,7 @@ export default function SavedItems() {
       .then(res => res.json())
       .then(data => {
         setSaveItems(data);
+        console.log(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
