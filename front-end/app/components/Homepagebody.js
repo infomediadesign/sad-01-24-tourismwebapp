@@ -1,6 +1,6 @@
 import styles from './homepagebody.module.css';
 import { Content } from 'next/font/google';
-// import Image from 'next/image';
+
 
 const Homepagebody = () => {
   return (

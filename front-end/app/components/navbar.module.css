@@ -34,7 +34,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
-    /* transition: all 0.3s ease-in-out; */
+    
   }
   
   .nav ul {
@@ -49,23 +49,9 @@
     text-decoration: none;
     padding: 7px 15px;
     font-weight: bold;
-    /* transition: all 0.3s ease-in-out; */
+ 
   }
   
-  /* .nav.active {
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  } */
-  
-  /* .nav.active Link {
-    color: #000;
-  } */
-  
-  /* .nav.active .container {
-    padding: 10px 0;
-  } */
-  
-
   .navLink:hover {
     color: #c0392b;
     
@@ -76,8 +62,8 @@
     height: 15px;
   }
   .input {
-    font-size: 17px; /* Adjusted the font size of the input */
-    padding: 2px; /* Adjusted the padding of the input */
+    font-size: 17px; 
+    padding: 2px; 
   }
  
   
