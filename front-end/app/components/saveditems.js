@@ -86,9 +86,9 @@ export default function SavedItems() {
       <div className={styles.container}>
         <div>
           <form onSubmit={handleEdit} className="flex flex-col md:flex-row justify-start space-y-1 md:space-y-1 md:space-x-16 items-start my-2 mx-5 md:mx-0 md:my-0">
-            <div className="md:w-1/2 max-w-sm">
-              <div className="text-left">
-                <label className="mr-1">Profile Details</label>
+            <div className="md:w-1/2 max-w-sm" style={{ marginLeft: '10px' }}>
+              <div className="text-left" style={{ marginTop: '90px', color: 'white'}}>
+                <label className="mr-1" style={{ fontSize: '18px', fontWeight: 'bold' }}>Profile Details</label>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <input
