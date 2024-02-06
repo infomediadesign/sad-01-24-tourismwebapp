@@ -4,6 +4,13 @@ const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
+
+app.use(cors(
+    {
+        origin: '*'
+    }
+));
 
 app.use(routes);
 const port = 9000;
