@@ -236,7 +236,7 @@ router.post('/users/login', (req, res) => {
                     if (response) {
                         const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
                         res.cookie('usertoken', token, { httpOnly: true })
-                        return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful" })
+                        return res.status(200).json({ token, role: user.role, message: "Login successful" , name: user.name})
                     } else {
                         return res.status(401).json({ message: "Login failed. You can forget password or try logging in again." })
                     }
@@ -245,6 +245,26 @@ router.post('/users/login', (req, res) => {
                 return res.status(401).json({ message: "Auth failed. Please register" })
             }
         }).catch(err => res.status(500).json({ message: err.message }));
+})
+
+/**
+ * @openapi
+ * '/users':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/users', (req, res) => {
+    UserModel.find()
+        .then(users => res.status(200).json(users))
+        .catch(err => res.status(500).json({ message: err.message }));
 })
 
 router.post('/users/forgotpassword', (req, res) => {

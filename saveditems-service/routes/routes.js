@@ -23,19 +23,19 @@ router.post('/saveditems/addSavedItem', async (req, res) => {
 
 router.get('/saveditems', async (req, res) => {
     try {
-        //const saveditem = await SavedItem.find({})
-        //const count = await SavedItem.countDocuments();
-        //res.status(200).json(saveditem);
+        const saveditem = await SavedItem.find({})
+        // const count = await SavedItem.countDocuments();
+        res.status(200).json(saveditem);
         // Check if the data exists in Redis cache
-        const cachedData = await client.get('saveditems');
-        if (cachedData) {
-            res.status(200).json(JSON.parse(cachedData));
-        } else {
-            const saveditems = await SavedItem.find({});
-            // Add the retrieved data to Redis cache
-            await client.set('saveditems', JSON.stringify(saveditems));
-            res.status(200).json(saveditems);
-        }
+        // const cachedData = await client.get('saveditems');
+        // if (cachedData) {
+        //     res.status(200).json(JSON.parse(cachedData));
+        // } else {
+        //     const saveditems = await SavedItem.find({});
+        //     // Add the retrieved data to Redis cache
+        //     await client.set('saveditems', JSON.stringify(saveditems));
+        //     res.status(200).json(saveditems);
+        // }
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: error.message });
