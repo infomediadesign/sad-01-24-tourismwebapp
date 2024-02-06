@@ -22,7 +22,6 @@ const Dropdownitems = () => {
       });
   }, []);
 
-
   return (
     <div className={styles.dropdownmenu}>
       <ul className={styles.item}>

@@ -1,18 +1,22 @@
 
 .logoContainer {
-  display: flex;
+  
   align-items: center;
   justify-content: center;
 }
 
 
 .logo {
-  position: absolute;
+  margin-top: -40px;
+  position: fixed;
   color: #c2a8a8;
+  margin-left: -10px;
+ 
 }
 
 
 .container {
+  position: relative;
     max-width: 1400px;
     margin: 0 auto;
   }
@@ -23,7 +27,7 @@
     left: 0;
     right: 0;
     z-index: 999;
-    background-color: black;
+   
   }
   
   .nav .container {
