@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast, Toaster } from "sonner";
 import Login from "./Login";
+import Link from "next/link";
 
 const Register = ({setOpenRegister }) => {
   const [email, setEmail] = useState()
@@ -35,8 +36,11 @@ const Register = ({setOpenRegister }) => {
 
   return (
     <div className={styles.container}>
+      <Link className={styles.closeButton} href={"/"}>
+      X
+    </Link>
       <form onSubmit={handleRegister}>
-        <section className="h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
+        <section className={`h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 items-center my-2 mx-5 md:mx-0 ${styles.mdMyOverride}`}>
           <div className="md:w-1/2 max-w-sm mx-auto">
             <div className="text-center md:text-left">
               <label className="mr-1">Register with</label>
@@ -109,7 +113,7 @@ const Register = ({setOpenRegister }) => {
         </section>
       </form>
     </div>
-  );
+  )
 };
 
 export default Register;
