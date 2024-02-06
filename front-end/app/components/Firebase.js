@@ -1,6 +1,8 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
+import { FacebookAuthProvider } from "firebase/auth";
+
 
 
 
@@ -15,6 +17,8 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+const auth = getAuth(app); // Removed export keyword from here
+const provider = new FacebookAuthProvider();
 
+export { auth, provider }; 
 
