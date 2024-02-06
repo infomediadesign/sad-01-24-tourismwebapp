@@ -239,6 +239,11 @@ router.delete('/countries/delete/:id', async (req, res) => {
  *         description: Internal server error
  */
 
+
+/* Scope of improvement: Use message queues to handle the request to get places for a country
+Try to use a message queue like RabbitMQ to handle the request to get places for a country. 
+This will help in handling the request in an asynchronous manner and also help in scaling the application. */
+
 router.get('/countries/:countryname', async (req, res) => {
     const countryname = req.params.countryname;
     try {

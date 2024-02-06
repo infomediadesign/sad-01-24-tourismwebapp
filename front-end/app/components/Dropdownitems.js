@@ -23,9 +23,6 @@ const Dropdownitems = () => {
       });
   }, []);
 
-  // if (isLoading) return <p>Loading...</p>;
-  // if (!countries || countries.length === 0) return <p>No country data</p>;
-
   return (
     <div className={styles.dropdownmenu}>
       <ul className={styles.item}>

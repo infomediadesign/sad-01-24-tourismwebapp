@@ -8,6 +8,8 @@ router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
 router.use(express.static('public'));
 
+
+/* Scope of improvement: Storing images in a cloud storage service like AWS S3 or Google Cloud Storage */
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         return cb(null, "./public/images");
