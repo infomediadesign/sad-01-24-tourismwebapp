@@ -1,5 +1,7 @@
 const express = require('express');
 
+const client = new Redis("redis://default:rYdKAfTI4EYXr1Ymih5KUxqTqhuI9AaN@redis-13358.c293.eu-central-1-1.ec2.cloud.redislabs.com:13358");
+
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
