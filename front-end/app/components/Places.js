@@ -73,22 +73,16 @@ export default function Places({ place, country }) {
           </div>
         );
 
-      case 'maps':
-        return (
-          <div className="flex mt-4 justify-center items-center h-full">
-            <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
-              <img
-                src="/image/valleta_map.PNG"
-                alt="Google Maps Link"
-                className="w-full h-full object-cover mr-4"
-              />
-            </Link>
-          </div>
-        );
+       case 'maps':
+       return (
+         <div >
+          <Maps/>
+        </div>
+   );
       case 'weather':
         return (
           <div>
-            <Webweather />
+            <Webweathe />
           </div>
         );
 
@@ -193,18 +187,7 @@ export default function Places({ place, country }) {
               <div className="flex justify-center items-center"></div>
               {renderImages()}
             </div>
-            {/* <div className={styles.googleMapsImageContainer}>
-            <div className="flex mt-4">
-              <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="/image/valleta_map.PNG"
-                  alt="Google Maps Link"
-                  className="w-full h-full"
-                />
-              </Link>
-              </div>
-  
-            </div>  */}
+           
 
             <button className={`${styles.readMoreButton} bg-transparent text-black font-bold flex items-center`} onClick={toggleContent}>
               Read Less <FaAngleUp className="ml-4" />
