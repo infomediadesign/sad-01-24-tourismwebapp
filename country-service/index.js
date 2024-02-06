@@ -31,7 +31,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 mongoose.connect('mongodb+srv://admin:aLDQhMWr2AQ3bsBe@cluster0.yz76vjj.mongodb.net/', {dbName: 'countrydetails',}).
     then(() => {
         app.listen(port, () => {
-            console.log(`App running on ${port}`);
+            console.log(`Country App running on ${port}`);
         })
         console.log('Connected to MongoDB')
     }).catch((error) => {
