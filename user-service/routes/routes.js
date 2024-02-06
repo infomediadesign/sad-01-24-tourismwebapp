@@ -7,10 +7,6 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const nodemailer = require('nodemailer');
 
-const Redis = require("ioredis");
-
-const client = new Redis("rediss://default:26bc2971a4b24435993d3a71dd57c99d@eu2-topical-snake-30433.upstash.io:30433");
-
 router.use(express.json());
 router.use(cors({
     origin: 'http://localhost:3000',
