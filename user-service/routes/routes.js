@@ -23,16 +23,6 @@ const createPassword = (password) => {
     return passwordRegex.test(password);
 };
 
-// Middleware to cache user data
-const cacheUserData = async (key, data) => {
-    await client.set(key, JSON.stringify(data), 'EX', 3600); // Cache for 1 hour
-};
-
-// Middleware to retrieve user data from cache
-const getUserDataFromCache = async (key) => {
-    const data = await client.get(key);
-    return JSON.parse(data);
-};
 
 /**
  * @openapi
@@ -94,8 +84,12 @@ router.post('/users/register', async (req, res) => {
     }
 });
 
-const verifyUser = async (req, res, next) => {
-    const usertoken = req.cookies.usertoken;
+
+/*Scope of improvement: Creating a middleware for verifying the user token in the root file
+and using it in the routes. This will prevent code duplication and make the code more readable.*/
+
+const verifyUser = (req, res, next) => {
+const usertoken = req.cookies.usertoken;
 
     if (usertoken) {
         jwt.verify(usertoken, "auth_token_key_header", async (err, decoded) => {
@@ -132,26 +126,171 @@ const verifyUser = async (req, res, next) => {
  *       500:
  *         description: Internal Server Error
  */
-router.get('/users/auth', verifyUser, async (req, res) => {
-    if (req.user) {
-        return res.status(200).json({ message: "Success", email: req.user.email });
-    } else {
-        // Retrieve user data from database if not found in cache
-        try {
-            const user = await UserModel.findOne({ email: req.email });
-            if (user) {
-                // Cache the user data
-                await cacheUserData(user.email, { name: user.name, email: user.email });
-                return res.status(200).json({ message: "Success", email: user.email });
-            } else {
-                return res.status(401).json({ message: "Auth failed" });
-            }
-        } catch (err) {
-            return res.status(500).json({ message: err.message });
-        }
-    }
-});
 
-// Other routes and middleware...
+
+router.get('/users/auth', verifyUser, (req, res) => {
+    const userEmail = req.email;
+    res.status(200).json({ message: "Success" , email: userEmail});
+})
+
+/*Scope of improvement: Creating a middleware for verifying the admin token in the root file
+and using it in the routes. This will prevent code duplication and make the code more readable.*/
+
+const verifyAdmin = (req, res, next) => {
+    const admintoken = req.cookies.admintoken;
+    if (admintoken) {
+        jwt.verify(admintoken, "auth_token_key_header", (err, decoded) => {
+            if (err) {
+                return res.status(400).json("Invalid token");
+            } else {
+                next();
+            }
+        });
+    } else {
+        return res.status(404).json("Token is missing");
+    }
+}
+
+/**
+ * @openapi
+ * '/users/admin/auth':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Authenticate an admin
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Not Admin
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/users/admin/auth', verifyAdmin, (req, res) => {
+    res.status(200).json("Success");
+})
+
+/**
+ * @openapi
+ * '/users/login':
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Login failed
+ *       500:
+ *         description: Internal Server Error
+ */
+
+/*Scope of improvement: Creating a env file for storing the secret key and using it in the routes.*/
+
+router.post('/users/admin/login', (req, res) => {
+    const { email, password } = req.body;
+    UserModel.findOne({ email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (response) {
+                        const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
+                        res.cookie('admintoken', token, { httpOnly: true })
+                        return res.status(200).json({ status: "successful", token, role: user.role, message: "Login successful" })
+                    } else {
+                        return res.status(401).json({ message: "Login failed" })
+                    }
+                })
+            } else {
+                return res.status(401).json({ message: "Auth failed" })
+            }
+        }).catch(err => res.status(500).json({ message: err.message }));
+})
+
+/**
+ * @openapi
+ * /users/login:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Login failed
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.post('/users/login', (req, res) => {
+    const { email, password } = req.body;
+    UserModel.findOne({ email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (response) {
+                        const token = jwt.sign({ email: user.email, role: user.role }, 'auth_token_key_header', { expiresIn: '1d' })
+                        res.cookie('usertoken', token, { httpOnly: true })
+                        return res.status(200).json({ token, role: user.role, message: "Login successful" , name: user.name})
+                    } else {
+                        return res.status(401).json({ message: "Login failed. You can forget password or try logging in again." })
+                    }
+                })
+            } else {
+                return res.status(401).json({ message: "Auth failed. Please register" })
+            }
+        }).catch(err => res.status(500).json({ message: err.message }));
+})
+
+/**
+ * @openapi
+ * '/users':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get('/users', (req, res) => {
+    UserModel.find()
+        .then(users => res.status(200).json(users))
+        .catch(err => res.status(500).json({ message: err.message }));
+})
 
 module.exports = router;
