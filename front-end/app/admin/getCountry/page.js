@@ -16,6 +16,8 @@ export default function page() {
   
   const router = useRouter();
 
+  /* Code refactorings: Can be done in a better way by avoiding the use of useEffect for multiple fetch requests */
+
   useEffect(() => {
     fetch('http://localhost:7000/users/admin/auth', { credentials: 'include' })
       .then(res => res.json())
