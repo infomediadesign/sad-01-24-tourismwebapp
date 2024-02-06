@@ -16,7 +16,7 @@ import {auth, provider} from './Firebase'
 
 
 // import { set } from "mongoose";
-
+import { useHistory } from 'react-router-dom';
 
 
 const Login = ({ setOpenPopup, handleClosePopup }) => {
@@ -27,6 +27,10 @@ const Login = ({ setOpenPopup, handleClosePopup }) => {
 
 
 
+
+
+  
+  
 
   const handleFacebookLogin=()=>{
     signInWithPopup(auth, provider).then((result)=>{
@@ -104,13 +108,23 @@ const handleLogIn = async (e) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
   return (
     <div className={styles.overlay}>
       <div className={styles.popup}>
         <div className={styles.container}>
-          <button className={styles.closeButton} onClick={handleClosePopup}>
-            X
-          </button>
+        <Link className={styles.closeButton} href={"/"}>
+      X
+    </Link>
           <form onSubmit={handleLogIn}>
             <section className={`h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 items-center my-2 mx-5 md:mx-0 ${styles.mdMyOverride}`}>
               <div className="md:w-1/2 max-w-sm mx-auto">

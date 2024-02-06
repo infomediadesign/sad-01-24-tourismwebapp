@@ -9,7 +9,7 @@ const Page = ({ handleClosePopup }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.popup}>
-        <Navbar />
+      
         <h2>Login</h2>
         <Login handleClosePopup={handleClosePopup} />
         
