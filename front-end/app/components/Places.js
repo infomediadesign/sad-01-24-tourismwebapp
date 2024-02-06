@@ -116,7 +116,7 @@ export default function Places({ place, country }) {
         });
         router.push('/saveditems');
       } else {
-        router.push('/forgotpassword');
+        router.push('/Userpage/Login');
       }
     } catch (error) {
       console.error('Error:', error);
