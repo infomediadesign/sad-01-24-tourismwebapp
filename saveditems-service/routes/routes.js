@@ -4,7 +4,7 @@ const SavedItem = require('../models/saveditemModel');
 const cors = require('cors');
 const Redis = require("ioredis");
 
-const client = new Redis("rediss://default:0dad784f1863461d8cc985643958d167@eu2-saving-egret-32292.upstash.io:32292");
+const client = new Redis("redis://default:rYdKAfTI4EYXr1Ymih5KUxqTqhuI9AaN@redis-13358.c293.eu-central-1-1.ec2.cloud.redislabs.com:13358");
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
