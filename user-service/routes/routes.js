@@ -85,27 +85,20 @@ router.post('/users/register', async (req, res) => {
 and using it in the routes. This will prevent code duplication and make the code more readable.*/
 
 const verifyUser = (req, res, next) => {
-const usertoken = req.cookies.usertoken;
-
+    const usertoken = req.cookies.usertoken;
     if (usertoken) {
-        jwt.verify(usertoken, "auth_token_key_header", async (err, decoded) => {
+        jwt.verify(usertoken, "auth_token_key_header", (err, decoded) => {
             if (err) {
                 return res.status(400).json("Invalid token");
             } else {
-                // Check if user data exists in cache
-                const userData = await getUserDataFromCache(decoded.email);
-                if (userData) {
-                    req.user = userData;
-                } else {
-                    req.email = decoded.email;
-                }
+                req.email = decoded.email;
                 next();
             }
         });
     } else {
         return res.status(404).json("Token is missing");
     }
-};
+}
 
 /**
  * @openapi
