@@ -75,6 +75,9 @@ router.post('/users/register', (req, res) => {
         }).catch(err => res.status(500).json({ message: err.message }));
 });
 
+/*Scope of improvement: Creating a middleware for verifying the user token in the root file
+and using it in the routes. This will prevent code duplication and make the code more readable.*/
+
 const verifyUser = (req, res, next) => {
     const usertoken = req.cookies.usertoken;
     if (usertoken) {
@@ -111,6 +114,9 @@ router.get('/users/auth', verifyUser, (req, res) => {
     const userEmail = req.email;
     res.status(200).json({ message: "Success" , email: userEmail});
 })
+
+/*Scope of improvement: Creating a middleware for verifying the admin token in the root file
+and using it in the routes. This will prevent code duplication and make the code more readable.*/
 
 const verifyAdmin = (req, res, next) => {
     const admintoken = req.cookies.admintoken;
@@ -176,6 +182,8 @@ router.get('/users/admin/auth', verifyAdmin, (req, res) => {
  *       500:
  *         description: Internal Server Error
  */
+
+/*Scope of improvement: Creating a env file for storing the secret key and using it in the routes.*/
 
 router.post('/users/admin/login', (req, res) => {
     const { email, password } = req.body;
