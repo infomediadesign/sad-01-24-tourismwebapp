@@ -6,6 +6,7 @@ import AddCountryPopup from '@/app/components/AddCountryPopup'
 import { useRouter } from 'next/navigation';
 import UpdateCountryPopup from '@/app/components/UpdateCountryPopup'
 import { toast, Toaster } from 'sonner'
+import AdminChat from '@/app/components/Customercare'
 
 export default function page() {
   const [openPopup, setOpenPopup] = useState(false);
@@ -118,9 +119,17 @@ export default function page() {
               ))}
             </tbody>
           </table>
+          
         </div>
         <Toaster position="bottom-center" richColors duration={5000}/>
-      </div>
+     
+    </div>
+    <div class="flex justify-end">
+  <div class="mr-4">
+    <AdminChat />
+  </div>
+</div>
+      
       {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} countryId={countryId} />}
       {updatePopup && <UpdateCountryPopup setOpenPopup={setUpdatePopup} countryId={countryId} updatedCountryDetails={updatedCountry} />}
     </div>

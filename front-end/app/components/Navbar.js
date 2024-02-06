@@ -1,89 +1,107 @@
-"use client";
-import React from 'react'
-import Image from 'next/image'
-import styles from './navbar.module.css'
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import styles from './navbar.module.css';
 import Dropdownitems from './Dropdownitems';
-import { IoSearchSharp } from "react-icons/io5";
-import Link from 'next/link'
+import { IoSearchSharp } from 'react-icons/io5';
+import Link from 'next/link';
+import { UserAuth } from '../context/AuthContext';
 import Login from './Login';
 import { useState } from 'react';
+import ChatBox from '@/app/components/Clientchat'
+
 
 const Navbar = () => {
+  
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const { user, googleSignIn, logOut } = UserAuth();
+  
 
-    const [openPopup, setOpenPopup] = useState(false);
-    const [isDropdownVisible, setDropdownVisible] = useState(false);
-    const [active, setActive] = useState(false);
-    const handleLogin = () => {
-        setOpenPopup(true);
-    };
-
-    const handleClosePopup = () => {
-        setOpenPopup(false);
-    };
-
-    const handleClick = () => {
-        setActive(!active);
-    };
+  const handleMouseEnter = () => {
+    setDropdownVisible(true);
+  };
 
 
-    const handleMouseEnter = () => {
-        setDropdownVisible(true);
-    };
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  };
+  const handleMouseLeave = () => {
+    setDropdownVisible(false);
+  };
 
-    const handleMouseLeave = () => {
-        setDropdownVisible(false);
-    };
+  return (
+    <nav className={styles.nav}>
+      <div className={styles.container}>
+        <div className={styles.search}>
+          <input
+            placeholder="Search..."
+            type="text"
+            name="Search"
+            className={styles.input}
+          />
+          <div className={styles.end}>
+            <IoSearchSharp size={20} />
+          </div>
+        </div>
 
-    return (
-        <nav className={styles.nav}>
-            <div className={styles.container}>
+        <div className={styles.logoContainer}>
+          <Image
+            src="/Images/logo.svg"
+            alt="Description of the first image"
+            width={50}
+            height={50}
+          />
+          <Link className={styles.logo} href="/">
+            Wanderlust
+          </Link>
+        </div>
 
-                <div className={styles.search}>
-                <input
-                        placeholder="Search..."
-                        type="text"
-                        name="Search"
-                        className={styles.input}
-                         />
-                        <div className={styles.end} >
-                        <IoSearchSharp size={20}  />
-                        </div>
-                </div>
+        <ul>
+          <li
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Link className={styles.navLink} href="/">
+              Destination
+            </Link>
+            {isDropdownVisible && <Dropdownitems />}
+          </li>
 
-                <div className={styles.logoContainer} >
-                    <Image
-                        src="/Images/logo.svg"
-                        alt="Description of the first image"
-                        width={50}
-                        height={50} />
-                    <Link  className={styles.logo} href="/">Wanderlust</Link>
-                </div>
+          <li>
+            <Link className={styles.navLink} href="/Userpage/Aboutus">
+              About Us
+            </Link>
+          </li>
+          <li>
+          {user ? (
+              <><div className={styles.profilepiccontainer}>
+                <img src={user.profilepic} alt={user.displayName} />
+                {/* <><p>{user.displayName}</p> */}
+              </div><p className="cursor-pointer" onClick={handleSignOut}>
+                  Sign out
+                </p></>
+      ) : (
 
-                <ul>
-                    <li 
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}>
-                        <Link  className={styles.navLink} href="/">Destination</Link>
+  <Link className={styles.navLink} href="/Userpage/Login">
+    Sign In
+  </Link>
+)}
+           
 
-                        {/* <DropdownMenu /> */}
-                        {isDropdownVisible && <Dropdownitems />}
+          </li>
+        </ul>
+      </div>
 
-                    </li>
+      <ChatBox />
 
-
-                    <li>
-                        <Link className={styles.navLink} href="/Userpage/Aboutus">About Us</Link>
-                    </li>
-                    <li>
-                    <Link className={styles.navLink} href="/Userpage/Login">Sigin</Link>
-                    {/* <button  onClick={handleLogin}>Sign In</button> */}
-                    </li>
-                </ul>
-                {/* {openPopup && <Login setOpenPopup={setOpenPopup} handleClosePopup={handleClosePopup} />} */}
-            </div>
-        </nav>
-    );
-}
-
+      
+    </nav>
+  );
+};
 
 export default Navbar;

@@ -7,6 +7,8 @@ import AddPlacePopup from '@/app/components/AddPlacePopup'
 import Link from 'next/link'
 import UpdatePlacePopup from '@/app/components/UpdatePlacePopup'
 import { toast, Toaster } from 'sonner'
+import { useRouter } from 'next/navigation'
+import AdminChat from '@/app/components/Customercare'
 
 export default function page() {
     const [openPopup, setOpenPopup] = useState(false);
@@ -14,6 +16,22 @@ export default function page() {
     const [placeDetails, setPlaceDetails] = useState([]);
     const [placeId, setPlaceId] = useState("");
     const [countries, setCountries] = useState([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        fetch('http://localhost:7000/users/admin/auth', { credentials: 'include' })
+          .then(res => res.json())
+          .then(data => {
+            if (data === "Success") {
+              router.push('/admin/getPlaces')
+              // toast.success("Login Successful")
+              // console.log(data);
+            } else {
+              router.push('/admin')
+            }
+          })
+          .catch((error) => console.error(error));
+      }, [])    
 
     useEffect(() => {
         fetch('http://localhost:7000/countries')
@@ -127,6 +145,11 @@ export default function page() {
                         </tbody>
                     </table>
                     <Toaster position="bottom-center" richColors duration={5000} />
+                </div>
+                    <div class="flex justify-end">
+                     <div class="mr-4">
+                     <AdminChat />
+                 </div>
                 </div>
                 {openPopup && <AddPlacePopup setOpenPopup={setOpenPopup} setPlaceDetails={setPlaceDetails} countries={countries}/>}
                 {openUpdatePopup && <UpdatePlacePopup setOpenPopup={setUpdatePopup} placeId={placeId} updatePlaceDetails={updatePlaceDetails} countries={countries}  />}
