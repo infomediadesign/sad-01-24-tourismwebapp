@@ -11,7 +11,10 @@
 
 module.exports = {
   testEnvironment: 'node', // Assuming you're testing in a browser-like environment
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.jsx?$': 'babel-jest', // Transform JSX files
+    "\\.(css|less|sass|scss)$": "jest-transform-stub"
+    
   },
 };
