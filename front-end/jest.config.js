@@ -17,4 +17,7 @@ module.exports = {
     "\\.(css|less|sass|scss)$": "jest-transform-stub"
     
   },
+  setupFiles: [
+    './jest.setup.js'
+  ]
 };

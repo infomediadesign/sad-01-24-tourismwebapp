@@ -29,7 +29,9 @@
     "react-leaflet": "^4.2.1",
     "socket.io-client": "^4.7.4",
     "sonner": "^1.4.0",
-    "tw-elements-react": "^1.0.0-alpha2"
+    "text-encoding": "^0.7.0",
+    "tw-elements-react": "^1.0.0-alpha2",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
