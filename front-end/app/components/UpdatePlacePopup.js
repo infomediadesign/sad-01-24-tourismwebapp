@@ -17,7 +17,7 @@ export default function UpdatePlacePopup({ setOpenPopup, placeId, updatePlaceDet
             fetch(`http://localhost:7000/places/getPlaces/${placeId}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     setCountry(data.country);
                     setDesc(data.description);
                     setName(data.name);
