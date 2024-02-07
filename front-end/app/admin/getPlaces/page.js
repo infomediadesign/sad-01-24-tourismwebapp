@@ -18,6 +18,7 @@ export default function page() {
     const [countries, setCountries] = useState([]);
     const router = useRouter();
 
+    /* Scope of improvement: reduce the number of API calls by combining the useEffects */
     useEffect(() => {
         fetch('http://localhost:7000/users/admin/auth', { credentials: 'include' })
           .then(res => res.json())
