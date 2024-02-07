@@ -119,14 +119,14 @@ export default function Places({ place, country }) {
   return (
     <div className={styles.placesContainer}>
       <img
-        src={`http://localhost:9000/images/${placeData.image}`}
+        src={`http://localhost:9000/images/${placeData.imageMain}`}
         alt="Valletta Banner"
         className={styles.bannerImage}
       />
       <div className={styles.contentContainer}>
         <div className={styles.headingLeft + ' text-center'}>
           <h1 className="font-bold text-4xl">{placeData.name}</h1>
-          <p className={`${styles.subHeading} text-sm`}>Malta, Southern Europe</p>
+          {/* <p className={`${styles.subHeading} text-sm`}>Malta, Southern Europe</p> */}
         </div>
 
         <button className={`${styles.saveButton} flex items-center`} onClick={handleSave}>

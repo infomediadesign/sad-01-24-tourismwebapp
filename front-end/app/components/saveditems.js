@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import styles from '../components/saveditem.module.css'
 import { useRouter } from 'next/navigation'
-import { toast , Toaster} from 'sonner'
+import { toast, Toaster } from 'sonner'
 
 export default function SavedItems() {
   const [email, setEmail] = useState()
@@ -25,7 +25,7 @@ export default function SavedItems() {
         setSaveItems(updatedSaveditemsDetails);
       }
     } catch (error) {
-      console.error('Error during deletion:', error.message);
+      toast.error('Error during deletion:', error.message);
     }
   };
 
@@ -61,7 +61,7 @@ export default function SavedItems() {
         if (data.message === "Success") {
           router.push('/saveditems')
           // toast.success("Login Successful")
-          console.log(data);
+          // console.log(data);
         } else {
           router.push('/')
         }
@@ -87,7 +87,7 @@ export default function SavedItems() {
         <div>
           <form onSubmit={handleEdit} className="flex flex-col md:flex-row justify-start space-y-1 md:space-y-1 md:space-x-16 items-start my-2 mx-5 md:mx-0 md:my-0">
             <div className="md:w-1/2 max-w-sm" style={{ marginLeft: '10px' }}>
-              <div className="text-left" style={{ marginTop: '90px', color: 'white'}}>
+              <div className="text-left" style={{ marginTop: '90px', color: 'white' }}>
                 <label className="mr-1" style={{ fontSize: '18px', fontWeight: 'bold' }}>Profile Details</label>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -132,15 +132,20 @@ export default function SavedItems() {
         </header>
 
         <div className={styles.imageCollage}>
-          {saveItems.map((item, index) =>
-            <div className={styles.imageItem}>
-              <button onClick={() => setSelectedItemId(item._id)}> 
-                <img src={`http://localhost:9000/images/${item.image}`} alt={item.place}
-                  className={styles.horizontalImage} />
+          {saveItems.map((item, index) => (
+            <div className={styles.imageItem} key={index}>
+              <button onClick={() => setSelectedItemId(item._id)}>
+                {item.image ? (
+                  <img src={`http://localhost:9000/images/${item.image}`} alt={item.place} className={styles.horizontalImage} />
+                ) : (
+                  <div className={styles.errorImage}>
+                    Image not available
+                  </div>
+                )}
               </button>
               <p>{item.place}</p>
             </div>
-          )}
+          ))}
         </div>
         <Toaster position="bottom-center" toastOptions={{ duration: 5000 }} />
       </div>

@@ -123,7 +123,8 @@ router.get('/users/auth', verifyUser, (req, res) => {
 })
 
 /*Scope of improvement: Creating a middleware for verifying the admin token in the root file
-and using it in the routes. This will prevent code duplication and make the code more readable.*/
+and using it in the routes. This will prevent code duplication and make the code more readable. Tried this way
+but it was not fetching the token.*/
 
 const verifyAdmin = (req, res, next) => {
     const admintoken = req.cookies.admintoken;

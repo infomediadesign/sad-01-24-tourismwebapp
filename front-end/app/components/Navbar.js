@@ -16,7 +16,19 @@ const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const { user, googleSignIn, logOut } = UserAuth();
   const [email, setEmail] = useState('');
+  const [msg, setMsg] = useState('')
 
+  useEffect(() => {
+    fetch('http://localhost:7000/users/auth', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.message === "Success") {
+          setMsg(data);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, [])
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -79,18 +91,25 @@ const Navbar = () => {
           </li>
           <li>
             {user ? (
-              <><div className={styles.profilepiccontainer}>
-                <img src={user.profilepic} alt={user.displayName} />
-                {/* <><p>{user.displayName}</p> */}
-              </div><p className="cursor-pointer" onClick={handleSignOut}>
+              <>
+                <div className={styles.profilepiccontainer}>
+                  <img src={user.profilepic} alt={user.displayName} />
+                  {/* <><p>{user.displayName}</p> */}
+                </div>
+                <p className="cursor-pointer" onClick={handleSignOut}>
                   Sign out
-                </p></>
+                </p>
+              </>
+            ) : msg ? (
+              <p className="cursor-pointer" onClick={handleSignOut}>
+                Sign out
+              </p>
             ) : (
-
               <Link className={styles.navLink} href="/Userpage/Login">
                 Sign In
               </Link>
             )}
+
           </li>
         </ul>
       </div>
