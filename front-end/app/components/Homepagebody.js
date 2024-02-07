@@ -1,5 +1,7 @@
 import styles from './homepagebody.module.css';
 import { Content } from 'next/font/google';
+import React from 'react';
+
 
 
 const Homepagebody = () => {
