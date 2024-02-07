@@ -2,7 +2,7 @@
     list-style: none;
     padding: unset;
     margin: unset;
-    display: flex;  /* Apply flex to the list */
+    display: flex;  
     flex-direction: column;
     color: rgb(15, 15, 15);
   }
@@ -24,7 +24,7 @@
     background: #fff;
     box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
     transition: all linear 0.3s;
-    display: flex;  /* Apply flex to the list */
+    display: flex;  
     flex-direction: column;
     
   }

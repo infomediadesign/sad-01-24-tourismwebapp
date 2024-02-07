@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: country-service
-        image: mishrarpita/country-service
+        image: mishrarpita/country-service:latest
         ports:
         - containerPort: 5000

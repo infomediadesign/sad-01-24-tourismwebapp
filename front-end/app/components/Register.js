@@ -7,36 +7,47 @@ import { useState } from "react";
 import axios from "axios";
 import { toast, Toaster } from "sonner";
 import Login from "./Login";
+import Link from "next/link";
 
-const Register = ({setOpenRegister }) => {
+const Register = ({ setOpenRegister }) => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [name, setName] = useState()
   const [popup, setPopup] = useState(false);
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:7000/users/register', { name, email, password });
-      toast.success(response.data.message);
-      setOpenRegister(false);
-      setPopup(true)
-    } catch (error) {
-      if (error.response) {
-        toast.error(error.response.data.message);
-      } else if (error.request) {
-        toast.error('No response received from the server');
-      } else {
-        toast.error('An unexpected error occurred');
-      }
-    }
+    fetch('http://localhost:7000/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        password,
+        email,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        toast.error(data.message);
+        console.log('Success:', data);
+        // setOpenRegister(false);
+        // setPopup(true);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
 
   return (
     <div className={styles.container}>
+      <Link className={styles.closeButton} href={"/"}>
+        X
+      </Link>
       <form onSubmit={handleRegister}>
-        <section className="h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
+        <section className={`h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 items-center my-2 mx-5 md:mx-0 ${styles.mdMyOverride}`}>
           <div className="md:w-1/2 max-w-sm mx-auto">
             <div className="text-center md:text-left">
               <label className="mr-1">Register with</label>
@@ -105,11 +116,12 @@ const Register = ({setOpenRegister }) => {
               </button>
             </div>
           </div>
-          {popup && <Login />}
+          <Toaster position="bottom-center" richColors duration={5000}/>
         </section>
       </form>
+      {popup && <Login />}
     </div>
-  );
+  )
 };
 
 export default Register;

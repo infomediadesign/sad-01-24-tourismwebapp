@@ -11,12 +11,51 @@ import Link from "next/link";
 import Register from "../components/Register";
 import { useRouter } from 'next/navigation';
 
+import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import {auth, provider} from './Firebase'
+
 
 // import { set } from "mongoose";
-
+import { useHistory } from 'react-router-dom';
 
 
 const Login = ({ setOpenPopup, handleClosePopup }) => {
+
+  const [user1, setUser] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+
+
+
+
+
+
+  
+  
+
+  const handleFacebookLogin=()=>{
+    signInWithPopup(auth, provider).then((result)=>{
+      setUser(result.user);
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      const credential = FacebookAuthProvider.credentialFromResult(result);
+      const accessToken = credential.accessToken;
+      // fetch facebook graph api to get user actual profile picture
+      fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`)
+      .then((response)=>response.blob())
+      .then((blob)=>{
+        setProfilePicture(URL.createObjectURL(blob));
+      })
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
+
+
+  const handleLogout=()=>{
+    setUser(null);
+  }
+
+
+
   const router = useRouter();
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -69,21 +108,40 @@ const handleLogIn = async (e) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
   return (
     <div className={styles.overlay}>
       <div className={styles.popup}>
         <div className={styles.container}>
-          <button className={styles.closeButton} onClick={handleClosePopup}>
-            X
-          </button>
+        <Link className={styles.closeButton} href={"/"}>
+      X
+    </Link>
           <form onSubmit={handleLogIn}>
             <section className={`h-screen flex flex-col md:flex-row justify-center space-y-1 md:space-y-1 items-center my-2 mx-5 md:mx-0 ${styles.mdMyOverride}`}>
               <div className="md:w-1/2 max-w-sm mx-auto">
                 <div className="text-center md:text-left">
                   <div className={styles.labelContainer}>
                     <label className="mr-1">Sign in with</label>
+
+                    {user?(
+                      <><button className='btn btn-secondary btn-md'
+                        onClick={handleLogout}>
+                        LOGOUT
+                      </button><h3>Welcome {user.displayName}</h3><p>{user.email}</p><div className='photo'>
+                          <img src={profilePicture} alt="dp" referrerPolicy='no-referrer' />
+                        </div></>
+                     ):(
                     <button
-                      type="button"
+                      type="button" onClick={handleFacebookLogin}
                       className="mx-1 h-9 w-9  rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-[0_4px_9px_-4px_#3b71ca]"
                     >
                       <BiLogoFacebook
@@ -91,6 +149,7 @@ const handleLogIn = async (e) => {
                         className="flex justify-center items-center w-full"
                       />
                     </button>
+                      )} 
                      {loading ? null : !user ? ( 
                       <button onClick={handleSignIn} // Call handleGoogleSignIn when Google sign-in button is clicked
                         type="button"

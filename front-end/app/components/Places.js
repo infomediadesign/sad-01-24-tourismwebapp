@@ -4,14 +4,17 @@ import styles from './places.module.css';
 import { MdRestaurant } from "react-icons/md";
 import { FaShoppingBag, FaHotel, FaRegHeart, FaMapMarkedAlt, FaCloudSun } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-import Link from 'next/link';
+
 import Webweather from '../components/Webweather';
 import { useRouter } from 'next/navigation';
+
 
 export default function Places({ place, country }) {
   const [showMore, setShowMore] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [placeData, setPlaceData] = useState([]);
+
+  const [location, setLocation] = useState([]);
 
   const router = useRouter();
 
@@ -20,6 +23,7 @@ export default function Places({ place, country }) {
       .then((res) => res.json())
       .then((data) => {
         setPlaceData(data);
+        setLocation(data.location);
         // console.log(data);
       }).catch((error) => {
         console.error('Error fetching country data:', error);
@@ -73,22 +77,11 @@ export default function Places({ place, country }) {
           </div>
         );
 
-      case 'maps':
-        return (
-          <div className="flex mt-4 justify-center items-center h-full">
-            <Link href="https://www.google.com/maps/place/Valletta" target="_blank" rel="noopener noreferrer">
-              <img
-                src="/image/valleta_map.PNG"
-                alt="Google Maps Link"
-                className="w-full h-full object-cover mr-4"
-              />
-            </Link>
-          </div>
-        );
+  
       case 'weather':
         return (
           <div>
-            <Webweather />
+            <Webweather city = {placeData.name} />
           </div>
         );
 
@@ -116,7 +109,7 @@ export default function Places({ place, country }) {
         });
         router.push('/saveditems');
       } else {
-        router.push('/forgotpassword');
+        router.push('/Userpage/Login');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -126,14 +119,14 @@ export default function Places({ place, country }) {
   return (
     <div className={styles.placesContainer}>
       <img
-        src={`http://localhost:9000/images/${placeData.image}`}
+        src={`http://localhost:9000/images/${placeData.imageMain}`}
         alt="Valletta Banner"
         className={styles.bannerImage}
       />
       <div className={styles.contentContainer}>
         <div className={styles.headingLeft + ' text-center'}>
           <h1 className="font-bold text-4xl">{placeData.name}</h1>
-          <p className={`${styles.subHeading} text-sm`}>Malta, Southern Europe</p>
+          {/* <p className={`${styles.subHeading} text-sm`}>Malta, Southern Europe</p> */}
         </div>
 
         <button className={`${styles.saveButton} flex items-center`} onClick={handleSave}>
@@ -177,12 +170,7 @@ export default function Places({ place, country }) {
                     Shopping
                   </button>
 
-                  <button className={`px-4 py-2 mr-4 focus:outline-none ${activeCategory === 'maps' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('maps')}>
-                    <FaMapMarkedAlt className="inline-block mr-2" />
-                    Maps
-                  </button>
-
-
+                
                   <button className={`px-4 py-2 focus:outline-none ${activeCategory === 'weather' ? 'bg-black text-white' : 'bg-gray-800 text-gray-300'}`} onClick={() => setActiveCategory('weather')}>
                     <FaCloudSun className="inline-block mr-2" />
                     Weather

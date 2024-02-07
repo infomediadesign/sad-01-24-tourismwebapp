@@ -3,7 +3,7 @@ const app = express(); //creating an instance of express app
 const routes = require('./routes/routes');
 const mongoose = require('mongoose');
 const Redis = require("ioredis");
-const client = new Redis("rediss://default:acda3123066847b389d05569259aa90e@eu2-gorgeous-buzzard-32656.upstash.io:32656");
+const client = new Redis("redis://default:rYdKAfTI4EYXr1Ymih5KUxqTqhuI9AaN@redis-13358.c293.eu-central-1-1.ec2.cloud.redislabs.com:13358");
 
 
 

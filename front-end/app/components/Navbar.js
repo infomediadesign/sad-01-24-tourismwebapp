@@ -1,30 +1,43 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from './navbar.module.css';
 import Dropdownitems from './Dropdownitems';
 import { IoSearchSharp } from 'react-icons/io5';
 import Link from 'next/link';
 import { UserAuth } from '../context/AuthContext';
-import Login from './Login';
 import { useState } from 'react';
+import ChatBox from '@/app/components/Clientchat'
+import { set } from 'mongoose';
 
 
 const Navbar = () => {
-  
+
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const { user, googleSignIn, logOut } = UserAuth();
-  
+  const [email, setEmail] = useState('');
+  const [msg, setMsg] = useState('')
+
+  useEffect(() => {
+    fetch('http://localhost:7000/users/auth', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.message === "Success") {
+          setMsg(data);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, [])
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
 
-
   const handleSignOut = async () => {
     try {
       await logOut();
-    } 
+    }
     catch (error) {
       console.log(error);
     }
@@ -77,23 +90,30 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-          {user ? (
-              <><div className={styles.profilepiccontainer}>
-                <img src={user.profilepic} alt={user.displayName} />
-                {/* <><p>{user.displayName}</p> */}
-              </div><p className="cursor-pointer" onClick={handleSignOut}>
+            {user ? (
+              <>
+                <div className={styles.profilepiccontainer}>
+                  <img src={user.profilepic} alt={user.displayName} />
+                  {/* <><p>{user.displayName}</p> */}
+                </div>
+                <p className="cursor-pointer" onClick={handleSignOut}>
                   Sign out
-                </p></>
-      ) : (
-  <Link className={styles.navLink} href="/Userpage/Login">
-    Sign In
-  </Link>
-)}
-           
+                </p>
+              </>
+            ) : msg ? (
+              <p className="cursor-pointer" onClick={handleSignOut}>
+                Sign out
+              </p>
+            ) : (
+              <Link className={styles.navLink} href="/Userpage/Login">
+                Sign In
+              </Link>
+            )}
 
           </li>
         </ul>
       </div>
+      <ChatBox />
     </nav>
   );
 };

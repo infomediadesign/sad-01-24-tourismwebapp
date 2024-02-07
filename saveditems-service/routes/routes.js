@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const SavedItem = require('../models/saveditemModel');
 const cors = require('cors');
+
 const Redis = require("ioredis");
 
-const client = new Redis("rediss://default:0dad784f1863461d8cc985643958d167@eu2-saving-egret-32292.upstash.io:32292");
+const client = new Redis("redis://default:rYdKAfTI4EYXr1Ymih5KUxqTqhuI9AaN@redis-13358.c293.eu-central-1-1.ec2.cloud.redislabs.com");
 
 router.use(express.json()); //Middleware to parse the JSON data
 router.use(cors());
@@ -23,9 +24,6 @@ router.post('/saveditems/addSavedItem', async (req, res) => {
 
 router.get('/saveditems', async (req, res) => {
     try {
-        //const saveditem = await SavedItem.find({})
-        //const count = await SavedItem.countDocuments();
-        //res.status(200).json(saveditem);
         // Check if the data exists in Redis cache
         const cachedData = await client.get('saveditems');
         if (cachedData) {
@@ -110,4 +108,3 @@ router.delete('/saveditems/delete/:id', async (req, res) => {
     }
 });
 module.exports = router;
-

@@ -6,6 +6,7 @@ import AddCountryPopup from '@/app/components/AddCountryPopup'
 import { useRouter } from 'next/navigation';
 import UpdateCountryPopup from '@/app/components/UpdateCountryPopup'
 import { toast, Toaster } from 'sonner'
+import AdminChat from '@/app/components/Customercare'
 
 export default function page() {
   const [openPopup, setOpenPopup] = useState(false);
@@ -14,6 +15,8 @@ export default function page() {
   const [countryId, setCountryId] = useState('');
   
   const router = useRouter();
+
+  /* Code refactorings: Can be done in a better way by avoiding the use of useEffect for multiple fetch requests */
 
   useEffect(() => {
     fetch('http://localhost:7000/users/admin/auth', { credentials: 'include' })
@@ -118,9 +121,17 @@ export default function page() {
               ))}
             </tbody>
           </table>
+          
         </div>
         <Toaster position="bottom-center" richColors duration={5000}/>
-      </div>
+     
+    </div>
+    <div class="flex justify-end">
+  <div class="mr-4">
+    <AdminChat />
+  </div>
+</div>
+      
       {openPopup && <AddCountryPopup setOpenPopup={setOpenPopup} setCountryDetail={setCountryDetail} countryId={countryId} />}
       {updatePopup && <UpdateCountryPopup setOpenPopup={setUpdatePopup} countryId={countryId} updatedCountryDetails={updatedCountry} />}
     </div>

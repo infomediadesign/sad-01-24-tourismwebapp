@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import styles from './footer.module.css'
 import { FaAddressCard } from "react-icons/fa";
 import { MdAddIcCall } from "react-icons/md";
