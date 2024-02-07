@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import styles from '../components/saveditem.module.css'
 import { useRouter } from 'next/navigation'
 import { toast, Toaster } from 'sonner'
+import Footer from './Footer'
 
 export default function SavedItems() {
   const [email, setEmail] = useState()
@@ -149,6 +150,7 @@ export default function SavedItems() {
         </div>
         <Toaster position="bottom-center" toastOptions={{ duration: 5000 }} />
       </div>
+      <Footer />
     </div>
   );
 }
