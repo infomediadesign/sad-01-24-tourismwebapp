@@ -151,7 +151,7 @@ export default function Places({ place, country }) {
               </p>
             </div>
             <div>
-              <p className="text-xl font-bold text-blue-500 ml-0 text-left mb-4">Things to do around Valletta</p>
+              <p className="text-xl font-bold text-blue-500 ml-0 text-left mb-4">{`Things to do around ${placeData.name}`}</p>
               <div className={`${styles.buttonsAndImagesContainer} mb-4`}>
                 <div className={styles.actionButtonsContainer}>
 

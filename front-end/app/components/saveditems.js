@@ -16,7 +16,7 @@ export default function SavedItems() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/saveditems/delete/${id}`, {
+      const response = await fetch(`http://localhost:7000/saveditems/delete/${id}`, {
         method: 'DELETE',
       });
 
@@ -26,7 +26,7 @@ export default function SavedItems() {
         setSaveItems(updatedSaveditemsDetails);
       }
     } catch (error) {
-      toast.error('Error during deletion:', error.message);
+      console.log('Error during deletion:', error.message);
     }
   };
 
@@ -37,23 +37,23 @@ export default function SavedItems() {
     }
   };
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('', { name, email, password });
-      toast.success(response.data.message);
-      setOpenEdit(false);
-      setPopup(true)
-    } catch (error) {
-      if (error.response) {
-        toast.error(error.response.data.message);
-      } else if (error.request) {
-        toast.error('No response received from the server');
-      } else {
-        toast.error('An unexpected error occurred');
-      }
-    }
-  };
+  // const handleEdit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post('', { name, email, password });
+  //     toast.success(response.data.message);
+  //     setOpenEdit(false);
+  //     setPopup(true)
+  //   } catch (error) {
+  //     if (error.response) {
+  //       toast.error(error.response.data.message);
+  //     } else if (error.request) {
+  //       toast.error('No response received from the server');
+  //     } else {
+  //       toast.error('An unexpected error occurred');
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     fetch('http://localhost:7000/users/auth', { credentials: 'include' })
@@ -86,7 +86,7 @@ export default function SavedItems() {
     <div>
       <div className={styles.container}>
         <div>
-          <form onSubmit={handleEdit} className="flex flex-col md:flex-row justify-start space-y-1 md:space-y-1 md:space-x-16 items-start my-2 mx-5 md:mx-0 md:my-0">
+          <form className="flex flex-col md:flex-row justify-start space-y-1 md:space-y-1 md:space-x-16 items-start my-2 mx-5 md:mx-0 md:my-0">
             <div className="md:w-1/2 max-w-sm" style={{ marginLeft: '10px' }}>
               <div className="text-left" style={{ marginTop: '90px', color: 'white' }}>
                 <label className="mr-1" style={{ fontSize: '18px', fontWeight: 'bold' }}>Profile Details</label>
